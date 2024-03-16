@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ct-menu-top-header-active {
+  @apply text-gray-900;
+}
