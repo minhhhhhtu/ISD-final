@@ -1,61 +1,37 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import './HomeSlider.css'
 
-class HomeSlider extends React.Component {
+interface State {
+  currentSlide: number;
+  images: { id: number; name: string; url: string }[];
+}
+
+class HomeSlider extends React.Component<{}, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentSlide: 0,
+      images: [
+        { id: 1, name: "Image 1", url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg" }, 
+        { id: 2, name: "Image 2", url: "https://4kwallpapers.com/images/walls/thumbs_3t/15250.jpg" },
+        { id: 3, name: "Image 3", url: "https://4kwallpapers.com/images/walls/thumbs_3t/6629.jpeg" },
+      ],
+    };
+  }
+ 
   componentDidMount() {
-    const rightArrow = document.querySelector(".right-arrow");
-    const leftArrow = document.querySelector(".left-arrow");
-    const roundSliders = document.querySelectorAll(".rounded-slider");
-
-    if (leftArrow && rightArrow) {
-      const slides = document.querySelectorAll(".slider-content");
-
-      // Find the index of the slide with data-type="1" to set initial currentSlide
-      let currentSlide = 1;
-      slides.forEach((slide, index) => {
-        if (slide.getAttribute("data-type") === "1") {
-          currentSlide = index;
-        }
-      });
-
-      leftArrow.addEventListener("click", () => {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        this.showSlide(currentSlide);
-      });
-
-      rightArrow.addEventListener("click", () => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        this.showSlide(currentSlide);
-      });
-    }
-
-    roundSliders.forEach((round, index) => {
-      round.addEventListener("click", () => {
-        this.showSlide(index);
-      });
-    });
+    // No direct DOM manipulation needed here
   }
 
   showSlide(slideIndex) {
-    const slides = document.querySelectorAll(
-      ".slider-content"
-    ) as NodeListOf<HTMLElement>;
-    slides.forEach((slide, index) => {
-      slide.style.display = index === slideIndex ? "flex" : "none";
-    });
-
-    const roundSliders = document.querySelectorAll(".rounded-slider");
-    roundSliders.forEach((round, index) => {
-      if (index === slideIndex) {
-        round.classList.add("rounded-active");
-      } else {
-        round.classList.remove("rounded-active");
-      }
-    });
+    this.setState({ currentSlide: slideIndex });
   }
 
   render() {
+    const { images, currentSlide } = this.state;
+
     return (
       <>
         <div className="slider h-[530px] mb-24 flex justify-center items-center">
@@ -63,23 +39,21 @@ class HomeSlider extends React.Component {
             <FontAwesomeIcon
               className="cursor-pointer items-center"
               icon={faArrowLeft}
+              onClick={() => this.showSlide((currentSlide - 1 + images.length) % images.length)}
             />
           </div>
-          <div
-            className="slider-content w-[70%] h-full bg-[url(https://i.pinimg.com/564x/73/3c/68/733c688bf6f725345c18190da00e159b.jpg)] bg-cover bg-no-repeat bg-center m-20"
-            data-type="1"
-          ></div>
-          <div
-            className="slider-content w-[70%] h-full bg-[url(https://i.pinimg.com/564x/b5/a5/6d/b5a56d5701db2e316a479495882ef0ce.jpg)] bg-cover bg-no-repeat bg-center m-20"
-            data-type="2"
-          ></div>
-          <div className="right-arrow arrow-slider">
-            <FontAwesomeIcon className="cursor-pointer" icon={faArrowRight} />
+          <div className="slider-content m-20 items-center justify-center ">
+            {images.map((item, index) => (
+              <img className="max-w-full h-[500px] overflow-hidden" key={item.id} src={item.url} alt={item.name} data-type={index} style={{ display: index === currentSlide ? "flex" : "none" }} />
+            ))}
           </div>
-        </div>
-        <div className="slider-round flex flex-row justify-center items-center text-center mb-24">
-          <div className="slider-round-1 rounded-slider rounded-active"></div>
-          <div className="slider-round-2 rounded-slider rounded-active"></div>
+          <div className="right-arrow arrow-slider">
+            <FontAwesomeIcon
+              className="cursor-pointer"
+              icon={faArrowRight}
+              onClick={() => this.showSlide((currentSlide + 1) % images.length)}
+            />
+          </div>
         </div>
       </>
     );
