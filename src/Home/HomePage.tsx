@@ -3,12 +3,9 @@ import "./HomePage.css";
 import Header from "./header/HomeHeader.tsx";
 import HomeSlider from "./slider/HomeSlider.tsx"
 import FeatureProducts from "./special/FeatureProducts.tsx";
+import Products from "./products/Products.tsx";
 
 class HomePage extends React.Component {
-  state: [
-    {},
-  ];
-
   render() {
     return (
       <>
@@ -16,6 +13,7 @@ class HomePage extends React.Component {
           <Header/>
           <HomeSlider/>
           <FeatureProducts/>
+          <Products/>
         </div>
       </>
     );

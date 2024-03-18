@@ -7,8 +7,12 @@ body {
 @apply bg-pinky-200
 }
 
+::selection {
+  @apply text-pinky-600;
+}
+
 .ct-menu-top-header-active {
-  @apply text-gray-900;
+  @apply text-pinky-600;
 }
 
 .button {
@@ -41,7 +45,7 @@ body {
   @apply w-8 h-px bg-gray-200;
 }
 .subheadline-label {
-  @apply uppercase mx-4 tracking-widest text-gray-500 font-medium text-xs text-center;
+  @apply uppercase mx-4 tracking-widest text-pinky-600 font-medium text-xs text-center;
 }
 
 /* End Subheadline */
