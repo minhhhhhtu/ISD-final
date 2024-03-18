@@ -3,15 +3,9 @@
 @tailwind utilities;
 
 .arrow-slider {
-  @apply p-3 opacity-50 inline-block overflow-hidden w-[80px] hover:scale-125 hover:opacity-100 transition-all duration-300 ease-in-out;
-}
-
-.rounded-slider {
-  @apply cursor-pointer w-2 h-2 bg-slate-400 mx-2 p-1 rounded-full transition-all duration-300 ease-out;
-}
-
-.rounded-active {
-  @apply bg-gray-900;
+  @apply p-3 opacity-50 inline-block overflow-hidden w-[80px] hover:scale-125 hover:opacity-100 transition-all duration-300 ease-in-out
+  active:opacity-80 /* Giảm độ trong suốt khi active */
+  active:scale-90 /* Hiệu ứng scale nhỏ hơn khi active */;
 }
 
 .slider-content {
