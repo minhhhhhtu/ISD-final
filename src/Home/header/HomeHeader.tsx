@@ -22,7 +22,7 @@ class HomeHeader extends React.Component {
               <li className="ct-menu-top-header">
                 <a href="#">Women</a>
               </li>
-              <li className="ct-menu-top-header">
+              <li className="ct-menu-top-header text-slate-500">
                 <a href="#">Women</a>
               </li>
               <li className="ct-menu-top-header">
@@ -38,7 +38,7 @@ class HomeHeader extends React.Component {
 
             <ul className="basis-3/6  lg:basis-1/6 ct-menu-cart-header flex justify-end lg:justify-start items-center ml-16 uppercase text-sm text-gray-500 font-medium">
               <li className="ct-menu-top-header">
-                <a href="" className="flex items-center">
+                <a  onClick={() => {}} href="" className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -55,8 +55,8 @@ class HomeHeader extends React.Component {
                   </svg>
 
                   <FontAwesomeIcon className="mr-2" icon={faShoppingCart} />
-                  <span className="lmt-badge-circle bg-[#FFE3E1] text-slate-500 mr-2">
-                    10000
+                  <span className="w-[150%] rounded-xl bg-[#FFE3E1] text-slate-500 mr-2">
+                    99+
                   </span>
                 </a>
               </li>
