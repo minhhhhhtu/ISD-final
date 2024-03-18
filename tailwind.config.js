@@ -12,11 +12,11 @@ module.exports = {
         Karla: ["Karla", "sans-serif"],
       },
       colors: {
-        coffee: {
-          50: "#E8D6D0",
-          200: "#C89F94",
-          400: "#A25F4B",
-          600: "#744838",
+        pinky: {
+          50: "#FFF5E4",
+          200: "#FFE3E1",
+          400: "#FFD1D1",
+          600: "#FF9494",
         },
       },
       keyframes: {
