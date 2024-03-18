@@ -14,7 +14,7 @@ class HomeHeader extends React.Component {
 
             <ul
               id="top-menu"
-              className="basis-3/6 hidden lg:flex lg:items-center lg:justify-end lg:gap-8 uppercase text-sm text-gray-500 font-medium"
+              className="basis-3/6 hidden lg:flex lg:items-center lg:justify-end lg:gap-8 uppercase text-sm text-pinky-600 font-medium"
             >
               <li className="ct-menu-top-header">
                 <a href="#">Home</a>
@@ -22,7 +22,7 @@ class HomeHeader extends React.Component {
               <li className="ct-menu-top-header">
                 <a href="#">Women</a>
               </li>
-              <li className="ct-menu-top-header text-slate-500">
+              <li className="ct-menu-top-header">
                 <a href="#">Women</a>
               </li>
               <li className="ct-menu-top-header">
@@ -36,7 +36,7 @@ class HomeHeader extends React.Component {
               </li>
             </ul>
 
-            <ul className="basis-3/6  lg:basis-1/6 ct-menu-cart-header flex justify-end lg:justify-start items-center ml-16 uppercase text-sm text-gray-500 font-medium">
+            <ul className="basis-3/6  lg:basis-1/6 ct-menu-cart-header flex justify-end lg:justify-start items-center ml-16 uppercase text-sm text-pinky-600 font-medium">
               <li className="ct-menu-top-header">
                 <a  onClick={() => {}} href="" className="flex items-center">
                   <svg
@@ -55,7 +55,7 @@ class HomeHeader extends React.Component {
                   </svg>
 
                   <FontAwesomeIcon className="mr-2" icon={faShoppingCart} />
-                  <span className="w-[150%] rounded-xl bg-[#FFE3E1] text-slate-500 mr-2">
+                  <span className="w-[150%] rounded-xl bg-[#FFE3E1] text-pinky-600 mr-2">
                     99+
                   </span>
                 </a>
