@@ -8,9 +8,7 @@ const HomeHeader = () => {
   const topMenuRef = useRef<HTMLUListElement | null>(null);
   const ShoppingCart = () => {
     const [cartCount, setCartCount] = useState(0);
-
     const addToCart = () => {
-      // Tăng số lượng trong giỏ hàng lên một
       setCartCount(cartCount + 1);
     };
   };
@@ -53,7 +51,6 @@ const HomeHeader = () => {
       topMenu?.classList.toggle("ct-menu-top-header-expanded");
       toggleTopMenuIcon.classList.toggle("ct-menu-top-header-expanded");
     } else {
-      //Outside the toggle menu
 
       if (topMenu?.classList.contains("ct-menu-top-header-expanded")) {
         topMenu.classList.remove("ct-menu-top-header-expanded");
@@ -72,7 +69,7 @@ const HomeHeader = () => {
       <header className="p-6 mx-auto">
         <nav className="flex flex-row relative justify-between items-center">
           <div className="logo flex-1 basis-3/6 text-center text-xl font-semibold cursor-pointer">
-            Melina Fashion
+            Melanie Fashion
           </div>
 
           <ul
