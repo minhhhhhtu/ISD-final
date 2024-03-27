@@ -3,10 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-@apply bg-pinky-200
-}
-
 ::selection {
   @apply text-pinky-600;
 }
