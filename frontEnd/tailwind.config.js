@@ -24,10 +24,15 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        slideUp: {
+          "100%": { transform: "translateY(0)" },
+          "0%": { transform: "translateY(-100%)" },
+        },
         fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
       },
       animation: {
         slideDown: "slideDown 0.4s ease-in-out",
+        slideUp: "slideUp 0.4s ease-in-out",
         fadeIn: "fadeIn 0.4s ease-in-out",
       },
     },
