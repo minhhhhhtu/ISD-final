@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 interface Product {
   id: number;
@@ -75,6 +77,22 @@ class Products extends React.Component<{}, State> {
           onSale: false,
           priceOnSale: 70.0,
         },
+        {
+          id: 8,
+          name: "Image 4",
+          url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+          price: 80.0,
+          onSale: false,
+          priceOnSale: 70.0,
+        },
+        {
+          id: 9,
+          name: "Image 4",
+          url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+          price: 80.0,
+          onSale: false,
+          priceOnSale: 70.0,
+        },
       ],
       showMore: false,
     };
@@ -88,7 +106,7 @@ class Products extends React.Component<{}, State> {
 
   render() {
     const { products, showMore } = this.state;
-    const displayProducts = showMore ? products : products.slice(0, 6);
+    const displayProducts = showMore ? products : products.slice(0, 8);
 
     return (
       <>
@@ -102,28 +120,29 @@ class Products extends React.Component<{}, State> {
 
         {/* MORE PRODUCTS */}
         <div className="feature-mugs w-[100%] lg:w-[80%] mx-auto mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto animate-slideDown">
             {displayProducts.map((product) => (
               <div key={product.id} className="product-card">
                 <div
                   className="h-[400px] sm:h-[540px] bg-cover bg-no-repeat bg-center"
                   style={{ backgroundImage: `url(${product.url})` }}
                 >
-                  <a href="#">
+                  <a href="/">
                     <div className="w-full h-full hover:bg-gray-900 hover:bg-opacity-10 hover:transition-all hover:ease-in-out hover:duration-400 relative group">
                       {product.onSale && (
                         <div className="absolute top-3 right-3 bg-white py-2 px-4 text-pinky-400 text-[18px] font-semibold">
-                          On Sale
+                          Giảm giá
                         </div>
                       )}
+                      <FontAwesomeIcon icon="fa-regular fa-heart" />
                       <div className="button absolute w-11/12 bg-white text-pinky-600 bottom-4 left-1/2 -translate-x-1/2 hidden group-hover:block group-hover:animate-fadeIn">
-                        View Product
+                        Mua ngay
                       </div>
                     </div>
                   </a>
                 </div>
                 <div className="text-center mt-8">
-                  <a href="#">
+                  <a href="/">
                     <div className="text-xl mb-2 hover:text-pinky-600 font-[400px] leading-5 tracking-wide">
                       {product.name}
                     </div>
@@ -142,13 +161,16 @@ class Products extends React.Component<{}, State> {
               </div>
             ))}
           </div>
-          {products.length > 6 && (
-              <div className="flex justify-center items-center mt-8">
-                <button onClick={this.toggleShowMore} className="button bg-white text-pinky-600">
-                  {showMore ? "Show Less" : "Show More Products"}
-                </button>
-              </div>
-            )}
+          {products.length > 8 && (
+            <div className="flex justify-center items-center mt-8">
+              <button
+                onClick={this.toggleShowMore}
+                className="button bg-white text-pinky-600"
+              >
+                {showMore ? "Show Less" : "Show More Products"}
+              </button>
+            </div>
+          )}
         </div>
         {/* END MORE PRODUCTS */}
       </>

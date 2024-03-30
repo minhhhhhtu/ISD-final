@@ -75,9 +75,6 @@ const HomeHeader = () => {
   };
 
   const ProductList = () => {
-    const onSale = false;
-    // Khai báo state danh sách sản phẩm với useState, khởi tạo ban đầu là một mảng chứa các đối tượng sản phẩm
-
     const [products, setProducts] = useState([
       {
         id: 1,
@@ -119,33 +116,39 @@ const HomeHeader = () => {
 
     return (
       <div>
-        {products.map((product) => {
-          return (
-            <a key={product.id} href="/product?key" className="products">
-              <div className="textContent">
-                <p className="name-product text-[16px]">{product.name}</p>
-                <div className="price flex flex-row">
-                  {product.onSale ? (
-                    <>
-                      <p className="realPrice">{product.price} vnđ</p>
-                      <p className="salePrice line-through text-slate-400 ml-5">
-                        {product.priceSale} vnđ
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="realPrice">{product.price} vnđ </p>
-                    </>
-                  )}
-                </div>
-              </div>
-              <div
-                className="imgProduct w-[50px] h-[50px] ml-[15rem] bg-cover bg-black"
-                style={{ backgroundImage: `url(${product.imgUrl})` }}
-              ></div>
-            </a>
-          );
-        })}
+        <ul id="myUl block w-full h-screen overflow-y-auto">
+          {products.map((product) => {
+            return (
+              <>
+                <li className="myLi block">
+                  <a key={product.id} href="/product?key" className="products">
+                    <div className="textContent">
+                      <p className="name-product text-[16px]">{product.name}</p>
+                      <div className="price flex flex-row">
+                        {product.onSale ? (
+                          <>
+                            <p className="realPrice">{product.price} vnđ</p>
+                            <p className="salePrice line-through text-slate-400 ml-5">
+                              {product.priceSale} vnđ
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="realPrice">{product.price} vnđ </p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div
+                      className="imgProduct w-[50px] h-[50px] ml-[15rem] bg-cover bg-black"
+                      style={{ backgroundImage: `url(${product.imgUrl})` }}
+                    ></div>
+                  </a>
+                </li>
+              </>
+            );
+          })}
+        </ul>
 
         <a
           href="/products"
@@ -156,17 +159,36 @@ const HomeHeader = () => {
       </div>
     );
   };
-  
+
+  const filterSearch = () => {
+     var input, filter, ul, li, a, i, txtValue;
+     input = document.getElementById("inputSearchAuto-3");
+     filter = input.value.toUpperCase();
+     ul = document.getElementById("myUl");
+     li = document.getElementsByClassName("myLi");
+
+
+     for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  };
 
   const [showProductList, setShowProductList] = useState(false);
-  const toggleProductList = () => {
+  const toggleProductList = (e) => {
+    e.preventDefault();
     setShowProductList(!showProductList);
   };
 
   return (
     <>
       <div className="fixed"></div>
-      <header className="p-10 mx-auto">
+      <header className="p-10 mx-auto my-[-10px]">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-white">
           <div className="logo flex-1 basis-3/6 text-center text-xl font-semibold cursor-pointer">
             Melanie Fashion
@@ -230,7 +252,10 @@ const HomeHeader = () => {
             onClick={toggleProductList}
           >
             <form className="searchform-product relative w-[70%] h-10 border-2 rounded-full border-slate-500 border-solid">
-              <button className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity">
+              <button
+                onClick={toggleProductList}
+                className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
+              >
                 <FontAwesomeIcon
                   className="mr-5 p-1 "
                   icon={faMagnifyingGlass}
@@ -245,6 +270,7 @@ const HomeHeader = () => {
                   autoComplete="off"
                   type="text"
                   placeholder="Tìm kiếm sản phẩm..."
+                  onKeyUp={filterSearch}
                 />
               </div>
             </form>
