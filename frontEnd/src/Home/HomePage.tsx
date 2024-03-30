@@ -14,7 +14,6 @@ class HomePage extends React.Component {
       <>
         <div className="content-wrapper font-Karla max-w-screen-2xl text-base mx-auto">
           <Header/>
-          
           <HomeSlider/>
           <FeatureProducts/>
           <Products/>
