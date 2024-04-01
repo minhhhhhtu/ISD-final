@@ -16,9 +16,10 @@ interface State {
   showMore: boolean;
 }
 
+
 class Products extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
+  constructor() {
+    super({});
     this.state = {
       products: [
         {
@@ -104,6 +105,7 @@ class Products extends React.Component<{}, State> {
     });
   };
 
+
   render() {
     const { products, showMore } = this.state;
     const displayProducts = showMore ? products : products.slice(0, 8);
@@ -134,7 +136,7 @@ class Products extends React.Component<{}, State> {
                           Giảm giá
                         </div>
                       )}
-                      <FontAwesomeIcon icon="fa-regular fa-heart" />
+                      <FontAwesomeIcon className="text-white text-xl m-3" icon={faHeart} />
                       <div className="button absolute w-11/12 bg-white text-pinky-600 bottom-4 left-1/2 -translate-x-1/2 hidden group-hover:block group-hover:animate-fadeIn">
                         Mua ngay
                       </div>

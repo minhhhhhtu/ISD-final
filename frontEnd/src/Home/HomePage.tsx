@@ -1,3 +1,5 @@
+// Trong file HomePage.tsx
+
 import React from "react";
 import "./HomePage.css";
 import Header from "./header/HomeHeader.tsx";
@@ -7,8 +9,8 @@ import Products from "./products/Products.tsx";
 import Parallax from "./parallax/Parallax.tsx";
 import Subcribe from "./subcribes/Subcribe.tsx";
 import Footer from "./footer/Footer.tsx";
-
 class HomePage extends React.Component {
+
   render() {
     return (
       <>
@@ -25,4 +27,5 @@ class HomePage extends React.Component {
     );
   }
 }
+
 export default HomePage;
