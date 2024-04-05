@@ -1,68 +1,130 @@
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./HomeSlider.css";
+import React, { useRef, useEffect } from 'react';
 
-interface State {
-  currentSlide: number;
-  images: { id: number; name: string; url: string }[];
-}
 
-class HomeSlider extends React.Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      currentSlide: 0,
-      images: [
-        {
-          id: 1,
-          name: "Image 1",
-          url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg",
-        },
-        {
-          id: 2,
-          name: "Image 2",
-          url: "https://4kwallpapers.com/images/walls/thumbs_3t/15250.jpg",
-        },
-        {
-          id: 3,
-          name: "Image 3",
-          url: "https://4kwallpapers.com/images/walls/thumbs_3t/6629.jpeg",
-        },
-      ],
-    };
-  }
+const HomeSlider: React.FC = () => {
+  const buttonsRef = {
+    prev: useRef<HTMLButtonElement>(null),
+    next: useRef<HTMLButtonElement>(null),
+  };
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const appBgContainerRef = useRef<HTMLDivElement>(null);
+  const cardInfosContainerRef = useRef<HTMLDivElement>(null);
 
-  render() {
-    const { images } = this.state;
+  useEffect(() => {
+    const { prev, next } = buttonsRef;
+    const cardsContainerEl = cardsContainerRef.current;
+    const appBgContainerEl = appBgContainerRef.current;
+    const cardInfosContainerEl = cardInfosContainerRef.current;
 
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
+    if (!prev.current || !next.current || !cardsContainerEl || !appBgContainerEl || !cardInfosContainerEl) return;
+
+    const swapCards = (direction: string) => {
+      const currentCardEl = cardsContainerEl.querySelector(".current--card");
+      const previousCardEl = cardsContainerEl.querySelector(".previous--card");
+      const nextCardEl = cardsContainerEl.querySelector(".next--card");
+
+      const currentBgImageEl = appBgContainerEl.querySelector(".current--image");
+      const previousBgImageEl = appBgContainerEl.querySelector(".previous--image");
+      const nextBgImageEl = appBgContainerEl.querySelector(".next--image");
+
+      // Rest of the swapCards function implementation
     };
 
-    return (
-      <div className="slider w-[100%] h-[530px] mx-auto mb-24">
-        <Slider {...settings}>
-          {images.map((image) => (
-            <div
-              key={image.id}
-            >
-              <img
-                className="h-[400px] sm:h-[540px] mx-auto"
-                src={image.url}
-                alt={image.name}
-              />
+    prev.current.addEventListener("click", () => swapCards("left"));
+    next.current.addEventListener("click", () => swapCards("right"));
+
+    // Additional initialization code can go here
+
+  }, []);
+
+  return (
+    <>
+      <div className="app">
+        <div className="cardList">
+          <button className="cardList__btn btn btn--left" ref={buttonsRef.prev}>
+            <div className="icon">
+              <svg>
+                <use xlinkHref="#arrow-left"></use>
+              </svg>
             </div>
-          ))}
-        </Slider>
+          </button>
+
+          <div className="cards__wrapper" ref={cardsContainerRef}>
+            {/* Your card elements go here */}
+          </div>
+
+          <button className="cardList__btn btn btn--right" ref={buttonsRef.next}>
+            <div className="icon">
+              <svg>
+                <use xlinkHref="#arrow-right"></use>
+              </svg>
+            </div>
+          </button>
+        </div>
+
+        <div className="infoList">
+          <div className="info__wrapper" ref={cardInfosContainerRef}>
+            {/* Your info elements go here */}
+          </div>
+        </div>
+
+        <div className="app__bg" ref={appBgContainerRef}>
+          {/* Your background image elements go here */}
+        </div>
       </div>
-    );
-  }
+
+      <div className="loading__wrapper">
+        <div className="loader--text">Loading...</div>
+        <div className="loader">
+          <span></span>
+        </div>
+      </div>
+
+      <svg className="icons" style={{ display: 'none' }}>
+        <symbol
+          id="arrow-left"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <polyline
+            points="328 112 184 256 328 400"
+            style={{
+              fill: 'none',
+              stroke: '#fff',
+              strokeLinecap: 'round',
+              strokeLinejoin: 'round',
+              strokeWidth: '48px',
+            }}
+          />
+        </symbol>
+        <symbol
+          id="arrow-right"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        >
+          <polyline
+            points="184 112 328 256 184 400"
+            style={{
+              fill: 'none',
+              stroke: '#fff',
+              strokeLinecap: 'round',
+              strokeLinejoin: 'round',
+              strokeWidth: '48px',
+            }}
+          />
+        </symbol>
+      </svg>
+
+      <div className="support">
+        <a href="https://twitter.com/DevLoop01" target="_blank">
+          <i className="fab fa-twitter-square"></i>
+        </a>
+        <a href="https://dribbble.com/devloop01" target="_blank">
+          <i className="fab fa-dribbble"></i>
+        </a>
+      </div>
+    </>
+  );
 }
 
 export default HomeSlider;

@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./HomeHeader.css";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -114,15 +115,29 @@ const HomeHeader = () => {
       },
     ]);
 
+    const navigate = useNavigate();
+
+    const handleClick = (productId) => {
+      const product = products.find((product) => product.id === productId);
+      if (product) {
+        navigate(`/product?key=${product.id}`);
+      }
+    };
+
     return (
       <div>
-        <ul id="myUl block w-full h-screen overflow-y-auto">
+        <ul id="myUl" className=" w-[90%] block lg:w-full overflow-y-auto">
           {products.map((product) => {
             return (
               <>
                 <li className="myLi block">
-                  <a key={product.id} href="/product?key" className="products">
-                    <div className="textContent">
+                  <a
+                    key={product.id}
+                    className="products"
+                    href="/"
+                    onClick={() => handleClick(product.id)}
+                  >
+                    <div className="textContent ">
                       <p className="name-product text-[16px]">{product.name}</p>
                       <div className="price flex flex-row">
                         {product.onSale ? (
@@ -140,7 +155,7 @@ const HomeHeader = () => {
                       </div>
                     </div>
                     <div
-                      className="imgProduct w-[50px] h-[50px] ml-[15rem] bg-cover bg-black"
+                      className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
                       style={{ backgroundImage: `url(${product.imgUrl})` }}
                     ></div>
                   </a>
@@ -161,14 +176,13 @@ const HomeHeader = () => {
   };
 
   const filterSearch = () => {
-     var input, filter, ul, li, a, i, txtValue;
-     input = document.getElementById("inputSearchAuto-3");
-     filter = input.value.toUpperCase();
-     ul = document.getElementById("myUl");
-     li = document.getElementsByClassName("myLi");
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("inputSearchAuto-3");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUl");
+    li = document.getElementsByClassName("myLi");
 
-
-     for (i = 0; i < li.length; i++) {
+    for (i = 0; i < li.length; i++) {
       a = li[i].getElementsByTagName("a")[0];
       txtValue = a.textContent || a.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -189,69 +203,61 @@ const HomeHeader = () => {
     <>
       <div className="fixed"></div>
       <header className="p-10 mx-auto my-[-10px]">
-        <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-white">
-          <div className="logo flex-1 basis-3/6 text-center text-xl font-semibold cursor-pointer">
-            Melanie Fashion
+        <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-transparent">
+          <div className="logo flex-1 basis-2/6 text-center text-pinky-600 cursor-pointer">
+            <h3 className=" text-2xl font-bold">Melamine</h3>
+            <div className="flex flex-row items-center justify-center">
+              <div className="subheadline-deco-line"></div>
+              <div className=" text-[10px]">More Products</div>
+              <div className="subheadline-deco-line"></div>
+            </div>
           </div>
-          <ul
-            id="top-menu"
-            ref={topMenuRef}
-            className={`basis-3/6 ${
+          <ul id="top-menu" ref={topMenuRef}className={`basis-3/6 ${
               isActive ? "" : "hidden"
-            } lg:flex lg:items-center lg:justify-center lg:gap-8 uppercase text-sm text-pinky-600 font-medium`}
+            } lg:flex lg:items-center lg:justify-center lg:gap-16 uppercase text-sm text-pinky-600 font-medium`}
           >
             <li
               className={`ct-menu-top-header ${
-                activeMenuItem === "home" ? "ct-menu-top-header-active" : ""
+                activeMenuItem === "SHOP" ? "ct-menu-top-header-active" : ""
               }`}
             >
               <a href="/home" onClick={() => handleMenuItemClick("home")}>
-                Home
+                SHOP
               </a>
             </li>
             <li
               className={`ct-menu-top-header ${
-                activeMenuItem === "women" ? "ct-menu-top-header-active" : ""
+                activeMenuItem === "COLLECTION" ? "ct-menu-top-header-active" : ""
               }`}
             >
               <a href="#" onClick={() => handleMenuItemClick("dress")}>
-                Dress
+                COLLECTION
               </a>
             </li>
             <li
               className={`ct-menu-top-header ${
-                activeMenuItem === "home" ? "ct-menu-top-header-active" : ""
+                activeMenuItem === "TRENDS" ? "ct-menu-top-header-active" : ""
               }`}
             >
               <a href="#" onClick={() => handleMenuItemClick("jackets")}>
-                Jackets
+                TRENDS
               </a>
             </li>
             <li
               className={`ct-menu-top-header ${
-                activeMenuItem === "home" ? "ct-menu-top-header-active" : ""
+                activeMenuItem === "ABOUT US" ? "ct-menu-top-header-active" : ""
               }`}
             >
               <a href="#" onClick={() => handleMenuItemClick("jeans")}>
-                Jeans
-              </a>
-            </li>
-            <li
-              className={`ct-menu-top-header ${
-                activeMenuItem === "home" ? "ct-menu-top-header-active" : ""
-              }`}
-            >
-              <a href="#" onClick={() => handleMenuItemClick("t-shirt")}>
-                T-Shirt
+                ABOUT US
               </a>
             </li>
           </ul>
 
-          <div
-            className="search-box flex basis-1/3"
+          <div className="search-box flex basis-3/6 lg:basis-1/3"
             onClick={toggleProductList}
           >
-            <form className="searchform-product relative w-[70%] h-10 border-2 rounded-full border-slate-500 border-solid">
+            <form className="searchform-product relative w-[90%] h-10 border-2 rounded-full border-pinky-600 border-solid  text-black bg-slate-100">
               <button
                 onClick={toggleProductList}
                 className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
@@ -265,26 +271,16 @@ const HomeHeader = () => {
                 <input type="hidden" name="type" value={"product"} />
                 <input
                   id="inputSearchAuto-3"
-                  className="input-search outline-none absolute top-[6px]"
+                  className="input-search outline-none absolute top-[6px] bg-slate-100"
                   name="q"
                   autoComplete="off"
                   type="text"
-                  placeholder="Tìm kiếm sản phẩm..."
+                  placeholder="Tìm kiếm"
                   onKeyUp={filterSearch}
                 />
               </div>
             </form>
           </div>
-          <ul className="basis-3/6  lg:basis-1/6 ct-menu-cart-header flex justify-end lg:justify-start items-center ml-16 uppercase text-sm text-pinky-600 font-medium">
-            <li className="ct-menu-top-header">
-              <a href="/cart" className="flex items-center">
-                <FontAwesomeIcon className="mr-2" icon={faShoppingCart} />
-                <span className="w-[150%] rounded-xl bg-[#FFE3E1] text-pinky-600 mr-2">
-                  99+
-                </span>
-              </a>
-            </li>
-          </ul>
           {/* MENU BAR */}
           <div
             className="basis-1/6 lg:hidden flex items-center cursor-pointer px-3 sm:px-8"

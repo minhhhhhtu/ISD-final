@@ -1,7 +1,6 @@
 import HomePage from "./Home/HomePage.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
 import DetailProductPage from "./DetailProduct/DetailProductPage.tsx";
-import Products from "./Home/products/Products.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +17,6 @@ function App() {
       </header>
     </div>
   );
-}
+  }
 
 export default App;

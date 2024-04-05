@@ -38,7 +38,7 @@
 }
 
 .subheadline-deco-line {
-  @apply w-8 h-px bg-gray-200;
+  @apply w-8 h-px bg-pinky-600;
 }
 .subheadline-label {
   @apply uppercase mx-4 tracking-widest text-pinky-600 font-medium text-xs text-center;
