@@ -6,7 +6,7 @@ function LoginPage() {
   return (
     <>
       <div className="section">
-        <div className="container">
+        <div className="containerLogin">
           <div className=" w-full h-full bg-slate-900 bg-[url('https://i.pinimg.com/564x/fd/b2/90/fdb290ab3db1358c12abd6860cd39e25.jpg')] bg-no-repeat bg-cover">
             <div className="row full-height justify-content-center">
               <div className="col-12 text-center align-self-center py-5">

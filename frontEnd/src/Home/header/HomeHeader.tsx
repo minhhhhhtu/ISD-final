@@ -203,7 +203,7 @@ const HomeHeader = () => {
     <>
       <div className="fixed"></div>
       <header className="p-10 mx-auto my-[-10px]">
-        <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-transparent">
+        <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
           <div className="logo flex-1 basis-2/6 text-center text-pinky-600 cursor-pointer">
             <h3 className=" text-2xl font-bold">Melamine</h3>
             <div className="flex flex-row items-center justify-center">

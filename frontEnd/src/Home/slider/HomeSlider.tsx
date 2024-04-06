@@ -1,130 +1,111 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import CountdownTimer from "./CountDownTimer/CountdownTimer.tsx";
+import "./HomeSlider.css";
 
+const HomeSlider = (props) => {
+  const slideRef = props.slideRef;
 
-const HomeSlider: React.FC = () => {
-  const buttonsRef = {
-    prev: useRef<HTMLButtonElement>(null),
-    next: useRef<HTMLButtonElement>(null),
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  const handleClickNext = () => {
+    let items = slideRef.current.querySelectorAll(".item");
+
+    slideRef.current.appendChild(items[0]);
   };
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const appBgContainerRef = useRef<HTMLDivElement>(null);
-  const cardInfosContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const { prev, next } = buttonsRef;
-    const cardsContainerEl = cardsContainerRef.current;
-    const appBgContainerEl = appBgContainerRef.current;
-    const cardInfosContainerEl = cardInfosContainerRef.current;
+  const handleClickPrev = () => {
+    let items = slideRef.current.querySelectorAll(".item");
+    slideRef.current.prepend(items[items.length - 1]);
+  };
 
-    if (!prev.current || !next.current || !cardsContainerEl || !appBgContainerEl || !cardInfosContainerEl) return;
+  const deadline = new Date('2024-04-15T10:00:00');
 
-    const swapCards = (direction: string) => {
-      const currentCardEl = cardsContainerEl.querySelector(".current--card");
-      const previousCardEl = cardsContainerEl.querySelector(".previous--card");
-      const nextCardEl = cardsContainerEl.querySelector(".next--card");
-
-      const currentBgImageEl = appBgContainerEl.querySelector(".current--image");
-      const previousBgImageEl = appBgContainerEl.querySelector(".previous--image");
-      const nextBgImageEl = appBgContainerEl.querySelector(".next--image");
-
-      // Rest of the swapCards function implementation
-    };
-
-    prev.current.addEventListener("click", () => swapCards("left"));
-    next.current.addEventListener("click", () => swapCards("right"));
-
-    // Additional initialization code can go here
-
-  }, []);
+  const data = [
+    {
+      id: 1,
+      imgUrl: "https://i.pinimg.com/564x/68/17/16/681716445182e01635976926b5cbf08a.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      name: "30% SALE",
+    },
+    {
+      id: 2,
+      imgUrl:
+        "https://i.pinimg.com/564x/fd/68/a7/fd68a7918b64bfb2d7ea1a516a4b007d.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      name: "30% SALE",
+    },
+    {
+      id: 3,
+      imgUrl:
+        "https://i.pinimg.com/736x/f2/7b/b2/f27bb2560be3b38ed75da4f0f6661f18.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      name: "30% SALE",
+    },
+    {
+      id: 5,
+      imgUrl: "https://i.pinimg.com/564x/c8/15/f5/c815f5e90d7da8d3f9ede65090252e26.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      name: "30% SALE",
+    },
+    {
+      id: 6,
+      imgUrl:
+        "https://i.pinimg.com/564x/84/21/f5/8421f5fbe85d69b3ae737a873c63871d.jpg",
+      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      name: "30% SALE",
+    },
+  ];
 
   return (
-    <>
-      <div className="app">
-        <div className="cardList">
-          <button className="cardList__btn btn btn--left" ref={buttonsRef.prev}>
-            <div className="icon">
-              <svg>
-                <use xlinkHref="#arrow-left"></use>
-              </svg>
+    <div className="flex flex-row justify-center items-center lg:w-[80%] mx-auto mb-24 gap-8">
+      <div className="basis-1/4 flex flex-col justify-center items-center gap-16">
+        <div className="basis-1/2 w-full h-full text-center text-pinky-600">
+          <h1 className="text-3xl font-bold text-[#D94B4B]">Khuyến mãi</h1>
+          <p className="font-semibold">
+            Chương trình khuyến mãi được áp dụng cả ở cửa hàng và trên website
+            trực tuyến
+          </p>
+          <div className="flex justify-center items-center text-center">
+            <div className="buyButton flex justify-center mt-5 items-center rounded  w-[120px] h-[40px] bg-pinky-600 text-white shadow-md">
+              Mua ngay
             </div>
-          </button>
-
-          <div className="cards__wrapper" ref={cardsContainerRef}>
-            {/* Your card elements go here */}
-          </div>
-
-          <button className="cardList__btn btn btn--right" ref={buttonsRef.next}>
-            <div className="icon">
-              <svg>
-                <use xlinkHref="#arrow-right"></use>
-              </svg>
-            </div>
-          </button>
-        </div>
-
-        <div className="infoList">
-          <div className="info__wrapper" ref={cardInfosContainerRef}>
-            {/* Your info elements go here */}
           </div>
         </div>
-
-        <div className="app__bg" ref={appBgContainerRef}>
-          {/* Your background image elements go here */}
+        <div className="basis-1/2 w-full h-full">
+        <h1 className="text-[#D94B4B] text-xl">Số lượng có hạn</h1>
+        {<CountdownTimer deadline={deadline} />}
         </div>
       </div>
-
-      <div className="loading__wrapper">
-        <div className="loader--text">Loading...</div>
-        <div className="loader">
-          <span></span>
+      <div className="basis-3/4 container">
+        <div className="loadbar" style={{ width: `${loadingProgress}%` }}></div>
+        <div id="slide" ref={slideRef}>
+          {data.map((item) => (
+            <div
+              key={item.id}
+              className="item"
+              style={{ backgroundImage: `url(${item.imgUrl})` }}
+            >
+              <div className="content">
+                <div className="name">{item.name}</div>
+                <div className="des">{item.desc}</div>
+                <button>See more</button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="buttons">
+          <button id="prev" onClick={handleClickPrev}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+          <button id="next" onClick={handleClickNext}>
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
         </div>
       </div>
-
-      <svg className="icons" style={{ display: 'none' }}>
-        <symbol
-          id="arrow-left"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <polyline
-            points="328 112 184 256 328 400"
-            style={{
-              fill: 'none',
-              stroke: '#fff',
-              strokeLinecap: 'round',
-              strokeLinejoin: 'round',
-              strokeWidth: '48px',
-            }}
-          />
-        </symbol>
-        <symbol
-          id="arrow-right"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <polyline
-            points="184 112 328 256 184 400"
-            style={{
-              fill: 'none',
-              stroke: '#fff',
-              strokeLinecap: 'round',
-              strokeLinejoin: 'round',
-              strokeWidth: '48px',
-            }}
-          />
-        </symbol>
-      </svg>
-
-      <div className="support">
-        <a href="https://twitter.com/DevLoop01" target="_blank">
-          <i className="fab fa-twitter-square"></i>
-        </a>
-        <a href="https://dribbble.com/devloop01" target="_blank">
-          <i className="fab fa-dribbble"></i>
-        </a>
-      </div>
-    </>
+    </div>
   );
-}
+};
 
 export default HomeSlider;
