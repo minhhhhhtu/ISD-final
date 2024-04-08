@@ -26,7 +26,6 @@ const HomeHeader = () => {
   const [isActive, setIsActive] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const topMenuRef = useRef<HTMLUListElement | null>(null);
-  const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
