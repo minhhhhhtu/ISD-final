@@ -1,5 +1,5 @@
 import HomePage from "./Home/HomePage.tsx";
-import LoginPage from "./Login/LoginPage.tsx";
+import MainPage from "./Login/MainPage.tsx";
 import DetailProductPage from "./DetailProduct/DetailProductPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -10,7 +10,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/home" element={<HomePage />} />
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<MainPage />} />
             <Route path={`/products`} element={<DetailProductPage/>}/>
           </Routes>
         </BrowserRouter>
