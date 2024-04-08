@@ -26,40 +26,40 @@ const HomeSlider = (props) => {
     {
       id: 1,
       imgUrl: "https://i.pinimg.com/564x/68/17/16/681716445182e01635976926b5cbf08a.jpg",
-      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 2,
       imgUrl:
         "https://i.pinimg.com/564x/fd/68/a7/fd68a7918b64bfb2d7ea1a516a4b007d.jpg",
-      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 3,
       imgUrl:
         "https://i.pinimg.com/736x/f2/7b/b2/f27bb2560be3b38ed75da4f0f6661f18.jpg",
-      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 5,
       imgUrl: "https://i.pinimg.com/564x/c8/15/f5/c815f5e90d7da8d3f9ede65090252e26.jpg",
-      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 6,
       imgUrl:
         "https://i.pinimg.com/564x/84/21/f5/8421f5fbe85d69b3ae737a873c63871d.jpg",
-      desc: "Some beautiful roads cannot be discovered without getting loss.",
+      desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
   ];
 
   return (
-    <div className="flex flex-row justify-center items-center lg:w-[80%] mx-auto mb-24 gap-8">
+    <div className="flex flex-row justify-center items-center lg:w-[80%] mx-auto mb-36 gap-8">
       <div className="basis-1/4 flex flex-col justify-center items-center gap-16">
         <div className="basis-1/2 w-full h-full text-center text-pinky-600">
           <h1 className="text-3xl font-bold text-[#D94B4B]">Khuyến mãi</h1>

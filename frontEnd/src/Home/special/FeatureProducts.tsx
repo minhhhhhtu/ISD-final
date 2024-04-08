@@ -68,45 +68,26 @@ class Products extends React.Component<{}, State> {
 
         {/* MORE PRODUCTS */}
         <div className="feature-mugs w-[100%] lg:w-[80%] mx-auto mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <div
-                  className="h-[400px] sm:h-[540px] bg-cover bg-no-repeat bg-center"
-                  style={{ backgroundImage: `url(${product.url})` }}
-                >
-                  <a href="#">
-                    <div className="w-full h-full hover:bg-gray-900 hover:bg-opacity-10 hover:transition-all hover:ease-in-out hover:duration-400 relative group">
-                      {product.onSale && (
-                        <div className="absolute top-3 right-3 bg-white py-2 px-4 text-pinky-400 text-[18px] font-semibold">
-                          On Sale
-                        </div>
-                      )}
-                      <div className="button absolute w-11/12 bg-white text-pinky-600 bottom-4 left-1/2 -translate-x-1/2 hidden group-hover:block group-hover:animate-fadeIn">
-                        View Product
-                      </div>
-                    </div>
-                  </a>
+          <div className="w-full h-[580px] rounded-3xl flex flex-row justify-center items-center">
+            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-tl-3xl rounded-tr-3xl rounded-bl-3xl text-center relative">
+              <div className="absolute top-6 right-4 text-center bg-center w-[90%] h-[90%] rounded-3xl bg-[url('https://i.pinimg.com/564x/19/d9/d1/19d9d1ac3c1c1e35f6702e233cd4d7fa.jpg')] bg-cover bg-no-repeat"></div>
+            </div>
+            <div className="basis-2/4 h-[580px] flex flex-col justify-center items-center gap-4">
+              <div className="basis-1/4 flex flex-col justify-end items-center w-full h-full rounded-bl-3xl rounded-br-3xl shadow-md py-10">
+                <div className="buttonBuyNow flex justify-center items-center w-auto text-2xl font-bold text-[#D94B4B] px-5 h-[50px] border-2 border-pinky-600 hover:bg-pinky-600 hover:text-white rounded-3xl hover:border-white mb-5">
+                  Mua hàng ngay!
                 </div>
-                <div className="text-center mt-8">
-                  <a href="#">
-                    <div className="text-xl mb-2 hover:text-pinky-600 font-[400px] leading-5 tracking-wide">
-                      {product.name}
-                    </div>
-                  </a>
-                  <div>
-                    <span className="text-lg text-pinky-600 tracking-wider">
-                      ${product.price.toFixed(2)} USD
-                    </span>
-                    {product.onSale && (
-                      <span className="ml-3 text-sm text-slate-500 line-through">
-                        ${product.priceOnSale.toFixed(2)} USD
-                      </span>
-                    )}
-                  </div>
+                <div className="buttonBuyNow flex justify-center items-center w-auto text-2xl font-bold bg-pinky-600 text-white px-5 py-10 h-[50px] rounded-3xl">
+                  Các bộ sưu tập khác
                 </div>
               </div>
-            ))}
+              <div className="basis-3/4 w-full h-[600px] rounded-tl-3xl rounded-tr-3xl bg-[#FFD1D1] relative">
+                <div className=" absolute top-[30px] right-[25px] w-[90%] h-[80%] bg-[url('https://i.pinimg.com/736x/1d/ba/93/1dba93ab5f16bff334648f6ee7661538.jpg')] rounded-3xl bg-cover bg-center bg-no-repeat"></div>
+              </div>
+            </div>
+            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-tl-3xl rounded-tr-3xl rounded-br-3xl text-center relative">
+              <div className="absolute top-6 right-3 text-center bg-center w-[90%] h-[90%] rounded-3xl bg-[url('https://i.pinimg.com/564x/19/d9/d1/19d9d1ac3c1c1e35f6702e233cd4d7fa.jpg')] bg-cover bg-no-repeat"></div>
+            </div>
           </div>
         </div>
         {/* END MORE PRODUCTS */}

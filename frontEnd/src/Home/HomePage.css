@@ -72,3 +72,11 @@
 .lmt-badge-circle {
   @apply text-sm text-center rounded-full px-1.5;
 }
+/* BreadCummers */
+.lmt-breadcumbers {
+  @apply text-center uppercase py-3 px-6 text-sm font-medium cursor-pointer hover:bg-opacity-95
+  bg-white text-pinky-50 border-[1px] border-pinky-50 hover:border-pinky-600 hover:text-pinky-400 duration-300;
+}
+.lmt-breadcumbers-active {
+    @apply border-pinky-600 text-pinky-600;
+}
