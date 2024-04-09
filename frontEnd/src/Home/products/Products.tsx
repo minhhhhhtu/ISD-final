@@ -225,13 +225,16 @@ class Products extends React.Component<{}, State> {
                 <div className="w-full h-[300px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"style={{ backgroundImage: `url(${product.url})`}}>
                 </div>
                 
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row justify-between">
                   <div className="basic-1/2">
-                    <h1 className=" text-xl text-[#000]"> {product.name} </h1>
-                    <h1 className=" text-m text-[#000]"> {product.viewer} </h1>
+                    <h1 className=" text-xl text-[#000] mb-5"> {product.name} </h1>
+                    <h1 className=" text-xs text-[#FFFFF] mb-8"> {product.viewer} </h1>
                     <h1 className=" text-xl text-[#000]"> {product.price}VND </h1>
                   </div>
-                  <div className="basic-1/2"> {<StarRating/>}</div>
+                  <div className="basic-1/2 flex flex-col justify-between items-center">
+                    <div>{<StarRating/>}</div>
+                    <div className=" text-xs text-pinky-600 font-semibold"> Out of stock </div>
+                  </div>
                 </div>
               </div>
             ))}

@@ -16,7 +16,6 @@ function HomePage() {
     <div className="content-wrapper font-Karla max-w-screen-2xl text-base mx-auto">
       <Header />
       <HomeStory />
-      
       <HomeSlider slideRef={slideRef}/>
       <FeatureProducts />
       <Products />

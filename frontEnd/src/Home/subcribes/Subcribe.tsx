@@ -8,7 +8,7 @@ class Subscribe extends React.Component {
 
     render() {
         return (
-            <div className="subscribe-us w-full h-[400px] bg-[#ffffff] flex flex-col justify-center items-center mb-24">
+            <div className="subscribe-us w-full h-[400px] bg-[#ffffff] flex flex-col justify-center items-center">
                 <div className="justify-center items-center px-6 xs:px-0 mb-6 flex">
                     <div className="w-8 h-px bg-pinky-200"></div>
                     <div className="uppercase mx-4 tracking-widest text-pinky-400 font-bold text-[13px] text-center">
