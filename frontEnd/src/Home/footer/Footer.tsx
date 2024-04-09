@@ -4,10 +4,10 @@ class Footer extends React.Component {
     render ( ) {
         return (
             <>
-            <footer className="w-[95%] md:w-[65%] mx-auto pb-24 text-pinky-600 text-sm">
+            <footer className="w-full md:w-[65%] mx-auto pb-24 text-pinky-600 text-sm">
                 <div className="flex flex-col md:flex-row text-center md:text-left gap-12 md:gap-8">
                     <div className="basis-2/6">
-                        <div className="font-bold text-xl mb-4 text-pinky-600"> MELINA FASHION. </div>
+                        <div className="font-bold text-xl mb-4 text-pinky-600"> MELAMINE FASHION. </div>
                         <div className="mb-8 md:mb-20"> Delivering the best fashion life since 2024. </div>
                         <div className="text-pinky-600 hover:text-pinky-400"> Melina fash. ©2024 </div>
                     </div>

@@ -6,7 +6,7 @@ class Parallax extends React.Component {
       <>
         <div
           className="product-parallax-section bg-[url(https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg)]
-                            bg-cover bg-no-repeat bg-center h-[400px] md:h-[500px] mb-24 bg-fixed w-[100vw] relative left-[calc(-50vw+50%)]"
+                            bg-cover bg-no-repeat bg-center h-[400px] md:h-[500px] bg-fixed w-[100vw] relative left-[calc(-50vw+50%)]"
         ></div>
       </>
     );

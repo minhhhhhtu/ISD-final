@@ -256,13 +256,13 @@ const HomeHeader = () => {
           <div className="search-box flex basis-3/6 lg:basis-1/3"
             onClick={toggleProductList}
           >
-            <form className="searchform-product relative w-[90%] h-10 border-2 rounded-full border-pinky-600 border-solid  text-black bg-slate-100">
+            <form className="searchform-product relative w-[90%] h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
               <button
                 onClick={toggleProductList}
                 className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
               >
                 <FontAwesomeIcon
-                  className="mr-5 p-1 "
+                  className="mr-5 p-1"
                   icon={faMagnifyingGlass}
                 />
               </button>
