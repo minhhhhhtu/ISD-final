@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./HomeStory.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 class HomeStory extends React.Component<{}> {
   render(): React.ReactNode {
@@ -30,17 +30,21 @@ class HomeStory extends React.Component<{}> {
                   accessories tailored to your unique taste.
                 </div>
 
-                <NavLink to={"/"}>
-                  <div className="flex flex-row justify-center items-center gap-8">
-                    <div className="basis-1/2 max-w-[200px] w-full h-10 flex justify-center bg-[#FFF]  border-2 border-pinky-600 rounded-full text-center items-center text-pinky-600 shadow-2xl cursor-pointer hover:bg-pinky-600 hover:text-[#FFF] duration-500">
-                      Đăng nhập
-                    </div>
-                    <div className="basis-1/2 max-w-[200px] w-full h-10 flex justify-center bg-pinky-600 rounded-full text-center items-center text-white shadow-2xl cursor-pointer hover:bg-[#FFF] hover:border-2 hover:border-pinky-600 hover:text-pink-600 duration-500">
-                      Đăng ký
-                      <FontAwesomeIcon className="ml-2" icon={faArrowRight}/>
-                    </div>
-                  </div>
-                </NavLink>
+                <div className="flex flex-row justify-center items-center gap-8">
+                  <NavLink
+                    to="/"
+                    className="basis-1/2 max-w-[200px] w-full h-10 flex justify-center bg-[#FFF] border-2 border-pinky-600 rounded-full text-center items-center text-pinky-600 shadow-2xl cursor-pointer hover:bg-pinky-600 hover:text-[#FFF] duration-500"
+                  >
+                    Đăng nhập
+                  </NavLink>
+                  <NavLink
+                    to="/signup"
+                    className="basis-1/2 max-w-[200px] w-full h-10 flex justify-center bg-pinky-600 rounded-full text-center items-center text-white shadow-2xl cursor-pointer hover:bg-[#FFF] hover:border-2 hover:border-pinky-600 hover:text-pink-600 duration-500"
+                  >
+                    Đăng ký
+                    <FontAwesomeIcon className="ml-2" icon={faArrowRight} />
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./LoginPage.css";
-import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 
@@ -52,27 +51,32 @@ function LoginPage() {
         setIsLoading(false);
         const errorData = await response.json();
         console.error("Bad Request:", errorData);
+        navigate("/");
         // Show error message to user
       } else if (status === 404) {
         // Handle not found
         setIsLoading(false);
         console.error("Not Found:", response.statusText);
         // Show error message to user
+        navigate("/");
       } else if (status === 500) {
         // Handle server error
         setIsLoading(false);
         console.error("Internal Server Error");
         // Show error message to user
+        navigate("/");
       } else {
         // Handle other errors
         setIsLoading(false);
         console.error("Unknown Error:", status);
         // Show generic error message to user
+        navigate("/");
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Network Error:", error.message);
       // Show network error message to user
+      navigate("/");
     }
   };
 
