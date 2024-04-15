@@ -4,7 +4,7 @@ class Footer extends React.Component {
     render ( ) {
         return (
             <>
-            <footer className="w-full px-20 py-10 bg-pinky-600 text-white text-sm">
+            <footer className=" w-full px-20 py-10 bg-pinky-600 text-white text-sm">
                 <div className="flex flex-col md:flex-row text-center md:text-left gap-12 md:gap-8">
                     <div className="basis-2/6">
                         <div className="font-bold text-xl mb-4 text-white"> MELAMINE FASHION. </div>
