@@ -40,7 +40,7 @@ function SignUp() {
     if (status === 200) {
       const data = await response.json();
       //handle data
-      navigate("/");
+      navigate("/login");
     }
   };
   return (

@@ -32,7 +32,7 @@ class HomeStory extends React.Component<{}> {
 
                 <div className="flex flex-row justify-center items-center gap-8">
                   <NavLink
-                    to="/"
+                    to="/login"
                     className="basis-1/2 max-w-[200px] w-full h-10 flex justify-center bg-[#FFF] border-2 border-pinky-600 rounded-full text-center items-center text-pinky-600 shadow-2xl cursor-pointer hover:bg-pinky-600 hover:text-[#FFF] duration-500"
                   >
                     Đăng nhập
