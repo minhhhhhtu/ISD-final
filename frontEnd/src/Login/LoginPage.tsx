@@ -45,38 +45,38 @@ function LoginPage() {
         }, 500);
         const data = await response.json();
         //handle data
-        navigate("/home");
+        navigate("/");
       } else if (status === 400) {
         // Handle bad request
         setIsLoading(false);
         const errorData = await response.json();
         console.error("Bad Request:", errorData);
-        navigate("/");
+        navigate("/login");
         // Show error message to user
       } else if (status === 404) {
         // Handle not found
         setIsLoading(false);
         console.error("Not Found:", response.statusText);
         // Show error message to user
-        navigate("/");
+        navigate("/login");
       } else if (status === 500) {
         // Handle server error
         setIsLoading(false);
         console.error("Internal Server Error");
         // Show error message to user
-        navigate("/");
+        navigate("/login");
       } else {
         // Handle other errors
         setIsLoading(false);
         console.error("Unknown Error:", status);
         // Show generic error message to user
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       setIsLoading(false);
       console.error("Network Error:", error.message);
       // Show network error message to user
-      navigate("/");
+      navigate("/login");
     }
   };
 
