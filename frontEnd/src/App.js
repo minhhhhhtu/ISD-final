@@ -2,7 +2,7 @@ import HomePage from "./Home/HomePage.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
 import SignUp from "./Login/SignUp.tsx";
 import DetailProductPage from "./DetailProduct/DetailProductPage.tsx";
-import FavList from "./favList/favList.tsx";
+import FavListContainer from "./favList/FavListContainer.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/carts" element={<DetailProductPage />} />
-            <Route path="/favourite" element={<FavList />} />
+            <Route path="/favourite" element={<FavListContainer />} />
           </Routes>
         </BrowserRouter>
       </header>

@@ -228,7 +228,7 @@ class Products extends React.Component<{}, State> {
                 <div className="flex flex-row justify-between">
                   <div className="basic-1/2">
                     <h1 className=" text-xl text-[#000] mb-5"> {product.name} </h1>
-                    <h1 className=" text-xs text-[#FFFFF] mb-8"> {product.viewer} </h1>
+                    <h1 className=" text-xs text-[#000] mb-8"> {product.viewer} </h1>
                     <h1 className=" text-xl text-[#000]"> {product.price}VND </h1>
                   </div>
                   <div className="basic-1/2 flex flex-col justify-between items-center">
