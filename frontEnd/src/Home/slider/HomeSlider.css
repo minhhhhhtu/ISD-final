@@ -28,7 +28,7 @@
   top: 0;
   transform: translate(0, 0);
   border-radius: 0;
-  width: 80%;
+  width: 90%;
   height: 100%;
 }
 .item:nth-child(3) {
@@ -142,5 +142,34 @@
   }
   .item:nth-child(3) {
     display: none;
+  }
+}
+
+@media only screen and (min-width: 1023px) {
+  .container {
+    transform: translate(0%, 0%);
+  }
+
+  .item:nth-child(2) {
+    width: 120%;
+    height: 100%;
+  }
+
+  .item:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 768px) {
+  .container {
+    transform: translate(-150%, 100%);
+  }
+  .item:nth-child(2) {
+    display: none;
+  }
+
+  .buttons {
+    top: 80px;
+    left: 70px;
   }
 }

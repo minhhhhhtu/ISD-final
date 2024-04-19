@@ -60,7 +60,7 @@ const HomeSlider = (props) => {
 
   return (
     <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center lg:w-[80%] mx-auto mb-36 gap-8">
-      <div className="basis-1/4 flex flex-col justify-center items-center gap-16">
+      <div className="basis-2/4 flex flex-col justify-center items-center gap-16">
         <div className="basis-1/2 w-full h-full text-center text-pinky-600">
           <h1 className="text-3xl font-bold text-[#D94B4B]">Khuyến mãi</h1>
           <p className="font-semibold">
@@ -78,7 +78,7 @@ const HomeSlider = (props) => {
         {<CountdownTimer deadline={deadline} />}
         </div>
       </div>
-      <div className="basis-3/4 container">
+      <div className="basis-2/4 container">
         <div className="loadbar" style={{ width: `${loadingProgress}%` }}></div>
         <div id="slide" ref={slideRef}>
           {data.map((item) => (

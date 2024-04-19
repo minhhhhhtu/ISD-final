@@ -23,15 +23,13 @@ class Subscribe extends React.Component {
 
                 <form className="form" onSubmit={this.handleSubmit}>
                     <div className="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-3"> 
-                        <div className="form-item">
-                            <label htmlFor="email" className="sr-only">Email</label>
+                        <div className="form-item border-2 border-pinky-600 text-pinky-600 hover:border-pinky-400 duration-500 focus:border-pinky-400">
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
                                 placeholder="Enter your email"
-                                className="py-4 px-4 w-[350px] max-w-[250px] xs:max-w-full mx-auto border-[1px] border-pinky-600 text-pinky-600 bg-inherit outline-none leading-5
-                                hover:border-pinky-400 duration-500 focus:border-pinky-400
+                                className="py-4 px-4 w-[350px] max-w-[250px] xs:max-w-full mx-auto bg-inherit outline-none leading-5
                                 placeholder:uppercase placeholder:text-xs placeholder:tracking-widest placeholder:font-semibold"
                             />
                         </div>
