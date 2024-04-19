@@ -59,7 +59,7 @@ const HomeSlider = (props) => {
   ];
 
   return (
-    <div className="flex flex-row justify-evenly items-center lg:w-[80%] mx-auto mb-36 gap-8">
+    <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center lg:w-[80%] mx-auto mb-36 gap-8">
       <div className="basis-1/4 flex flex-col justify-center items-center gap-16">
         <div className="basis-1/2 w-full h-full text-center text-pinky-600">
           <h1 className="text-3xl font-bold text-[#D94B4B]">Khuyến mãi</h1>
@@ -73,7 +73,7 @@ const HomeSlider = (props) => {
             </div>
           </div>
         </div>
-        <div className="basis-1/2 w-full h-full">
+        <div className="basis-1/2 flex flex-col justify-center items-center w-full h-full">
         <h1 className="text-[#D94B4B] text-xl">Số lượng có hạn</h1>
         {<CountdownTimer deadline={deadline} />}
         </div>

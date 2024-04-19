@@ -200,8 +200,7 @@ const HomeHeader = () => {
 
   return (
     <>
-      <div className="fixed"></div>
-      <header className="p-10 mx-auto my-[-10px]">
+      <header className=" p-10 mx-auto my-[-10px] z-[99999] !fixed">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
           <div className="logo flex-1 basis-2/6 text-center text-pinky-600 cursor-pointer">
             <h3 className=" text-2xl font-bold">Melamine</h3>
@@ -211,7 +210,10 @@ const HomeHeader = () => {
               <div className="subheadline-deco-line"></div>
             </div>
           </div>
-          <ul id="top-menu" ref={topMenuRef}className={`basis-3/6 ${
+          <ul
+            id="top-menu"
+            ref={topMenuRef}
+            className={`basis-3/6 ${
               isActive ? "" : "hidden"
             } lg:flex lg:items-center lg:justify-center lg:gap-16 uppercase text-sm text-pinky-600 font-medium`}
           >
@@ -226,7 +228,9 @@ const HomeHeader = () => {
             </li>
             <li
               className={`ct-menu-top-header ${
-                activeMenuItem === "COLLECTION" ? "ct-menu-top-header-active" : ""
+                activeMenuItem === "COLLECTION"
+                  ? "ct-menu-top-header-active"
+                  : ""
               }`}
             >
               <a href="#" onClick={() => handleMenuItemClick("dress")}>
@@ -253,7 +257,8 @@ const HomeHeader = () => {
             </li>
           </ul>
 
-          <div className="search-box flex basis-3/6 lg:basis-1/3"
+          <div
+            className="search-box flex basis-3/6 lg:basis-1/3"
             onClick={toggleProductList}
           >
             <form className="searchform-product relative w-[90%] h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
@@ -282,7 +287,7 @@ const HomeHeader = () => {
           </div>
           {/* MENU BAR */}
           <div
-            className="basis-1/6 lg:hidden flex items-center cursor-pointer px-3 sm:px-8"
+            className="basis-1/6 lg:hidden text-black flex items-center cursor-pointer px-3 sm:px-8"
             onClick={handleToggleMenu}
           >
             <svg
