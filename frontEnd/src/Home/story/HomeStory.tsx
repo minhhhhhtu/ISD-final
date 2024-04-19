@@ -10,12 +10,12 @@ class HomeStory extends React.Component<{}> {
   render(): React.ReactNode {
     return (
       <div>
-        <div className="story mt-24 mb-24 pb-5">
+        <div className="story lg:mt-40 mb-24 pb-5">
           <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-4 w-[95%] lg:w-[73%] mx-auto mb-10">
             <div className="content flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16">
               <div className="basis-1/2">
                 <div
-                  className="w-full h-full object-cover min-h-[350px]
+                  className="w-[300px] h-[100px] lg:w-full lg:h-full object-cover min-h-[350px]
               bg-[url('https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.jpg')]
               bg-cover bg-no-repeat"
                 ></div>

@@ -9,14 +9,14 @@
 }
 
 .item {
-  width: 200px;
+  width: 300px;
   height: 200px;
   background-position: 50% 50%;
   display: inline-block;
   transition: 0.8s;
   background-size: cover;
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: 50%;
   transform: translate(0, -50%);
   border-radius: 20px;
@@ -55,11 +55,12 @@
   padding: 0;
   color: #eee;
   transform: translate(0, -50%);
-  display: none;
+  display:none;
 }
 .item:nth-child(2) .content {
   display: block;
   z-index: 11111;
+  display:none;
 }
 .item .name {
   font-bac383: bold !important;
@@ -122,4 +123,24 @@
 }
 .buttons button:hover {
   background-color: #bac383;
+}
+
+@media only screen and (max-width: 600px) {
+  .buttons {
+    top: 80px;
+    left: 70px;
+  }
+  .buttons button {
+    width: 30px;
+    height: 30px;
+  }
+  .container {
+    transform: translate(-150%, 100%);
+  }
+  .item:nth-child(2) {
+    display: none;
+  }
+  .item:nth-child(3) {
+    display: none;
+  }
 }
