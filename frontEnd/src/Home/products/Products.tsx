@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Product.css'
+import "./Product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Product {
@@ -39,7 +39,7 @@ function StarRating() {
       })}
     </div>
   );
-};
+}
 
 class Products extends React.Component<{}, State> {
   constructor() {
@@ -50,7 +50,7 @@ class Products extends React.Component<{}, State> {
           id: 1,
           name: "Image 1",
           url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg",
-          price: 60.000,
+          price: 60.0,
           viewer: "(4.1k) Customer Reviews",
           onSale: true,
           priceOnSale: 70.0,
@@ -137,7 +137,7 @@ class Products extends React.Component<{}, State> {
       showMore: !this.state.showMore,
     });
   };
-  
+
   handleToggleMenu = (e) => {
     const buttonProducts = document.getElementsByClassName("lmt-breadcumbers");
     for (const buttonProduct of buttonProducts) {
@@ -151,7 +151,14 @@ class Products extends React.Component<{}, State> {
     }
   };
 
-  
+  formatPrice(price) {
+    return (
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(price) + " VND"
+    );
+  }
 
   render() {
     const { products, showMore } = this.state;
@@ -170,7 +177,7 @@ class Products extends React.Component<{}, State> {
         {/* <!-- START TITLE --> */}
         <div className="title">
           <div className="flex flex-col justify-center items-center w-[95%] lg:w-[65%] mx-auto mb-16">
-            <div className="page-headline mt-[100px] mb-[40px] leading-[4rem]">
+            <div className="page-headline mt-[100px] mb-[40px] leading-[2rem] lg:leading-[4rem]">
               <div className="w-full my-3 text-[#D94B4B] text-4xl font-normal leading-5 text-center">
                 Hiện đang thịnh hành
               </div>
@@ -180,7 +187,7 @@ class Products extends React.Component<{}, State> {
               </div>
             </div>
             <div className="lmt-subheadline flex">
-              <div className="lmt-subheadline-label flex flex-row gap-8">
+              <div className="lmt-subheadline-label flex flex-row gap-2 lg:gap-8">
                 <div
                   className="lmt-breadcumbers lmt-breadcumbers-active"
                   onClick={(e) => this.handleToggleMenu(e)}
@@ -194,7 +201,7 @@ class Products extends React.Component<{}, State> {
                   Váy Đầm
                 </div>
                 <div
-                  className="lmt-breadcumbers"
+                  className="lmt-breadcumbers flex items-center"
                   onClick={(e) => this.handleToggleMenu(e)}
                 >
                   Quần
@@ -218,22 +225,39 @@ class Products extends React.Component<{}, State> {
         {/* <!-- END TITLE --> */}
 
         {/* MORE PRODUCTS */}
-        <div className="feature-mugs w-[100%] lg:w-[80%] mx-auto mb-24">
+        <div className="feature-mugs w-[90%] lg:w-[80%] mx-auto mb-24">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
             {displayProducts.map((product) => (
-              <div key={product.id} className="product-card w-full h-[400px] px-3 pt-5 bg-white shadow-md rounded-md mb-10">
-                <div className="w-full h-[300px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"style={{ backgroundImage: `url(${product.url})`}}>
-                </div>
-                
+              <div
+                key={product.id}
+                className="product-card w-full h-[370px] lg:h-[400px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
+              >
+                <div
+                  className="w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
+                  style={{ backgroundImage: `url(${product.url})` }}
+                ></div>
+
                 <div className="flex flex-row justify-between">
                   <div className="basic-1/2">
-                    <h1 className=" text-xl text-[#000] mb-5"> {product.name} </h1>
-                    <h1 className=" text-xs text-[#000] mb-8"> {product.viewer} </h1>
-                    <h1 className=" text-xl text-[#000]"> {product.price}VND </h1>
+                    <h1 className=" text-l lg:text-xl text-[#000] mb-5">
+                      {" "}
+                      {product.name}{" "}
+                    </h1>
+                    <h1 className=" text-xs text-[#000] mb-8">
+                      {" "}
+                      {product.viewer}{" "}
+                    </h1>
+                    <h1 className=" text-l lg:text-xl text-[#000]">
+                      {" "}
+                      {this.formatPrice(product.price)}
+                    </h1>
                   </div>
                   <div className="basic-1/2 flex flex-col justify-between items-center">
-                    <div>{<StarRating/>}</div>
-                    <div className=" text-xs text-pinky-600 font-semibold"> Out of stock </div>
+                    <div>{<StarRating />}</div>
+                    <div className="text-s text-pinky-600 font-semibold">
+                      {" "}
+                      Out of stock{" "}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -255,6 +279,5 @@ class Products extends React.Component<{}, State> {
     );
   }
 }
-
 
 export default Products;

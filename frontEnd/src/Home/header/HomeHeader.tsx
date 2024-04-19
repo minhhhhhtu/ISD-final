@@ -125,7 +125,7 @@ const HomeHeader = () => {
 
     return (
       <div>
-        <ul id="myUl" className=" w-[90%] block lg:w-full overflow-y-auto">
+        <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
           {products.map((product) => {
             return (
               <>
@@ -136,7 +136,7 @@ const HomeHeader = () => {
                     href="/"
                     onClick={() => handleClick(product.id)}
                   >
-                    <div className="textContent ">
+                    <div className="textContent">
                       <p className="name-product text-[16px]">{product.name}</p>
                       <div className="price flex flex-row">
                         {product.onSale ? (
@@ -261,7 +261,7 @@ const HomeHeader = () => {
             className="search-box flex basis-3/6 lg:basis-1/3"
             onClick={toggleProductList}
           >
-            <form className="searchform-product relative w-[90%] h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
+            <form className="searchform-product relative w-full lg:w-[90%] lg:ml-5 h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
               <button
                 onClick={toggleProductList}
                 className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
@@ -275,7 +275,7 @@ const HomeHeader = () => {
                 <input type="hidden" name="type" value={"product"} />
                 <input
                   id="inputSearchAuto-3"
-                  className="input-search outline-none absolute top-[6px] bg-slate-100"
+                  className="invisible lg:visible input-search outline-none absolute top-[6px] bg-slate-100"
                   name="q"
                   autoComplete="off"
                   type="text"
@@ -287,7 +287,7 @@ const HomeHeader = () => {
           </div>
           {/* MENU BAR */}
           <div
-            className="basis-1/6 lg:hidden text-black flex items-center cursor-pointer px-3 sm:px-8"
+            className="basis-1/6 lg:hidden text-black flex justify-evenly items-center cursor-pointer px-3 sm:px-8"
             onClick={handleToggleMenu}
           >
             <svg
