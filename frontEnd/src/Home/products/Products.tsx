@@ -230,7 +230,7 @@ class Products extends React.Component<{}, State> {
             {displayProducts.map((product) => (
               <div
                 key={product.id}
-                className="product-card w-full h-[370px] lg:h-[400px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
+                className="product-card w-full h-[370px] lg:h-[420px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
               >
                 <div
                   className="w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"

@@ -69,9 +69,9 @@ class Products extends React.Component<{}, State> {
         {/* MORE PRODUCTS */}
         <div className="feature-mugs w-[100%] lg:w-[80%] mx-auto mb-24">
           <div className="w-full h-[580px] rounded-3xl flex flex-col lg:flex-row justify-center items-center">
-            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-xl lg:rounded-tl-3xl lg:rounded-tr-3xl lg:rounded-bl-3xl text-center relative">
+            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-xl lg:rounded-tl-3xl lg:rounded-tr-3xl lg:rounded-br-[0px] lg:rounded-bl-3xl text-center relative">
               <div
-                className="absolute top-2 lg:top-6 left-3 lg:left-0 lg:right-4
+                className="absolute top-2 lg:top-8 left-3 lg:left-2 lg:right-4
               text-center lg:bg-center w-[95%] lg:w-[90%] h-[90%] rounded-3xl
               bg-[url('https://i.pinimg.com/564x/19/d9/d1/19d9d1ac3c1c1e35f6702e233cd4d7fa.jpg')] bg-top bg-cover bg-no-repeat"
               ></div>
@@ -91,9 +91,9 @@ class Products extends React.Component<{}, State> {
               </div>
             </div>
 
-            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-xl lg:rounded-tl-3xl lg:rounded-tr-3xl lg:rounded-bl-3xl text-center relative">
+            <div className="basis-1/4 w-[100%] h-full bg-[#FFD1D1] rounded-xl lg:rounded-tl-3xl lg:rounded-tr-3xl lg:rounded-bl-[0px] lg:rounded-br-3xl text-center relative">
               <div
-                className="absolute top-2 lg:top-6 left-3 lg:left-0 lg:right-4
+                className="absolute top-2 lg:top-8 left-3 lg:right-2
               text-center lg:bg-center w-[95%] lg:w-[90%] h-[90%] rounded-3xl
               bg-[url('https://i.pinimg.com/564x/19/d9/d1/19d9d1ac3c1c1e35f6702e233cd4d7fa.jpg')] bg-center bg-cover bg-no-repeat"
               ></div>

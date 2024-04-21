@@ -66,7 +66,7 @@ function TotalCart() {
     );
 
     const handleProduct = products.find((product) => {
-      if (product.quantity === 2) {
+      if (product.quantity === 1) {
         return alert("Hệ thống sẽ xóa sản phẩm nếu về 0");
       }
     });
@@ -75,8 +75,8 @@ function TotalCart() {
   return (
     <>
       <div className="flex flex-col justify-center items-center mt-24 mb-4">
-        <h1 className=" text-3xl font-bold text-[#d94b4b]"> Giỏ Hàng </h1>
-        <p className="text-slate-500">
+        <h1 className="text-3xl xs:mb-5 font-bold text-[#d94b4b]"> Giỏ Hàng </h1>
+        <p className="text-center text-slate-500">
           Các sản phẩm được các khách hàng mua nhiều với đa số đều có phản hồi
           tốt
         </p>
@@ -127,8 +127,8 @@ function TotalCart() {
         </NavLink>
       </div>
 
-      <div className="summary flex flex-row justify-evenly items-start text-black gap-8 mb-24">
-        <div className="voucherFree flex flex-row gap-8">
+      <div className="summary flex flex-col lg:flex-row justify-evenly items-start text-black gap-8 mb-24">
+        <div className="voucherFree flex flex-row ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0 gap-8">
           <input
             type="text"
             placeholder="Mã giảm giá"
@@ -142,7 +142,7 @@ function TotalCart() {
           </button>
         </div>
 
-        <div className="flex flex-col w-[400px] h-[330px]  border-2 border-solid border-black p-5">
+        <div className="flex flex-col w-[380px] lg:w-[400px] h-[330px] ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0  border-2 border-solid border-black p-5">
           <h2 className="text-xl font-bold text-black mb-2">Tổng Giỏ Hàng</h2>
           <div className="products flex flex-row justify-between mb-2 border-b border-solid border-slate-600">
             <p className="text-m text-black">Sản Phẩm:</p>

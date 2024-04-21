@@ -275,7 +275,7 @@ const HomeHeader = () => {
                 <input type="hidden" name="type" value={"product"} />
                 <input
                   id="inputSearchAuto-3"
-                  className="invisible lg:visible input-search outline-none absolute top-[6px] bg-slate-100"
+                  className="visible outline-none absolute top-[6px] bg-slate-100"
                   name="q"
                   autoComplete="off"
                   type="text"

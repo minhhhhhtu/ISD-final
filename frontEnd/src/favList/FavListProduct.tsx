@@ -147,6 +147,15 @@ function FavListProduct() {
 
   const displayProducts = showMore ? products : products.slice(0, 8);
 
+  const formatPrice = function (price: number) {
+    return (
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(price) + " VND"
+    );
+  }
+
   return (
     <>
       {/* <!-- START TITLE --> */}
@@ -166,52 +175,55 @@ function FavListProduct() {
       {/* <!-- END TITLE --> */}
 
       {/* MORE PRODUCTS */}
-      <div className="feature-mugs w-[100%] lg:w-[80%] mx-auto mb-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
-          {displayProducts.map((product) => (
-            <div
-              key={product.id}
-              className="product-card w-full h-[400px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
-            >
+      <div className="feature-mugs w-[90%] lg:w-[80%] mx-auto mb-24">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
+            {displayProducts.map((product) => (
               <div
-                className="w-full h-[300px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                style={{ backgroundImage: `url(${product.url})` }}
-              ></div>
+                key={product.id}
+                className="product-card w-full h-[370px] lg:h-[420px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
+              >
+                <div
+                  className="w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
+                  style={{ backgroundImage: `url(${product.url})` }}
+                ></div>
 
-              <div className="flex flex-row justify-between">
-                <div className="basic-1/2">
-                  <h1 className=" text-xl text-[#000] mb-5">
-                    {" "}
-                    {product.name}{" "}
-                  </h1>
-                  <h1 className=" text-xs text-[#000] mb-8">
-                    {" "}
-                    {product.viewer}{" "}
-                  </h1>
-                  <h1 className=" text-xl text-[#000]"> {product.price}VND </h1>
-                </div>
-                <div className="basic-1/2 flex flex-col justify-between items-center">
-                  <div>{<StarRating />}</div>
-                  <div className=" text-xs text-pinky-600 font-semibold">
-                    {" "}
-                    Out of stock{" "}
+                <div className="flex flex-row justify-between">
+                  <div className="basic-1/2">
+                    <h1 className=" text-l lg:text-xl text-[#000] mb-5">
+                      {" "}
+                      {product.name}{" "}
+                    </h1>
+                    <h1 className=" text-xs text-[#000] mb-8">
+                      {" "}
+                      {product.viewer}{" "}
+                    </h1>
+                    <h1 className=" text-l lg:text-xl text-[#000]">
+                      {" "}
+                      {formatPrice(product.price)}
+                    </h1>
+                  </div>
+                  <div className="basic-1/2 flex flex-col justify-between items-center">
+                    <div>{<StarRating />}</div>
+                    <div className="text-s text-pinky-600 font-semibold">
+                      {" "}
+                      Out of stock{" "}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        {products.length > 8 && (
-          <div className="flex justify-center items-center mt-8">
-            <button
-              onClick={toggleShowMore}
-              className="button bg-white text-pinky-600"
-            >
-              {showMore ? "Show Less" : "Show More Products"}
-            </button>
+            ))}
           </div>
-        )}
-      </div>
+          {products.length > 8 && (
+            <div className="flex justify-center items-center mt-8">
+              <button
+                onClick={toggleShowMore}
+                className="button bg-white text-pinky-600"
+              >
+                {showMore ? "Show Less" : "Show More Products"}
+              </button>
+            </div>
+          )}
+        </div>
       {/* END MORE PRODUCTS */}
     </>
   );
