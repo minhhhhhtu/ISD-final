@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./Home/HomePage.tsx";
+import HomePageLoggedIn from "./HomeLoggedIn/HomePageLoggedIn.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
 import SignUp from "./Login/SignUp.tsx";
 import DetailProductPage from "./DetailProduct/DetailProductPage.tsx";
@@ -15,8 +16,13 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={isLoggedIn ? <Navigate to="/favourite" /> : <HomePage />} />
-            <Route path="/favourite" element={isLoggedIn ? <FavListContainer /> : <Navigate to="/login" />} />
+            <Route
+              path="/"
+              element={isLoggedIn ? <Navigate to="/favourite" /> : <HomePage />}
+            />
+
+            <Route path="/home" element={<HomePageLoggedIn />}/>
+            <Route path="/favourite" element={<FavListContainer />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/carts" element={<DetailProductPage />} />

@@ -74,49 +74,54 @@ function TotalCart() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center mt-24 mb-4">
-        <h1 className="text-3xl xs:mb-5 font-bold text-[#d94b4b]"> Giỏ Hàng </h1>
-        <p className="text-center text-slate-500">
-          Các sản phẩm được các khách hàng mua nhiều với đa số đều có phản hồi
-          tốt
-        </p>
-        <div className="flex flex-row md:w-[80%]  justify-between items-center shadow-md mt-8 mb-12 px-10 py-5 font-bold gap-8">
-          <div className="text-black">Product</div>
-          <div className="text-black ml-[20px]">Price</div>
-          <div className="text-black">Quantity</div>
-          <div className="text-black">Subtotal</div>
-        </div>
+      <div className="carts lg:mt-40 lg:mb-72 pb-5">
+        <div className="flex flex-col justify-center items-center pt-24 lg:pt-2 mb-4">
+          <h1 className="text-3xl xs:mb-5 font-bold text-[#d94b4b]">
+            {" "}
+            Giỏ Hàng{" "}
+          </h1>
+          <p className="text-center text-slate-500">
+            Các sản phẩm được các khách hàng mua nhiều với đa số đều có phản hồi
+            tốt
+          </p>
+            <div className="flex flex-row md:w-[80%]  justify-between items-center shadow-md mt-8 mb-12 px-10 py-5 font-bold gap-8">
+              <div className="text-black">Product</div>
+              <div className="text-black ml-[20px]">Price</div>
+              <div className="text-black">Quantity</div>
+              <div className="text-black">Subtotal</div>
+            </div>
 
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="flex flex-row md:w-[80%]  justify-between items-center shadow-md mt-8 mb-12 px-10 py-5 font-bold gap-8"
-          >
-            <div className="flex flex-col items-center gap-4">
-              <img
-                className="w-20 h-20 object-cover"
-                src={product.imgProduct}
-                alt={product.product}
-              />
-              <div className=" text-black">{product.product}</div>
-            </div>
-            <div className="text-black">${product.price}</div>
-            <div className="quantity-container flex flex-col justify-center items-center w-[50px] h-full mr-[40px] border-2 border-black text-black">
-              <button onClick={() => incrQty(product.id)}>
-                <FontAwesomeIcon icon={faCaretUp} />
-              </button>
-              <div className="">{product.quantity}</div>
-              {product.quantity > 0 && (
-                <button onClick={() => decrQty(product.id)}>
-                  <FontAwesomeIcon icon={faCaretDown} />
-                </button>
-              )}
-            </div>
-            <div className="text-black">
-              ${product.quantity * product.price}
-            </div>
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="flex flex-row md:w-[80%]  justify-between items-center shadow-md mt-8 mb-12 px-10 py-5 font-bold gap-8"
+              >
+                <div className="flex flex-col items-center gap-4">
+                  <img
+                    className="w-20 h-20 object-cover"
+                    src={product.imgProduct}
+                    alt={product.product}
+                  />
+                  <div className=" text-black">{product.product}</div>
+                </div>
+                <div className="text-black">${product.price}</div>
+                <div className="quantity-container flex flex-col justify-center items-center w-[50px] h-full mr-[40px] border-2 border-black text-black">
+                  <button onClick={() => incrQty(product.id)}>
+                    <FontAwesomeIcon icon={faCaretUp} />
+                  </button>
+                  <div className="">{product.quantity}</div>
+                  {product.quantity > 0 && (
+                    <button onClick={() => decrQty(product.id)}>
+                      <FontAwesomeIcon icon={faCaretDown} />
+                    </button>
+                  )}
+                </div>
+                <div className="text-black">
+                  ${product.quantity * product.price}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
       </div>
       <div className="flex justify-center items-center">
         <NavLink
@@ -127,7 +132,7 @@ function TotalCart() {
         </NavLink>
       </div>
 
-      <div className="summary flex flex-col lg:flex-row justify-evenly items-start text-black gap-8 mb-24">
+      <div className="summary flex flex-col lg:flex-row justify-evenly items-start text-black gap-8">
         <div className="voucherFree flex flex-row ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0 gap-8">
           <input
             type="text"

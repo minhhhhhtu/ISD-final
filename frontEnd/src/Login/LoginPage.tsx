@@ -51,7 +51,7 @@ function LoginPage() {
       }
       const { token } = await response.json();
       localStorage.setItem("token", token); // Storing the token
-      navigate("/carts"); // Navigate to the dashboard after successful login
+      navigate("/home"); // Navigate to the dashboard after successful login
     } catch (error) {
       setIsLoading(false);
       console.error("Network Error:", error.message);
