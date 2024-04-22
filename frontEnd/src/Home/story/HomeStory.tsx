@@ -10,7 +10,7 @@ class HomeStory extends React.Component<{}> {
   render(): React.ReactNode {
     return (
       <div>
-        <div className="story lg:mt-40 mb-24 pb-5">
+        <div className="story lg:mt-40 lg:mb-40 pb-5">
           <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-4 w-[95%] lg:w-[73%] mx-auto mb-10">
             <div className="content flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16">
               <div className="basis-1/2">

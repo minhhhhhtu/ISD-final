@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import "./LoginPage.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -38,40 +39,19 @@ function LoginPage() {
         },
       });
 
-      const status = response.status;
-      if (status === 200) {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-        const data = await response.json();
-        //handle data
-        navigate("/");
-      } else if (status === 400) {
-        // Handle bad request
+      if (!response.ok) {
+        if (response.status === 401) {
+          // Assuming 401 means unauthorized
+          alert("Incorrect username or password.");
+        } else {
+          alert("Login failed due to server error. Please try again later.");
+        }
         setIsLoading(false);
-        const errorData = await response.json();
-        console.error("Bad Request:", errorData);
-        navigate("/login");
-        // Show error message to user
-      } else if (status === 404) {
-        // Handle not found
-        setIsLoading(false);
-        console.error("Not Found:", response.statusText);
-        // Show error message to user
-        navigate("/login");
-      } else if (status === 500) {
-        // Handle server error
-        setIsLoading(false);
-        console.error("Internal Server Error");
-        // Show error message to user
-        navigate("/login");
-      } else {
-        // Handle other errors
-        setIsLoading(false);
-        console.error("Unknown Error:", status);
-        // Show generic error message to user
-        navigate("/login");
+        return; // Prevent further execution and avoid navigating to /carts
       }
+      const { token } = await response.json();
+      localStorage.setItem("token", token); // Storing the token
+      navigate("/carts"); // Navigate to the dashboard after successful login
     } catch (error) {
       setIsLoading(false);
       console.error("Network Error:", error.message);
