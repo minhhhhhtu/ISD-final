@@ -159,7 +159,7 @@ function FavListProduct() {
   return (
     <>
       {/* <!-- START TITLE --> */}
-      <div className="title lg:mt-40 lg:mb-72 pb-5">
+      <div className="title lg:mt-36 lg:mb-72 pb-5">
         <div className="flex flex-col justify-center items-center w-[95%] lg:w-[65%] mx-auto mb-2">
           <div className="page-headline mt-[100px] mb-[40px] leading-[4rem]">
             <div className="w-full my-3 text-[#D94B4B] text-4xl font-normal leading-5 text-center">

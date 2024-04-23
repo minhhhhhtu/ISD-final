@@ -7,7 +7,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -203,14 +203,14 @@ const HomeHeader = () => {
     <>
       <header className=" p-10 mx-auto my-[-10px] z-[99999] !fixed">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
-          <div className="logo flex-1 basis-1/6 text-center text-pinky-600 cursor-pointer">
-            <h3 className=" text-2xl font-bold">Melamine</h3>
+          <NavLink  className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer" to={"/home"}>
+            <h3 className=" text-xl lg:text-2xl font-bold">Melamine</h3>
             <div className="flex flex-row items-center justify-center">
               <div className="subheadline-deco-line"></div>
-              <div className=" text-[10px]">More Products</div>
+              <div className="lg:block hidden  lg:text-[10px]">More Products</div>
               <div className="subheadline-deco-line"></div>
             </div>
-          </div>
+          </NavLink>
           <ul
             id="top-menu"
             ref={topMenuRef}
@@ -259,7 +259,7 @@ const HomeHeader = () => {
           </ul>
 
           <div
-            className="search-box flex basis-3/6 lg:basis-2/6"
+            className="search-box flex basis-3/6 lg:basis-2/6 ml-10"
             onClick={toggleProductList}
           >
             <form className="searchform-product relative w-full lg:w-[90%] lg:ml-5 h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
@@ -276,7 +276,7 @@ const HomeHeader = () => {
                 <input type="hidden" name="type" value={"product"} />
                 <input
                   id="inputSearchAuto-3"
-                  className="visible outline-none absolute top-[6px] bg-slate-100"
+                  className="visible outline-none absolute w-[50%] top-[6px] bg-slate-100"
                   name="q"
                   autoComplete="off"
                   type="text"
@@ -304,7 +304,7 @@ const HomeHeader = () => {
                 4
               </span>
             </a>
-            <a href="/" className="w-6 h-6 text-black">
+            <a href="/" className="lg:block hidden w-6 h-6 text-black">
               <FontAwesomeIcon icon={faUserNinja} />
             </a>
           </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import HomeHeader from "../Home/header/HomeHeader.tsx";
+import HomeHeader from "../HomeLoggedIn/HeaderLogin/HeaderLogin.tsx";
 import Footer from "../Home/footer/Footer.tsx";
 import ProductCart from "./Cart/ProductCart.tsx";
 

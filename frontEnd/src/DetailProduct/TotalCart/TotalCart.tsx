@@ -74,7 +74,7 @@ function TotalCart() {
 
   return (
     <>
-      <div className="carts lg:mt-40 lg:mb-72 pb-5">
+      <div className="carts lg:mt-36 pb-5">
         <div className="flex flex-col justify-center items-center pt-24 lg:pt-2 mb-4">
           <h1 className="text-3xl xs:mb-5 font-bold text-[#d94b4b]">
             {" "}
@@ -132,7 +132,7 @@ function TotalCart() {
         </NavLink>
       </div>
 
-      <div className="summary flex flex-col lg:flex-row justify-evenly items-start text-black gap-8">
+      <div className="summary flex flex-col lg:flex-row justify-evenly items-start text-black gap-8 mb-24">
         <div className="voucherFree flex flex-row ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0 gap-8">
           <input
             type="text"
