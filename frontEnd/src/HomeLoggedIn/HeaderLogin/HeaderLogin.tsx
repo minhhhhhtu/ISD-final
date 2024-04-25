@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import useLocalStorage from "../../useLocalStorage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserNinja,
@@ -27,6 +28,9 @@ const HomeHeader = () => {
   const [isActive, setIsActive] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const topMenuRef = useRef<HTMLUListElement | null>(null);
+  
+  const [favoritesCount] = useLocalStorage("favouritesCount", 0);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -203,11 +207,16 @@ const HomeHeader = () => {
     <>
       <header className=" p-10 mx-auto my-[-10px] z-[99999] !fixed">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
-          <NavLink  className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer" to={"/home"}>
+          <NavLink
+            className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer"
+            to={"/home"}
+          >
             <h3 className=" text-xl lg:text-2xl font-bold">Melamine</h3>
             <div className="flex flex-row items-center justify-center">
               <div className="subheadline-deco-line"></div>
-              <div className="lg:block hidden  lg:text-[10px]">More Products</div>
+              <div className="lg:block hidden  lg:text-[10px]">
+                More Products
+              </div>
               <div className="subheadline-deco-line"></div>
             </div>
           </NavLink>
@@ -292,7 +301,7 @@ const HomeHeader = () => {
             <a href="/favourite" className="w-6 h-6 text-black">
               <FontAwesomeIcon icon={faHeartBroken} />
               <span className="absolute top-3 right-31.5 text-sm text-center rounded-full px-1 bg-red-600 text-white">
-                4
+                {favoritesCount}
               </span>
             </a>
             <a href="/carts" className="w-6 h-6 text-black relative">

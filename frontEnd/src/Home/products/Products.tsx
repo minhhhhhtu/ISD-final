@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Product {
   id: number;
@@ -10,11 +13,13 @@ interface Product {
   viewer: string;
   onSale?: boolean;
   priceOnSale: number;
+  isFavorite?: boolean;
 }
 
 interface State {
   products: Product[];
   showMore: boolean;
+  favourites: number[];
 }
 
 function StarRating() {
@@ -128,15 +133,91 @@ class Products extends React.Component<{}, State> {
           priceOnSale: 70.0,
         },
       ],
+      favourites: [],
       showMore: false,
     };
   }
-
   toggleShowMore = () => {
     this.setState({
       showMore: !this.state.showMore,
     });
   };
+
+  getProductByNameOrId(nameOrId) {
+    const { products } = this.state;
+    return products.find(
+      (product) => product.name === nameOrId || product.id === nameOrId
+    );
+  }
+
+  toggleFavourite(nameOrId) {
+    const product = this.getProductByNameOrId(nameOrId);
+    if (!product) {
+      return; // Handle the case where the product isn't found
+    }
+
+    const { favourites } = this.state;
+    const productIndex = favourites.findIndex(
+      (favProduct) => favProduct.id === product.id
+    );
+
+    let updatedFavourites;
+    let isFavorited = false;
+
+    if (productIndex >= 0) {
+      // Product is already favorited, remove it
+      updatedFavourites = favourites.filter(
+        (favProduct) => favProduct.id !== product.id
+      );
+      toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
+    } else {
+      // Product is not favorited, add it
+      updatedFavourites = [...favourites, product];
+      isFavorited = true;
+      toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
+    }
+
+    // Update products to reflect favorite status
+    const updatedProducts = this.state.products.map((p) => ({
+      ...p,
+      isFavorited: updatedFavourites.some(
+        (favProduct) => favProduct.id === p.id
+      ),
+    }));
+
+    this.setState({
+      favourites: updatedFavourites,
+      products: updatedProducts,
+    });
+    localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+    localStorage.setItem("favouritesCount", updatedFavourites.length);
+
+    // Update the specific heart icon class
+    const heartIcon = document.getElementById(`heartIcon-${product.id}`);
+    if (heartIcon) {
+      if (isFavorited) {
+        heartIcon.classList.add("text-red-600");
+      } else {
+        heartIcon.classList.remove("text-red-600");
+      }
+    }
+  }
+
+  componentDidMount() {
+    const storedFavouritesJson = localStorage.getItem("favourites");
+    if (storedFavouritesJson) {
+      const storedFavourites = JSON.parse(storedFavouritesJson);
+      this.setState({
+        favourites: storedFavourites,
+        products: this.state.products.map(p => ({
+          ...p,
+          isFavorited: storedFavourites.some(favProduct => favProduct.id === p.id),
+        })),
+      });
+    }
+  }
+  
+  
 
   handleToggleMenu = (e) => {
     const buttonProducts = document.getElementsByClassName("lmt-breadcumbers");
@@ -233,9 +314,22 @@ class Products extends React.Component<{}, State> {
                 className="product-card w-full h-[370px] lg:h-[420px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
               >
                 <div
-                  className="w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
+                  className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
                   style={{ backgroundImage: `url(${product.url})` }}
-                ></div>
+                >
+                  <div
+                    id={`heartIcon-${product.id}`}
+                    className={`absolute top-2 left-2 cursor-pointer ${
+                      product.isFavorite ? "text-red-600" : ""
+                    }`}
+                    onClick={() => this.toggleFavourite(product.id)}
+                  >
+                    <FontAwesomeIcon
+                      className=" hover:opacity-85 active:opacity-90"
+                      icon={faHeart}
+                    />
+                  </div>
+                </div>
 
                 <div className="flex flex-row justify-between">
                   <div className="basic-1/2">
