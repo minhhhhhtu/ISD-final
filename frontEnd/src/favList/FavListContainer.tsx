@@ -10,7 +10,7 @@ class FavListContainer extends React.Component {
       <>
         <div className="content-wrapper font-Karla max-w-screen-2xl text-base mx-auto">
           <HomeHeader />
-          <FavListProduct />
+          <FavListProduct products={[]} />
           <Footer />
         </div>
       </>

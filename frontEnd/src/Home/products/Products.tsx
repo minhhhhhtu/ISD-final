@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavLink } from "react-router-dom";
+
 
 interface Product {
   id: number;
@@ -53,7 +55,7 @@ class Products extends React.Component<{}, State> {
       products: [
         {
           id: 1,
-          name: "Image 1",
+          name: "Image-1",
           url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg",
           price: 60.0,
           viewer: "(4.1k) Customer Reviews",
@@ -62,7 +64,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 2,
-          name: "Image 2",
+          name: "Image-2",
           url: "https://4kwallpapers.com/images/walls/thumbs_3t/15250.jpg",
           price: 50.0,
           viewer: "(4.1k) Customer Reviews",
@@ -71,7 +73,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 3,
-          name: "Image 3",
+          name: "Image-3",
           url: "https://4kwallpapers.com/images/walls/thumbs_3t/6629.jpeg",
           price: 50.0,
           viewer: "(4.1k) Customer Reviews",
@@ -80,7 +82,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 4,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -89,7 +91,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 5,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -98,7 +100,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 6,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -107,7 +109,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 7,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -116,7 +118,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 8,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -125,7 +127,7 @@ class Products extends React.Component<{}, State> {
         },
         {
           id: 9,
-          name: "Image 4",
+          name: "Image-4",
           url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
           price: 80.0,
           viewer: "(4.1k) Customer Reviews",
@@ -142,6 +144,7 @@ class Products extends React.Component<{}, State> {
       showMore: !this.state.showMore,
     });
   };
+
 
   getProductByNameOrId(nameOrId) {
     const { products } = this.state;
@@ -177,13 +180,25 @@ class Products extends React.Component<{}, State> {
       toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
     }
 
+    const favoritedIds = updatedFavourites.map((fav) => fav.id);
+    localStorage.setItem("favoritedIds", JSON.stringify(favoritedIds));
+
     // Update products to reflect favorite status
     const updatedProducts = this.state.products.map((p) => ({
       ...p,
-      isFavorited: updatedFavourites.some(
-        (favProduct) => favProduct.id === p.id
-      ),
+      isFavorited: favoritedIds.includes(p.id),
     }));
+
+    const heartIcon = document.getElementById(`heartIcon-${product.id}`);
+    if (heartIcon) {
+      if (isFavorited) {
+        localStorage.setItem("activeHeartId", product.id); // Store active ID
+        heartIcon.classList.add("text-red-600");
+      } else {
+        localStorage.removeItem("activeHeartId"); // Remove on unfavorite
+        heartIcon.classList.remove("text-red-600");
+      }
+    }
 
     this.setState({
       favourites: updatedFavourites,
@@ -193,31 +208,34 @@ class Products extends React.Component<{}, State> {
     localStorage.setItem("favouritesCount", updatedFavourites.length);
 
     // Update the specific heart icon class
-    const heartIcon = document.getElementById(`heartIcon-${product.id}`);
-    if (heartIcon) {
-      if (isFavorited) {
-        heartIcon.classList.add("text-red-600");
-      } else {
-        heartIcon.classList.remove("text-red-600");
-      }
-    }
   }
 
   componentDidMount() {
     const storedFavouritesJson = localStorage.getItem("favourites");
+    const favoritedIdsJson = localStorage.getItem("favoritedIds");
+
+    // Use JSON.parse safely by checking for null first
+    const favoritedIds = favoritedIdsJson ? JSON.parse(favoritedIdsJson) : [];
+
     if (storedFavouritesJson) {
       const storedFavourites = JSON.parse(storedFavouritesJson);
       this.setState({
         favourites: storedFavourites,
-        products: this.state.products.map(p => ({
+        products: this.state.products.map((p) => ({
           ...p,
-          isFavorited: storedFavourites.some(favProduct => favProduct.id === p.id),
+          isFavorited: favoritedIds.includes(p.id),
         })),
       });
     }
+
+    // Apply the "text-red-600" class to all favorited heart icons
+    favoritedIds.forEach((id) => {
+      const heartIcon = document.getElementById(`heartIcon-${id}`);
+      if (heartIcon) {
+        heartIcon.classList.add("text-red-600");
+      }
+    });
   }
-  
-  
 
   handleToggleMenu = (e) => {
     const buttonProducts = document.getElementsByClassName("lmt-breadcumbers");
@@ -231,6 +249,16 @@ class Products extends React.Component<{}, State> {
       }
     }
   };
+
+  handClickBuyNow(nameOrId) {
+    const product = this.getProductByNameOrId(nameOrId);
+    if (!product) {
+      return; // Handle the case where the product isn't found
+    }
+
+    // Save product details to localStorage
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+  }
 
   formatPrice(price) {
     return (
@@ -311,7 +339,7 @@ class Products extends React.Component<{}, State> {
             {displayProducts.map((product) => (
               <div
                 key={product.id}
-                className="product-card w-full h-[370px] lg:h-[420px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
+                className="product-card w-full h-[370px] lg:h-[450px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
               >
                 <div
                   className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
@@ -319,7 +347,7 @@ class Products extends React.Component<{}, State> {
                 >
                   <div
                     id={`heartIcon-${product.id}`}
-                    className={`absolute top-2 left-2 cursor-pointer ${
+                    className={`absolute top-2 left-2 cursor-pointer drop-shadow-2xl ${
                       product.isFavorite ? "text-red-600" : ""
                     }`}
                     onClick={() => this.toggleFavourite(product.id)}
@@ -331,7 +359,7 @@ class Products extends React.Component<{}, State> {
                   </div>
                 </div>
 
-                <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-between mb-5">
                   <div className="basic-1/2">
                     <h1 className=" text-l lg:text-xl text-[#000] mb-5">
                       {" "}
@@ -354,6 +382,13 @@ class Products extends React.Component<{}, State> {
                     </div>
                   </div>
                 </div>
+
+                <NavLink to={`/product/${product.name}`}
+                  onClick={() => this.handClickBuyNow(product.id)}
+                  className="buttonBuyNow flex justify-center items-center w-full h-12 rounded-xl bg-white border-2  border-red-600 text-pinky-600 hover:opacity-70 active:opacity-90 font-semibold cursor-pointer"
+                >
+                  MUA NGAY
+                </NavLink>
               </div>
             ))}
           </div>
