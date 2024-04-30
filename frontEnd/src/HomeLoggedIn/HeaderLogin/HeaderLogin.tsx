@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import useLocalStorage from "../../useLocalStorage";
+// import useLocalStorage from "../../useLocalStorage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUserNinja,
-  faHeartBroken,
-  faShoppingCart,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  faHeart as farHeart,
+  faPaperPlane,
+  faUser,
+} from "@fortawesome/free-regular-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 
 interface Product {
@@ -28,9 +30,8 @@ const HomeHeader = () => {
   const [isActive, setIsActive] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const topMenuRef = useRef<HTMLUListElement | null>(null);
-  
-  const [favoritesCount] = useLocalStorage("favouritesCount", 0);
 
+  // const [favoritesCount] = useLocalStorage("favouritesCount", 0);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -299,22 +300,22 @@ const HomeHeader = () => {
           {/*Fav and Cart*/}
           <div className="basis-1/6 flex flex-row justify-center items-center gap-10 ml-10">
             <a href="/favourite" className="w-6 h-6 text-black">
-              <FontAwesomeIcon icon={faHeartBroken} />
-              <span className="absolute top-3 right-31.5 text-sm text-center rounded-full px-1 bg-red-600 text-white">
+              <FontAwesomeIcon icon={farHeart} />
+              {/* <span className="absolute top-5 right-31.5 text-sm text-center rounded-full px-1 bg-red-600 text-white">
                 {favoritesCount}
-              </span>
+              </span> */}
             </a>
             <a href="/carts" className="w-6 h-6 text-black relative">
               <FontAwesomeIcon
                 className=" before:absolute before:top-5 before:w-5 before:h-5 before:bg-red-600 before:z-50 "
-                icon={faShoppingCart}
+                icon={faPaperPlane}
               />
               <span className="absolute bottom-4 text-sm text-center rounded-full px-1 bg-red-600 text-white">
                 4
               </span>
             </a>
             <a href="/" className="lg:block hidden w-6 h-6 text-black">
-              <FontAwesomeIcon icon={faUserNinja} />
+              <FontAwesomeIcon icon={faUser} />
             </a>
           </div>
           {/* MENU BAR */}

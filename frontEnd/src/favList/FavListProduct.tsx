@@ -55,6 +55,10 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
     const updatedFavProducts = favoriteProducts.filter(
       (favProduct) => favProduct.id !== product.id
     );
+
+    const favoritedIds = updatedFavProducts.map((fav) => fav.id);
+    localStorage.setItem("favoritedIds", JSON.stringify(favoritedIds));
+    
     setFavoriteProducts(updatedFavProducts);
     localStorage.setItem("favourites", JSON.stringify(updatedFavProducts));
     toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích")
@@ -97,7 +101,7 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
                 style={{ backgroundImage: `url(${product.url})` }}
               >
                 <div
-                  className="absolute top-2 left-2 cursor-pointer"
+                  className="absolute top-2 left-2 cursor-pointer text-red-600 hover:opacity-80 active:opacity-90"
                   onClick={() => handleDeleteFavoriteProduct(product)}
                 >
                   <FontAwesomeIcon className="" icon={faHeart} />

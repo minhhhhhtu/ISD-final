@@ -4,10 +4,11 @@ import HomePage from "./Home/HomePage.tsx";
 import HomePageLoggedIn from "./HomeLoggedIn/HomePageLoggedIn.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
 import SignUp from "./Login/SignUp.tsx";
-import DetailProductPage from "./DetailProduct/DetailProductPage.tsx";
+import ShoppingCart from "./ShoppingCart/DetailProductPage.tsx";
+import DetailProduct from "./DetailProduct/Product.tsx"
 import FavListContainer from "./favList/FavListContainer.tsx";
 import { useAuth } from "./AuthContext/AuthContext.tsx";
-import { ToastContainer, toast, Zoom } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -23,11 +24,12 @@ function App() {
               element={isLoggedIn ? <Navigate to="/favourite" /> : <HomePage />}
             />
 
-            <Route path="/home" element={<HomePageLoggedIn />} />
-            <Route path="/favourite" element={<FavListContainer />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/carts" element={<DetailProductPage />} />
+            <Route path="/home" element={<HomePageLoggedIn />} />
+            <Route path="/favourite" element={<FavListContainer />} />
+            <Route path="/product/:productName" element={<DetailProduct />}/>
+            <Route path="/carts" element={<ShoppingCart />} />
           </Routes>
         </BrowserRouter>
         <ToastContainer
