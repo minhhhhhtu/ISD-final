@@ -88,7 +88,7 @@ const updateUser = (id, data) => {
       if (checkUser === null) {
         resolve({
           status: "ERR",
-          message: "The user is not defined",
+          message: "Undefined user",
         });
       }
 
@@ -98,8 +98,32 @@ const updateUser = (id, data) => {
         message: "SUCCESS",
         data: updatedUser,
       });
-    } catch (e) {
-      reject(e);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const deleteUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const checkUser = await User.findOne({
+        _id: id,
+      });
+      if (checkUser === null) {
+        resolve({
+          status: "ERR",
+          message: "Undefined user",
+        });
+      }
+
+      await User.findByIdAndDelete(id);
+      resolve({
+        status: "OK",
+        message: "USER REMOVED",
+      });
+    } catch (error) {
+        reject(error);
     }
   });
 };
@@ -108,4 +132,5 @@ module.exports = {
   createUser,
   loginUser,
   updateUser,
+  deleteUser
 };
