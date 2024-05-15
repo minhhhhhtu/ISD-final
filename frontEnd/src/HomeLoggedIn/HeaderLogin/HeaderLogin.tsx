@@ -372,7 +372,7 @@ const HomeHeader = () => {
                 4
               </span>
             </a>
-            <a href="/" className="lg:block hidden w-6 h-6 text-black">
+            <a href="/profile" className="lg:block hidden w-6 h-6 text-black">
               <FontAwesomeIcon icon={faUser} />
             </a>
           </div>
