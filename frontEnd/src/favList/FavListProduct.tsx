@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { NavLink } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -58,20 +59,20 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
 
     const favoritedIds = updatedFavProducts.map((fav) => fav.id);
     localStorage.setItem("favoritedIds", JSON.stringify(favoritedIds));
-    
+
     setFavoriteProducts(updatedFavProducts);
     localStorage.setItem("favourites", JSON.stringify(updatedFavProducts));
-    toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích")
+    toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
   };
 
-  const formatPrice = function (price: number) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(price);
-  };
+  function formatPrice(price) {
+    return (
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3,
+      }).format(price) + " VND"
+    );
+  }
 
   return (
     <>
