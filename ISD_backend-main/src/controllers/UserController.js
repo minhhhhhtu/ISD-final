@@ -1,131 +1,193 @@
 const UserService = require('../services/UserService')
 const JwtService = require('../services/JwtService')
 
-const createUser = async (req, res) => {
+const createUser = async (request, respond) => {
     try {
-        const { email, password, confirmPassword } = req.body
+        const { name, email, password, confirmPassword, phone } = request.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
         if (!email || !password || !confirmPassword) {
-            return res.status(404).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'Parameter Required'
+                message: 'Parameter(s) required'
             })
         } else if (!isCheckEmail) {
-            return res.status(404).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'Invalid Email'
+                message: 'Invalid email'
             })
         } else if (password !== confirmPassword) {
-            return res.status(404).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'Invalid Confirm Password'
+                message: 'Invalid confirmPassword'
             })
         }
-        const response = await UserService.createUser(req.body)
-        return res.status(200).json(response)
+        const response = await UserService.createUser(request.body)
+        return respond.status(200).json(response)
     } catch (error) {
-        return res.status(404).json({
+        return respond.status(404).json({
             message: error
         })
     }
 }
 
-const loginUser = async (req, res) => {
+const loginUser = async (request, respond) => {
     try {
-        // const { email, password } = req.body
-        const { email, password } = req.body
-        console.log(req.body)
+        const { email, password } = request.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-        // if (!email || !password) {
         if (!email || !password) {
-            return res.status(404).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'Parameter Required'
+                message: 'Parameter(s) required'
             })
         } else if (!isCheckEmail) {
-            return res.status(404).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'Invalid Email'
+                message: 'Invalid email'
             })
         }
-        const response = await UserService.loginUser(req.body)
-        // const { refresh_token, ...newReponse } = response
-        // res.cookie('refresh_token', refresh_token, {
-        //     httpOnly: true,
-        //     secure: false,
-        //     sameSite: 'strict',
-        //     path: '/',
-        // })
-        // return res.status(200).json({...newReponse, refresh_token})
-        return res.status(200).json({response})
+        const response = await UserService.loginUser(request.body)
+        const { refresh_token, ...newReponse } = response
+        respond.cookie('refresh_token', refresh_token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            path: '/',
+        })
+        return respond.status(200).json({...newReponse, refresh_token})
     } catch (error) {
-        return res.status(404).json({
+        return respond.status(404).json({
             message: error
         })
     }
 }
 
-const updateUser = async (req, res) => {
+const updateUser = async (request, respond) => {
     try {
-        const userId = req.params.id
-        const data = req.body
+        const userId = request.params.id
+        const data = request.body
         if (!userId) {
-            return res.status(200).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'The userId is required'
+                message: 'userId required'
             })
         }
         const response = await UserService.updateUser(userId, data)
-        return res.status(200).json(response)
+        return respond.status(200).json(response)
     } catch (error) {
-        return res.status(404).json({
+        return respond.status(404).json({
             message: error
         })
     }
 }
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (request, respond) => {
     try {
-        const userId = req.params.id
+        const userId = request.params.id
         if (!userId) {
-            return res.status(200).json({
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'The userId is required'
+                message: 'userId required'
             })
         }
         const response = await UserService.deleteUser(userId)
-        return res.status(200).json(response)
+        return respond.status(200).json(response)
     } catch (error) {
-        return res.status(404).json({
+        return respond.status(404).json({
             message: error
         })
     }
 }
 
-const refreshToken = async (req, res) => {
+const deleteMany = async (request, respond) => {
     try {
-        let token = req.headers.token.split(' ')[1]
-        if (!token) {
-            return res.status(200).json({
+        const ids = request.body.ids
+        if (!ids) {
+            return respond.status(200).json({
                 status: 'ERR',
-                message: 'The token is required'
+                message: 'ids required'
+            })
+        }
+        const response = await UserService.deleteManyUser(ids)
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+
+const getAllUser = async (request, respond) => {
+    try {
+        const response = await UserService.getAllUser()
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+const getDetailsUser = async (request, respond) => {
+    try {
+        const userId = request.params.id
+        if (!userId) {
+            return respond.status(200).json({
+                status: 'ERR',
+                message: 'userId required'
+            })
+        }
+        const response = await UserService.getDetailsUser(userId)
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+const refreshToken = async (request, respond) => {
+    try {
+        let token = request.headers.token.split(' ')[1]
+        if (!token) {
+            return respond.status(200).json({
+                status: 'ERR',
+                message: 'token required'
             })
         }
         const response = await JwtService.refreshTokenJwtService(token)
-        return res.status(200).json(response)
+        return respond.status(200).json(response)
     } catch (error) {
-        return res.status(404).json({
+        return respond.status(404).json({
             message: error
         })
     }
 }
 
-module.exports = { 
+
+const logoutUser = async (request, respond) => {
+    try {
+        respond.clearCookie('refresh_token')
+        return respond.status(200).json({
+            status: 'OK',
+            message: 'Logout successfully'
+        })
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+module.exports = {
     createUser,
     loginUser,
     updateUser,
     deleteUser,
-    refreshToken
+    getAllUser,
+    getDetailsUser,
+    refreshToken,
+    logoutUser,
+    deleteMany
 }

@@ -12,22 +12,21 @@ const app = express()
 const port = process.env.PORT || 3001
 
 app.use(cors())
-// app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
-app.use(express.json())
-app.use(cookieParser());
-
+app.use(bodyParser.json())
+app.use(cookieParser())
 
 routes(app);
 
 mongoose.connect(`${process.env.MONGO_DB}`)
-    .then(() => {   
-        console.log('DATABASE CONNECTED')
+    .then(() => {
+        console.log('Connect Db success!')
     })
     .catch((error) => {
         console.log(error)
     })
 
-app.listen(port, () => { 
-    console.log('SERVER IS RUNNING, PORT:', + port)
+app.listen(port, () => {
+    console.log('Server is running in port: ', + port)
 })
