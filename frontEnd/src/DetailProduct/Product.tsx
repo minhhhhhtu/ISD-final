@@ -3,6 +3,10 @@ import HomeHeader from "../HomeLoggedIn/HeaderLogin/HeaderLogin.tsx";
 import Footer from "../Home/footer/Footer.tsx";
 import { faHeart, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useProductContext } from "../ProductContext/ProductContext.tsx";
 
 interface Product {
   id: number;
@@ -13,28 +17,64 @@ interface Product {
   onSale?: boolean;
   priceOnSale: number;
   isFavorite?: boolean;
+  quantity?: number;
 }
 
 function DetailProduct() {
-  const [product, setProduct] = useState<Product | null>(null); // State to store product details
-
-  /*handle get Item from LocalStorage*/
+  const [product, setProduct] = useState<Product | null>(null);
+  const [favourites, setFavourites] = useState<Product[]>([]);
+  const { addToCart } = useProductContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // This function will be called when the component mounts
-    const productFromStorage = localStorage.getItem("selectedProduct");
-    if (productFromStorage) {
-      setProduct(JSON.parse(productFromStorage)); // Set product if found in localStorage
-    } else {
-      // Handle case where no product is found in localStorage
-      console.log("No product found in localStorage.");
+    try {
+      const productFromStorage = localStorage.getItem("selectedProduct");
+      const favsFromStorage = localStorage.getItem("favourites");
+      if (productFromStorage) {
+        setProduct(JSON.parse(productFromStorage));
+      }
+      if (favsFromStorage) {
+        setFavourites(JSON.parse(favsFromStorage));
+      }
+    } catch (e) {
+      console.error("Failed to parse local storage data", e);
     }
-  }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
-  const style = {
-    backgroundImage: `url(${product?.url})`,
+  }, []);
+
+  const handleCheckout = () => {
+    if (product) {
+      addToCart(product);
+      navigate("/carts");
+    }
   };
 
-  function formatPrice(price) {
+  const toggleFavourite = (product: Product) => {
+    setFavourites((prevFavourites) => {
+      const productIndex = prevFavourites.findIndex(
+        (fav) => fav.id === product.id
+      );
+
+      let newFavourites;
+      if (productIndex >= 0) {
+        newFavourites = prevFavourites.filter((fav) => fav.id !== product.id);
+        toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
+      } else {
+        newFavourites = [...prevFavourites, product];
+        toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
+      }
+
+      try {
+        localStorage.setItem("favourites", JSON.stringify(newFavourites));
+      } catch (error) {
+        console.error("Failed to update localStorage:", error);
+        toast.error("Lỗi khi cập nhật dữ liệu. Vui lòng thử lại.");
+      }
+
+      return newFavourites;
+    });
+  };
+
+  function formatPrice(price: number) {
     return (
       new Intl.NumberFormat("en-US", {
         minimumFractionDigits: 3,
@@ -49,7 +89,9 @@ function DetailProduct() {
     const img = imgRef.current;
     if (img) {
       const isZoomed = img.style.transform === "scale(1.5) translate(30%, 0%)";
-      img.style.transform = isZoomed ? "scale(1) translate(0, 0)" : "scale(1.5) translate(30%, 0%)";
+      img.style.transform = isZoomed
+        ? "scale(1) translate(0, 0)"
+        : "scale(1.5) translate(30%, 0%)";
     }
   };
 
@@ -81,7 +123,10 @@ function DetailProduct() {
                 <div
                   ref={imgRef}
                   className="basis-4/6 relative w-full h-full bg-black bg-cover bg-center shadow-2xl"
-                  style={{ transition: "transform 0.3s ease", backgroundImage: `url(${product.url})`}}
+                  style={{
+                    transition: "transform 0.3s ease",
+                    backgroundImage: `url(${product.url})`,
+                  }}
                 >
                   <div
                     onClick={handleClickZoomIn}
@@ -166,18 +211,22 @@ function DetailProduct() {
                     <button
                       type="submit"
                       className="favourite border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90"
+                      onClick={() => toggleFavourite(product)}
                     >
                       <FontAwesomeIcon className="text-3xl" icon={faHeart} />
                     </button>
                   </div>
 
                   {/*BUTTON PAY*/}
-                  <button
-                    type="submit"
-                    className="border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90 mt-3"
-                  >
-                    Thanh toán
-                  </button>
+                  <NavLink to={"/carts"}>
+                    <button
+                      type="submit"
+                      className="w-full border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90 mt-3"
+                      onClick={handleCheckout}
+                    >
+                      Thanh toán
+                    </button>
+                  </NavLink>
                 </div>
               </div>
             </div>

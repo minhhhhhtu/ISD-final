@@ -1,9 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 // import useLocalStorage from "../../useLocalStorage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useProductContext } from "../../ProductContext/ProductContext.tsx";
 
 import {
   faHeart as farHeart,
@@ -28,10 +27,117 @@ interface State {
 
 const HomeHeader = () => {
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const { handleSearch, loadStoredSearchResults } = useProductContext();
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const topMenuRef = useRef<HTMLUListElement | null>(null);
+  // const [showProductList, setShowProductList] = useState(false);
+  // const [displayLimit, setDisplayLimit] = useState(5);
 
-  // const [favoritesCount] = useLocalStorage("favouritesCount", 0);
+  // const [products, setProducts] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Image-1",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg",
+  //     price: 60.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: true,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Image-2",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/15250.jpg",
+  //     price: 50.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 0,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Image-3",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/6629.jpeg",
+  //     price: 50.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 0,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: true,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: true,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 70.0,
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "Image-4",
+  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
+  //     price: 80.0,
+  //     viewer: "(4.1k) Customer Reviews",
+  //     onSale: false,
+  //     priceOnSale: 70.0,
+  //   },
+  // ]);
+
+  // const filteredProducts = products
+  //   .filter((product) =>
+  //     product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   )
+  //   .slice(0, displayLimit);
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+    // setDisplayLimit(5);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      console.log(`Navigating to /search?query=${searchTerm}`); // Debug
+      handleSearch(searchTerm);
+      navigate(`/search?query=${searchTerm}`);
+    }
+  };
+  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -80,129 +186,77 @@ const HomeHeader = () => {
     setActiveMenuItem(item);
   };
 
-  const ProductList = () => {
-    const [products, setProducts] = useState([
-      {
-        id: 1,
-        name: "Degrey Balo Simili Nap Basic - SNAP",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 350000,
-        onSale: true,
-        priceSale: 400000,
-      },
-      {
-        id: 2,
-        name: "Degrey Balo Leather Quốc Dân - BQDL",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: true,
-        priceSale: 350000,
-      },
-      {
-        id: 3,
-        name: "Degrey Balo Leather Quốc Dân - LMT",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: false,
-        priceSale: 0,
-      },
-      {
-        id: 4,
-        name: "Degrey Balo Leather Quốc Dân - LMT",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: false,
-        priceSale: 0,
-      },
-    ]);
+  // const ProductList = () => {
+  //   const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  //   const handleClick = (productId) => {
+  //     const product = products.find((product) => product.id === productId);
+  //     if (product) {
+  //       navigate(`/product?key=${product.id}`);
+  //     }
+  //   };
 
-    const handleClick = (productId) => {
-      const product = products.find((product) => product.id === productId);
-      if (product) {
-        navigate(`/product?key=${product.id}`);
-      }
-    };
+  //   return (
+  //     <div>
+  //       <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
+  //         {filteredProducts.map((product) => {
+  //           return (
+  //             <>
+  //               <li className="myLi block">
+  //                 <a
+  //                   href="/"
+  //                   key={product.id}
+  //                   className="products"
+  //                   onClick={() => handleClick(product.id)}
+  //                 >
+  //                   <div className="textContent">
+  //                     <p className="name-product text-[16px]">{product.name}</p>
+  //                     <div className="price flex flex-row">
+  //                       {product.onSale ? (
+  //                         <>
+  //                           <p className="realPrice">{product.price} vnđ</p>
+  //                           <p className="salePrice line-through text-slate-400 ml-5">
+  //                             {product.priceOnSale} vnđ
+  //                           </p>
+  //                         </>
+  //                       ) : (
+  //                         <>
+  //                           <p className="realPrice">{product.price} vnđ </p>
+  //                         </>
+  //                       )}
+  //                     </div>
+  //                   </div>
+  //                   <div
+  //                     className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
+  //                     style={{ backgroundImage: `url(${product.url})` }}
+  //                   ></div>
+  //                 </a>
+  //               </li>
+  //             </>
+  //           );
+  //         })}
+  //       </ul>
 
-    return (
-      <div>
-        <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
-          {products.map((product) => {
-            return (
-              <>
-                <li className="myLi block">
-                  <a
-                    href="/"
-                    key={product.id}
-                    className="products"
-                    onClick={() => handleClick(product.id)}
-                  >
-                    <div className="textContent">
-                      <p className="name-product text-[16px]">{product.name}</p>
-                      <div className="price flex flex-row">
-                        {product.onSale ? (
-                          <>
-                            <p className="realPrice">{product.price} vnđ</p>
-                            <p className="salePrice line-through text-slate-400 ml-5">
-                              {product.priceSale} vnđ
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <p className="realPrice">{product.price} vnđ </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <div
-                      className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
-                      style={{ backgroundImage: `url(${product.imgUrl})` }}
-                    ></div>
-                  </a>
-                </li>
-              </>
-            );
-          })}
-        </ul>
+  //       <a
+  //         href="/products"
+  //         className="flex justify-center  mt-2 hover:text-pinky-400"
+  //       >
+  //         Product More
+  //       </a>
+  //     </div>
+  //   );
+  // };
 
-        <a
-          href="/products"
-          className="flex justify-center  mt-2 hover:text-pinky-400"
-        >
-          Product More
-        </a>
-      </div>
-    );
-  };
 
-  const filterSearch = () => {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("inputSearchAuto-3");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUl");
-    li = document.getElementsByClassName("myLi");
 
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  };
+  // const toggleProductList = (e) => {
+  //   e.preventDefault();
+  //   setShowProductList(!showProductList);
+  // };
 
-  const [showProductList, setShowProductList] = useState(false);
-  const toggleProductList = (e) => {
-    e.preventDefault();
-    setShowProductList(!showProductList);
-  };
+  useEffect(() => {
+    loadStoredSearchResults();
+  }, []);
 
   return (
     <>
@@ -270,11 +324,14 @@ const HomeHeader = () => {
 
           <div
             className="search-box flex basis-3/6 lg:basis-2/6 ml-10"
-            onClick={toggleProductList}
+            // onClick={toggleProductList}
           >
-            <form className="searchform-product relative w-full lg:w-[90%] lg:ml-5 h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100">
+            <form
+              className="searchform-product relative w-full lg:w-[90%] lg:ml-5 h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100"
+            >
               <button
-                onClick={toggleProductList}
+                type="button"
+                // onClick={toggleProductList}
                 className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
               >
                 <FontAwesomeIcon
@@ -283,15 +340,16 @@ const HomeHeader = () => {
                 />
               </button>
               <div className="search-inner ml-10">
-                <input type="hidden" name="type" value={"product"} />
                 <input
                   id="inputSearchAuto-3"
                   className="visible outline-none absolute w-[50%] top-[6px] bg-slate-100"
                   name="q"
                   autoComplete="off"
                   type="text"
-                  placeholder="Tìm kiếm"
-                  onKeyUp={filterSearch}
+                  placeholder="Search ..."
+                  onKeyDown={handleKeyPress}
+                  value={searchTerm}
+                  onChange={handleInputChange}
                 />
               </div>
             </form>
@@ -341,11 +399,11 @@ const HomeHeader = () => {
           </div>
         </nav>
       </header>
-      {showProductList && (
+      {/* {showProductList && (
         <div className="contentProduct animate-slideDown">
           <ProductList />
         </div>
-      )}
+      )} */}
     </>
   );
 };

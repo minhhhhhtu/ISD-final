@@ -1,35 +1,26 @@
-// useLocalStorage.js
 import { useState, useEffect } from "react";
 
 function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() => {
-    const jsonValue = localStorage.getItem(key);
-    if (jsonValue != null) return JSON.parse(jsonValue);
-    return typeof initialValue === "function" ? initialValue() : initialValue;
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error('Error reading localStorage key:', key, error);
+      return initialValue;
+    }
   });
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const newValue = localStorage.getItem(key);
-      setValue(newValue !== null ? JSON.parse(newValue) : initialValue);
-    };
-
-    // Custom event to trigger updates within the app
-    window.addEventListener("local-storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("local-storage", handleStorageChange);
-    };
-  }, [key, initialValue]);
-
-  const setLocalStorage = (newValue) => {
-    setValue(newValue);
-    localStorage.setItem(key, JSON.stringify(newValue));
-    // Dispatch a custom event whenever local storage is updated
-    window.dispatchEvent(new Event("local-storage"));
+  const setValue = value => {
+    try {
+      setStoredValue(value);
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error('Error setting localStorage key:', key, error);
+    }
   };
 
-  return [value, setLocalStorage];
+  return [storedValue, setValue];
 }
 
 export default useLocalStorage;
