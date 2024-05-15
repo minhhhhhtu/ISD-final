@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./Home/HomePage.tsx";
 import HomePageLoggedIn from "./HomeLoggedIn/HomePageLoggedIn.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
@@ -8,27 +8,19 @@ import ShoppingCart from "./ShoppingCart/DetailProductPage.tsx";
 import DetailProduct from "./DetailProduct/Product.tsx";
 import FavListContainer from "./favList/FavListContainer.tsx";
 import SearchComponent from "./Search/SearchComponent.tsx";
-import { useAuth } from "./AuthContext/AuthContext.tsx";
+import Profile from "./Profile/Profile.tsx";
 import { ToastContainer, Zoom } from "react-toastify";
 import { ProductProvider } from "./ProductContext/ProductContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { isLoggedIn } = useAuth();
-
   return (
     <ProductProvider>
       <div className="App">
         <header className="App-header">
           <BrowserRouter>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  isLoggedIn ? <Navigate to="/favourite" /> : <HomePage />
-                }
-              />
-
+              <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/home" element={<HomePageLoggedIn />} />
@@ -36,6 +28,7 @@ function App() {
               <Route path="/product/:productName" element={<DetailProduct />} />
               <Route path="/carts" element={<ShoppingCart />} />
               <Route path="/search" element={<SearchComponent />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </BrowserRouter>
           <ToastContainer
