@@ -1,6 +1,7 @@
 const UserService = require("../services/UserService");
 const JwtService = require("../services/JwtService");
 
+
 const createUser = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
@@ -100,9 +101,102 @@ const refreshToken = async (req, res) => {
   }
 };
 
-module.exports = {
-  createUser,
-  loginUser,
-  updateUser,
-  refreshToken,
+const deleteUser = async (request, respond) => {
+    try {
+        const userId = request.params.id
+        if (!userId) {
+            return respond.status(200).json({
+                status: 'ERR',
+                message: 'userId required'
+            })
+        }
+        const response = await UserService.deleteUser(userId)
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+const deleteMany = async (request, respond) => {
+    try {
+        const ids = request.body.ids
+        if (!ids) {
+            return respond.status(200).json({
+                status: 'ERR',
+                message: 'ids required'
+            })
+        }
+        const response = await UserService.deleteManyUser(ids)
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+
+const getAllUser = async (request, respond) => {
+    try {
+        const response = await UserService.getAllUser()
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+const getDetailsUser = async (request, respond) => {
+    try {
+        const userId = request.params.id
+        if (!userId) {
+            return respond.status(200).json({
+                status: 'ERR',
+                message: 'userId required'
+            })
+        }
+        const response = await UserService.getDetailsUser(userId)
+        return respond.status(200).json(response)
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+}
+
+const logoutUser = async (request, respond) => {
+    try {
+        respond.clearCookie('refresh_token')
+        return respond.status(200).json({
+            status: 'OK',
+            message: 'Logout successfully'
+        })
+    } catch (error) {
+        return respond.status(404).json({
+            message: error
+        })
+    }
+    const response = await JwtService.refreshTokenJwtService(token);
+    return res.status(200).json(response);
+  } catch (e) {
+    return res.status(404).json({
+      message: e,
+    });
+  }
 };
+
+
+module.exports = { 
+    createUser,
+    loginUser,
+    updateUser,
+    deleteUser,
+    getAllUser,
+    getDetailsUser,
+    refreshToken,
+    logoutUser,
+    deleteMany
+}

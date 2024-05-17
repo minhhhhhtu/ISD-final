@@ -96,14 +96,95 @@ const updateUser = (id, data) => {
         message: "SUCCESS",
         data: updatedUser,
       });
-    } catch (e) {
-      reject(e);
+    } catch (error) {
+      reject(error);
     }
   });
 };
+
+const deleteUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          const checkUser = await User.findOne({
+              _id: id
+          })
+          if (checkUser === null) {
+              resolve({
+                  status: 'ERR',
+                  message: 'Undefined user'
+              })
+          }
+
+          await User.findByIdAndDelete(id)
+          resolve({
+              status: 'OK',
+              message: 'User deleted successfully',
+          })
+      } catch (error) {
+          reject(error)
+      }
+  })
+}
+
+const deleteManyUser = (ids) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+
+          await User.deleteMany({ _id: ids })
+          resolve({
+              status: 'OK',
+              message: 'User deleted successfully',
+          })
+      } catch (error) {
+          reject(error)
+      }
+  })
+}
+
+const getAllUser = () => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          const allUser = await User.find().sort({createdAt: -1, updatedAt: -1})
+          resolve({
+              status: 'OK',
+              message: 'Success',
+              data: allUser
+          })
+      } catch (error) {
+          reject(error)
+      }
+  })
+}
+
+const getDetailsUser = (id) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          const user = await User.findOne({
+              _id: id
+          })
+          if (user === null) {
+              resolve({
+                  status: 'ERR',
+                  message: 'Undefined user'
+              })
+          }
+          resolve({
+              status: 'OK',
+              message: 'SUCESS',
+              data: user
+          })
+      } catch (error) {
+          reject(error)
+      }
+  })
+}
 
 module.exports = {
   createUser,
   loginUser,
   updateUser,
+  deleteUser,
+  getAllUser,
+  getDetailsUser,
+  deleteManyUser
 };
