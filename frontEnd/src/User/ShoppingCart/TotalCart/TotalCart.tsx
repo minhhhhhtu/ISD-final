@@ -5,9 +5,9 @@ import { useProductContext } from "../../ProductContext/ProductContext.tsx";
 import { NavLink } from "react-router-dom";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
-  url: string;
+  image: string;
   price: number;
   viewer: string;
   quantity?: number;
@@ -53,24 +53,24 @@ function TotalCart() {
 
           {cart.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className="flex flex-row md:w-[80%]  justify-between items-center shadow-md mt-8 mb-12 px-10 py-5 font-bold gap-8"
             >
               <div className="flex flex-col items-center gap-4">
                 <img
                   className="w-20 h-20 object-cover"
-                  src={product.url}
-                  alt={product.url}
+                  src={product.image}
+                  alt={product.image}
                 />
                 <div className=" text-black">{product.name}</div>
               </div>
               <div className="text-black">${product.price}</div>
               <div className="quantity-container flex flex-col justify-center items-center w-[50px] h-full mr-[40px] border-2 border-black text-black">
-                <button onClick={() => incrQty(product.id)}>
+                <button onClick={() => incrQty(product._id)}>
                   <FontAwesomeIcon icon={faCaretUp} />
                 </button>
                 <p>{product.quantity}</p>
-                <button onClick={() => decrQty(product.id)}>
+                <button onClick={() => decrQty(product._id)}>
                   <FontAwesomeIcon icon={faCaretDown} />
                 </button>
               </div>
@@ -84,7 +84,7 @@ function TotalCart() {
       <div className="flex justify-center items-center">
         <NavLink
           to="/home"
-          className="back-home mb-12 py-2 flex justify-center items-center rounded-xl w-[250px] h-[50px] border-2 boder-solid font-semibold shadow-lg border-black text-black bg-white hover:bg-pinky-50 hover:text-slate-500 cursor-pointer"
+          className="back-home mb-12 py-2 flex justify-center items-center rounded-xl w-[250px] h-[50px] border-2 boder-sol_id font-semibold shadow-lg border-black text-black bg-white hover:bg-pinky-50 hover:text-slate-500 cursor-pointer"
         >
           Quay Trở Lại Cửa Hàng
         </NavLink>
@@ -94,7 +94,7 @@ function TotalCart() {
           <input
             type="text"
             placeholder="Mã giảm giá"
-            className="flex justify-start items-center pl-4 py-4 rounded-md h-[40px] border-[1px] border-solid border-black"
+            className="flex justify-start items-center pl-4 py-4 rounded-md h-[40px] border-[1px] border-sol_id border-black"
           />
           <button
             type="submit"
@@ -104,13 +104,13 @@ function TotalCart() {
           </button>
         </div>
 
-        <div className="flex flex-col w-[380px] lg:w-[400px] h-[330px] ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0  border-2 border-solid border-black p-5">
+        <div className="flex flex-col w-[380px] lg:w-[400px] h-[330px] ml-5 xs:ml-10 sm:ml-32 md:ml-48 lg:ml-0  border-2 border-sol_id border-black p-5">
           <h2 className="text-xl font-bold text-black mb-2">Tổng Giỏ Hàng</h2>
-          <div className="products flex flex-row justify-between mb-2 border-b border-solid border-slate-600">
+          <div className="products flex flex-row justify-between mb-2 border-b border-sol_id border-slate-600">
             <p className="text-m text-black">Sản Phẩm:</p>
             <p className="text-m text-black">${totalAmt}</p>
           </div>
-          <div className="products flex flex-row justify-between mb-2 border-b border-solid border-slate-600">
+          <div className="products flex flex-row justify-between mb-2 border-b border-sol_id border-slate-600">
             <p className="text-m text-black">Phí Giao Hàng:</p>
             <p className="text-m text-black">Free</p>
           </div>{" "}

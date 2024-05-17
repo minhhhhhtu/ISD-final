@@ -9,9 +9,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useProductContext } from "../ProductContext/ProductContext.tsx";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
-  url: string;
+  image: string;
   price: number;
   viewer: string;
   onSale?: boolean;
@@ -51,12 +51,12 @@ function DetailProduct() {
   const toggleFavourite = (product: Product) => {
     setFavourites((prevFavourites) => {
       const productIndex = prevFavourites.findIndex(
-        (fav) => fav.id === product.id
+        (fav) => fav._id === product._id
       );
 
       let newFavourites;
       if (productIndex >= 0) {
-        newFavourites = prevFavourites.filter((fav) => fav.id !== product.id);
+        newFavourites = prevFavourites.filter((fav) => fav._id !== product._id);
         toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
       } else {
         newFavourites = [...prevFavourites, product];
@@ -74,14 +74,14 @@ function DetailProduct() {
     });
   };
 
-  function formatPrice(price: number) {
-    return (
-      new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: 3,
-        maximumFractionDigits: 3,
-      }).format(price) + " VND"
-    );
-  }
+  // function formatPrice(price: number) {
+  //   return (
+  //     new Intl.NumberFormat("en-US", {
+  //       minimumFractionDigits: 3,
+  //       maximumFractionDigits: 3,
+  //     }).format(price) + " VND"
+  //   );
+  // }
 
   const imgRef = useRef<HTMLDivElement>(null);
 
@@ -125,7 +125,7 @@ function DetailProduct() {
                   className="basis-4/6 relative w-full h-full bg-black bg-cover bg-center shadow-2xl"
                   style={{
                     transition: "transform 0.3s ease",
-                    backgroundImage: `url(${product.url})`,
+                    backgroundImage: `url(${product.image})`,
                   }}
                 >
                   <div
@@ -145,7 +145,7 @@ function DetailProduct() {
                     <div className="eCode text-l">
                       Mã sản phẩm:{" "}
                       <span className="text-xl font-semibold ml-2">
-                        {product.id}
+                        {product._id}
                       </span>
                     </div>
                     <div className="condition text-l">
@@ -157,7 +157,7 @@ function DetailProduct() {
                   </div>
 
                   <div className="text-2xl text-[#FF9494] font-bold my-3">
-                    {formatPrice(product.price)}
+                    {product.price}
                   </div>
 
                   {/*SIZE*/}

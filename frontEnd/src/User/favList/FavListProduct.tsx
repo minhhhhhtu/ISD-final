@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 interface Product {
   id: number;
   name: string;
-  url: string;
+  image: string;
   price: number;
   viewer: string;
   onSale?: boolean;
@@ -48,7 +48,6 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
 
   useEffect(() => {
     const favProducts = JSON.parse(localStorage.getItem("favourites") || "[]");
-    console.log(favProducts);
     setFavoriteProducts(favProducts);
   }, []);
 
@@ -99,7 +98,7 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
             >
               <div
                 className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                style={{ backgroundImage: `url(${product.url})` }}
+                style={{ backgroundImage: `url(${product.image})` }}
               >
                 <div
                   className="absolute top-2 left-2 cursor-pointer text-red-600 hover:opacity-80 active:opacity-90"

@@ -5,6 +5,7 @@ import Loading from "../Loading";
 function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [userCredentials, setUserCredentials] = useState({
+    NAME: "",
     EMAIL: "",
     PASSWORD: "",
     CONFIRMPASSWORD: "",
@@ -27,6 +28,7 @@ function SignUp() {
     const response = await fetch("http://localhost:3001/api/user/sign-up", {
       method: "post",
       body: JSON.stringify({
+        name: userCredentials.NAME,
         email: userCredentials.EMAIL,
         password: userCredentials.PASSWORD,
         confirmPassword: userCredentials.CONFIRMPASSWORD,
@@ -40,6 +42,7 @@ function SignUp() {
     if (status === 200) {
       const data = await response.json();
       //handle data
+      console.log(data);
       navigate("/login");
     }
   };
@@ -67,7 +70,25 @@ function SignUp() {
                   className="login__input"
                   id="login-email"
                   placeholder=" "
-                  onChange={handleUserInput('EMAIL')}
+                  onChange={handleUserInput("NAME")}
+                />
+                <label htmlFor="login-email" className="login__label">
+                  NAME
+                </label>
+              </div>
+            </div>
+
+            <div className="login__box">
+              <i className="ri-user-3-line login__icon"></i>
+
+              <div className="login__box-input">
+                <input
+                  type="email"
+                  required
+                  className="login__input"
+                  id="login-email"
+                  placeholder=" "
+                  onChange={handleUserInput("EMAIL")}
                 />
                 <label htmlFor="login-email" className="login__label">
                   Email
@@ -85,7 +106,7 @@ function SignUp() {
                   className="login__input"
                   id="login-pass"
                   placeholder=" "
-                  onChange={handleUserInput('PASSWORD')}
+                  onChange={handleUserInput("PASSWORD")}
                 />
                 <label htmlFor="login-pass" className="login__label">
                   Mật khẩu
@@ -103,7 +124,7 @@ function SignUp() {
                   className="login__input"
                   id="login-pass"
                   placeholder=" "
-                  onChange={handleUserInput('CONFIRMPASSWORD')}
+                  onChange={handleUserInput("CONFIRMPASSWORD")}
                 />
                 <label htmlFor="login-pass" className="login__label">
                   Nhập lại mật khẩu
@@ -126,7 +147,11 @@ function SignUp() {
             </div>
           </div>
 
-          <button type="button" className="login__button" onClick={handleSignUp}>
+          <button
+            type="button"
+            className="login__button"
+            onClick={handleSignUp}
+          >
             Đăng ký
           </button>
 
