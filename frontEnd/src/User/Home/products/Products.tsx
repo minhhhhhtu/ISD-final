@@ -7,6 +7,18 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 
+interface Product {
+  _id: string;
+  name: string;
+  image: string;
+  price: number;
+  viewer: string;
+  onSale?: boolean;
+  priceOnSale: number;
+  quantity?: number;
+  isfavourite?: boolean;
+}
+
 const StarRating = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -33,58 +45,68 @@ const StarRating = () => {
 
 const Products = () => {
   const { products } = useProductContext();
-  const [favourites, setFavourites] = useState<number[]>([]);
+  const [favourites, setFavourites] = useState<Product[]>([]);
   const [showMore, setShowMore] = useState(false);
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
 
-  const getProductByNameOrId = (nameOrId: string | number) => {
-    return products.find(
-      (product) => product.name === nameOrId || product.id === nameOrId
-    );
+  const getProductById = (_id: string) => {
+    return products.find((product) => product._id === _id);
   };
 
-  const toggleFavourite = (nameOrId: string | number) => {
-    const product = getProductByNameOrId(nameOrId);
+  const toggleFavourite = (productId: string) => {
+    const product = getProductById(productId);
     if (!product) {
       return; // Handle the case where the product isn't found
     }
 
-    const productIndex = favourites.findIndex((fav) => fav.id === product.id);
+    setFavourites((prevFavourites) => {
+      const productIndex = prevFavourites.findIndex(
+        (fav) => fav._id === productId
+      );
 
-    let updatedFavourites: any[];
-    let isFavorited = false;
+      let updatedFavourites: Product[];
+      let isFavorited = false;
 
-    if (productIndex >= 0) {
-      // Product is already favorited, remove it
-      updatedFavourites = favourites.filter((fav) => fav.id !== product.id);
-      toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
-    } else {
-      // Product is not favorited, add it
-      updatedFavourites = [...favourites, product];
-      isFavorited = true;
-      toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
-    }
-
-    setFavourites(updatedFavourites);
-    localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
-
-    const heartIcon = document.getElementById(`heartIcon-${product.id}`);
-    if (heartIcon) {
-      if (isFavorited) {
-        localStorage.setItem("activeHeartId", product.id.toString()); // Store active ID
-        heartIcon.classList.add("text-red-600");
+      if (productIndex >= 0) {
+        // Product is already favorited, remove it
+        updatedFavourites = prevFavourites.filter(
+          (fav) => fav._id !== productId
+        );
+        toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
       } else {
-        localStorage.removeItem("activeHeartId"); // Remove on unfavorite
-        heartIcon.classList.remove("text-red-600");
+        // Product is not favorited, add it
+        updatedFavourites = [...prevFavourites, product];
+        isFavorited = true;
+        toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
       }
-    }
+
+      try {
+        localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+      } catch (error) {
+        console.error("Failed to update localStorage:", error);
+        toast.error("Lỗi khi cập nhật dữ liệu. Vui lòng thử lại.");
+      }
+
+      const heartIcon = document.getElementById(`heartIcon-${productId}`);
+      if (heartIcon) {
+        if (isFavorited) {
+          localStorage.setItem("activeHeartId", productId); // Store active ID
+          heartIcon.classList.add("text-red-600");
+        } else {
+          localStorage.removeItem("activeHeartId"); // Remove on unfavorite
+          heartIcon.classList.remove("text-red-600");
+        }
+      }
+
+      return updatedFavourites;
+    });
   };
 
-  const handClickBuyNow = (nameOrId: string | number) => {
-    const product = getProductByNameOrId(nameOrId);
+  const handClickBuyNow = (productId: string) => {
+    const product = getProductById(productId);
     if (!product) {
       return; // Handle the case where the product isn't found
     }
@@ -96,7 +118,7 @@ const Products = () => {
   const formatPrice = (price: number) => {
     return (
       new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: 3,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 3,
       }).format(price) + " VND"
     );
@@ -104,10 +126,6 @@ const Products = () => {
 
   useEffect(() => {
     const storedFavouritesJson = localStorage.getItem("favourites");
-    const favoritedIdsJson = localStorage.getItem("favoritedIds");
-
-    const favoritedIds = favoritedIdsJson ? JSON.parse(favoritedIdsJson) : [];
-
     if (storedFavouritesJson) {
       try {
         const storedFavourites = JSON.parse(storedFavouritesJson);
@@ -119,12 +137,13 @@ const Products = () => {
       console.error("No stored favourites found");
     }
 
-    favoritedIds.forEach((id: number) => {
-      const heartIcon = document.getElementById(`heartIcon-${id}`);
+    const activeHeartId = localStorage.getItem("activeHeartId");
+    if (activeHeartId) {
+      const heartIcon = document.getElementById(`heartIcon-${activeHeartId}`);
       if (heartIcon) {
         heartIcon.classList.add("text-red-600");
       }
-    });
+    }
   }, []);
 
   const displayProducts = showMore ? products : products.slice(0, 8);
@@ -171,22 +190,24 @@ const Products = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
           {displayProducts.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className="product-card w-full h-[370px] lg:h-[450px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
             >
               <div
                 className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                style={{ backgroundImage: `url(${product.url})` }}
+                style={{ backgroundImage: `url(${product.image})` }}
               >
                 <div
-                  id={`heartIcon-${product.id}`}
+                  id={`heartIcon-${product._id}`}
                   className={`absolute top-2 left-2 cursor-pointer drop-shadow-2xl ${
-                    product.isFavorite ? "text-red-600" : ""
+                    favourites.find((fav) => fav._id === product._id)
+                      ? "text-red-600"
+                      : ""
                   }`}
-                  onClick={() => toggleFavourite(product.id)}
+                  onClick={() => toggleFavourite(product._id)}
                 >
                   <FontAwesomeIcon
-                    className=" hover:opacity-85 active:opacity-90"
+                    className="hover:opacity-85 active:opacity-90"
                     icon={faHeart}
                   />
                 </div>
@@ -213,8 +234,8 @@ const Products = () => {
               </div>
 
               <NavLink
-                to={`/product/${product.name}`}
-                onClick={() => handClickBuyNow(product.id)}
+                to={`/product/${product._id}`} // Ensure the link is using the product ID
+                onClick={() => handClickBuyNow(product._id)} // Ensure product ID is passed here
                 className="buttonBuyNow flex justify-center items-center w-full h-12 rounded-xl bg-white border-2  border-red-600 text-pinky-600 hover:opacity-70 active:opacity-90 font-semibold cursor-pointer"
               >
                 MUA NGAY

@@ -5,18 +5,18 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
-  url: string;
+  image: string;
   price: number;
   viewer: string;
   onSale?: boolean;
   priceOnSale: number;
   quantity?: number;
+  isfavourite?: boolean;
 }
 
 interface ProductContextType {
@@ -26,8 +26,8 @@ interface ProductContextType {
   loadStoredSearchResults: () => void;
   cart: Product[];
   addToCart: (product: Product) => void;
-  incrQty: (productId: number) => void;
-  decrQty: (productId: number) => void;
+  incrQty: (productId: string) => void;
+  decrQty: (productId: string) => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -42,12 +42,22 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/api/products/get-all"
+        const response = await fetch(
+          "http://localhost:3001/api/product/get-all",
+          {
+            credentials: "include", // If you want to send cookies
+          }
         );
-        setProducts(response.data.data);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setProducts(data.data);
       } catch (error) {
         console.error("Error fetching products", error);
+        toast.error("Failed to fetch products. Please try again later.");
       }
     };
 
@@ -61,10 +71,10 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
       if (!Array.isArray(prevCart)) return []; // Ensure prevCart is an array
-      const existingProduct = prevCart.find((item) => item.id === product.id);
+      const existingProduct = prevCart.find((item) => item._id === product._id);
       if (existingProduct) {
         return prevCart.map((item) =>
-          item.id === product.id
+          item._id === product._id
             ? { ...item, quantity: (item.quantity || 0) + 1 }
             : item
         );
@@ -73,18 +83,18 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const incrQty = (productId: number) => {
+  const incrQty = (productId: string) => {
     setCart((prevCart) => {
       if (!Array.isArray(prevCart)) return []; // Ensure prevCart is an array
       return prevCart.map((product) =>
-        product.id === productId
+        product._id === productId
           ? { ...product, quantity: (product.quantity || 0) + 1 }
           : product
       );
     });
   };
 
-  const decrQty = (productId: number) => {
+  const decrQty = (productId: string) => {
     setCart((prevCart) => {
       if (!Array.isArray(prevCart)) return []; // Ensure prevCart is an array
 
@@ -92,12 +102,11 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
 
       const updatedCart = prevCart
         .map((product) => {
-          if (product.id === productId) {
+          if (product._id === productId) {
             const newQuantity = (product.quantity || 0) - 1;
             if (newQuantity > 0) {
               return { ...product, quantity: newQuantity };
             } else {
-              localStorage.removeItem(`product_${productId}`);
               productRemoved = true; // Mark that the product is removed
               return null; // Mark product for removal
             }

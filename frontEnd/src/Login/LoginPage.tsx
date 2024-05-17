@@ -29,7 +29,7 @@ function LoginPage() {
     setIsLoading(true);
     try {
       const response = await fetch("http://localhost:3001/api/user/sign-in", {
-        method: "post",
+        method: "POST",
         body: JSON.stringify({
           email: userCredentials.EMAIL,
           password: userCredentials.PASSWORD,
@@ -41,21 +41,20 @@ function LoginPage() {
 
       if (!response.ok) {
         if (response.status === 401) {
-          // Assuming 401 means unauthorized
-          alert("Incorrect username or password.");
+          throw new Error(`HTTP error! status: ${response.status}`);
         } else {
           alert("Login failed due to server error. Please try again later.");
         }
         setIsLoading(false);
-        return; // Prevent further execution and avoid navigating to /carts
+        return;
       }
-      const { token } = await response.json();
-      localStorage.setItem("token", token); // Storing the token
-      navigate("/home"); // Navigate to the dashboard after successful login
+
+      const { access_token } = await response.json();
+      localStorage.setItem("access_token", access_token);
+      navigate("/home");
     } catch (error) {
       setIsLoading(false);
       console.error("Network Error:", error.message);
-      // Show network error message to user
       navigate("/login");
     }
   };

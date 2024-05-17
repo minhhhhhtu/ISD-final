@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./Home/HomePage.tsx";
-import HomePageLoggedIn from "./HomeLoggedIn/HomePageLoggedIn.tsx";
+import HomePage from "./User/Home/HomePage.tsx";
+import HomePageLoggedIn from "./User/HomeLoggedIn/HomePageLoggedIn.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
 import SignUp from "./Login/SignUp.tsx";
-import ShoppingCart from "./ShoppingCart/DetailProductPage.tsx";
-import DetailProduct from "./DetailProduct/Product.tsx";
-import FavListContainer from "./favList/FavListContainer.tsx";
-import SearchComponent from "./Search/SearchComponent.tsx";
-import Profile from "./Profile/Profile.tsx";
+import ShoppingCart from "./User/ShoppingCart/DetailProductPage.tsx";
+import DetailProduct from "./User/DetailProduct/Product.tsx";
+import FavListContainer from "./User/favList/FavListContainer.tsx";
+import SearchComponent from "./User/Search/SearchComponent.tsx";
+import Profile from "./User/Profile/Profile.tsx";
 import { ToastContainer, Zoom } from "react-toastify";
-import { ProductProvider } from "./ProductContext/ProductContext.tsx";
+import { ProductProvider } from "./User/ProductContext/ProductContext.tsx";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
