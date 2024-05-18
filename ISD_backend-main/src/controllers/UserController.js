@@ -174,6 +174,7 @@ const logoutUser = async (request, respond) => {
         message: "Logout successfully",
       });
     } catch (error) {
+<<<<<<< Updated upstream
       return respond.status(404).json({
         message: error,
       });
@@ -184,6 +185,11 @@ const logoutUser = async (request, respond) => {
     return res.status(404).json({
       message: e,
     });
+=======
+        return respond.status(404).json({
+            message: error
+        })
+>>>>>>> Stashed changes
   }
 };
 
