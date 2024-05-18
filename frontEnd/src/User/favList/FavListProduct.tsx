@@ -1,17 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import { useProductContext } from "../ProductContext/ProductContext.tsx";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
-  image: string;
+  image: string | string[];
   price: number;
-  viewer: string;
+  rating: number;
+  countInStock: number;
   onSale?: boolean;
-  priceOnSale: number;
+  discount: number;
+  quantity?: number;
+  isfavourite?: boolean;
 }
 
 type FavListProductProps = {
@@ -44,6 +48,8 @@ function StarRating() {
 
 const FavListProduct: React.FC<FavListProductProps> = () => {
   // Declare the type of the state as Product[]
+  const { products } = useProductContext();
+
   const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -53,10 +59,10 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
 
   const handleDeleteFavoriteProduct = (product) => {
     const updatedFavProducts = favoriteProducts.filter(
-      (favProduct) => favProduct.id !== product.id
+      (favProduct) => favProduct._id !== product._id
     );
 
-    const favoritedIds = updatedFavProducts.map((fav) => fav.id);
+    const favoritedIds = updatedFavProducts.map((fav) => fav._id);
     localStorage.setItem("favoritedIds", JSON.stringify(favoritedIds));
 
     setFavoriteProducts(updatedFavProducts);
@@ -64,10 +70,24 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
     toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
   };
 
+  const getProductById = (_id: string) => {
+    return products.find((product) => product._id === _id);
+  };
+
+  const handClickBuyNow = (productId: string) => {
+    const product = getProductById(productId);
+    if (!product) {
+      return; // Handle the case where the product isn't found
+    }
+
+    // Save product details to localStorage
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+  };
+
   function formatPrice(price) {
     return (
       new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: 3,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 3,
       }).format(price) + " VND"
     );
@@ -93,12 +113,16 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
           {favoriteProducts.map((product) => (
             <div
-              key={product.id}
-              className="product-card w-full h-[370px] lg:h-[420px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
+              key={product._id}
+              className="product-card w-full h-[370px] lg:h-[450px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
             >
               <div
                 className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                style={{ backgroundImage: `url(${product.image})` }}
+                style={{
+                  backgroundImage: Array.isArray(product.image)
+                    ? `url(${product.image[0]})`
+                    : `url(${product.image})`,
+                }}
               >
                 <div
                   className="absolute top-2 left-2 cursor-pointer text-red-600 hover:opacity-80 active:opacity-90"
@@ -107,12 +131,14 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
                   <FontAwesomeIcon className="" icon={faHeart} />
                 </div>
               </div>
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-row justify-between mb-5">
                 <div className="basic-1/2">
                   <h1 className="text-l lg:text-xl text-[#000] mb-5">
                     {product.name}
                   </h1>
-                  <h1 className="text-xs text-[#000] mb-8">{product.viewer}</h1>
+                  <h1 className="text-xs text-[#000] mb-8">
+                    <FontAwesomeIcon icon={faStar} /> {product.rating} đánh giá
+                  </h1>
                   <h1 className="text-l lg:text-xl text-[#000]">
                     {formatPrice(product.price)}
                   </h1>
@@ -120,10 +146,20 @@ const FavListProduct: React.FC<FavListProductProps> = () => {
                 <div className="basic-1/2 flex flex-col justify-between items-center">
                   <StarRating />
                   <div className="text-s text-pinky-600 font-semibold">
-                    Out of stock
+                    {product.countInStock > 0
+                      ? "Còn hàng " + product.countInStock
+                      : "Out of stock"}
                   </div>
                 </div>
               </div>
+
+              <NavLink
+                to={`/product/${product._id}`} // Ensure the link is using the product ID
+                onClick={() => handClickBuyNow(product._id)} // Ensure product ID is passed here
+                className="buttonBuyNow flex justify-center items-center w-full h-12 rounded-xl bg-white border-2  border-red-600 text-pinky-600 hover:opacity-70 active:opacity-90 font-semibold cursor-pointer"
+              >
+                MUA NGAY
+              </NavLink>
             </div>
           ))}
         </div>

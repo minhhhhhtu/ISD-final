@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useProductContext } from "../../ProductContext/ProductContext.tsx";
 import "./Product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
@@ -10,11 +10,13 @@ import { NavLink } from "react-router-dom";
 interface Product {
   _id: string;
   name: string;
-  image: string;
+  image: string | string[];
   price: number;
-  viewer: string;
+  countInStock: number;
+  rating: number;
   onSale?: boolean;
-  priceOnSale: number;
+  discount: number;
+  type: string;
   quantity?: number;
   isfavourite?: boolean;
 }
@@ -195,7 +197,11 @@ const Products = () => {
             >
               <div
                 className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                style={{ backgroundImage: `url(${product.image})` }}
+                style={{
+                  backgroundImage: Array.isArray(product.image)
+                    ? `url(${product.image[2]})`
+                    : `url(${product.image})`,
+                }}
               >
                 <div
                   id={`heartIcon-${product._id}`}
@@ -213,22 +219,22 @@ const Products = () => {
                 </div>
               </div>
 
-              <div className="flex flex-row justify-between mb-5">
-                <div className="basic-1/2">
-                  <h1 className=" text-l lg:text-xl text-[#000] mb-5">
+              <div className="flex flex-row justify-between mb-7">
+                <div className="basic-3/4">
+                  <h1 className="text-l lg:text-[18px] text-black mb-5 overflow-hidden whitespace-nowrap overflow-ellipsis w-[170px]">
                     {product.name}
                   </h1>
                   <h1 className=" text-xs text-[#000] mb-8">
-                    {product.viewer}
+                    <FontAwesomeIcon icon={faStar}/> {product.rating} đánh giá
                   </h1>
-                  <h1 className=" text-l lg:text-xl text-[#000]">
+                  <h1 className=" text-l lg:text-[18px] text-[#000]">
                     {formatPrice(product.price)}
                   </h1>
                 </div>
-                <div className="basic-1/2 flex flex-col justify-between items-center">
+                <div className="basic-1/4 flex flex-col justify-between items-center">
                   <div>{<StarRating />}</div>
                   <div className="text-s text-pinky-600 font-semibold">
-                    Out of stock
+                    {product.countInStock > 0 ? "Còn hàng "  + product.countInStock : "Out of stock"}
                   </div>
                 </div>
               </div>

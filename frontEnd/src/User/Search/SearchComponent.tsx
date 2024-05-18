@@ -38,57 +38,56 @@ const SearchComponent = () => {
   const query = useQuery();
   const searchTerm = query.get("query");
   const { filteredProducts, loadStoredSearchResults } = useProductContext();
-  const [favourites, setFavourites] = useState<number[]>([]);
+  const [favourites, setFavourites] = useState<string[]>([]); // Fix type to string[]
+  const { products } = useProductContext();
 
   useEffect(() => {
     loadStoredSearchResults();
   }, [loadStoredSearchResults]);
 
-  const getProductByNameOrId = (nameOrId: string | number) => {
+  const getProductByNameOrId = (nameOrId: string) => {
     return filteredProducts.find(
-      (product) => product.name === nameOrId || product.id === nameOrId
+      (product) => product.name === nameOrId || product._id === nameOrId
     );
   };
 
-  const toggleFavourite = (nameOrId: string | number) => {
-    const product = getProductByNameOrId(nameOrId);
+  const getProductById = (_id: string) => {
+    return products.find((product) => product._id === _id);
+  };
+
+  const toggleFavourite = (productId: string) => {
+    const product = getProductById(productId);
     if (!product) {
       return; // Handle the case where the product isn't found
     }
 
-    const productIndex = favourites.findIndex((fav) => fav.id === product.id);
+    setFavourites((prevFavourites) => {
+      const isFavorited = prevFavourites.includes(productId);
+      let updatedFavourites;
 
-    let updatedFavourites: any[];
-    let isFavorited = false;
-
-    if (productIndex >= 0) {
-      // Product is already favorited, remove it
-      updatedFavourites = favourites.filter((fav) => fav.id !== product.id);
-      toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
-    } else {
-      // Product is not favorited, add it
-      updatedFavourites = [...favourites, product];
-      isFavorited = true;
-      toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
-    }
-
-    setFavourites(updatedFavourites);
-    localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
-
-    const heartIcon = document.getElementById(`heartIcon-${product.id}`);
-    if (heartIcon) {
       if (isFavorited) {
-        localStorage.setItem("activeHeartId", product.id.toString()); // Store active ID
-        heartIcon.classList.add("text-red-600");
+        updatedFavourites = prevFavourites.filter(
+          (favId) => favId !== productId
+        );
+        toast.warning("Đã xóa sản phẩm khỏi danh sách yêu thích");
       } else {
-        localStorage.removeItem("activeHeartId"); // Remove on unfavorite
-        heartIcon.classList.remove("text-red-600");
+        updatedFavourites = [...prevFavourites, productId];
+        toast.success("Đã thêm sản phẩm vào danh sách yêu thích");
       }
-    }
+
+      try {
+        localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+      } catch (error) {
+        console.error("Failed to update localStorage:", error);
+        toast.error("Lỗi khi cập nhật dữ liệu. Vui lòng thử lại.");
+      }
+
+      return updatedFavourites;
+    });
   };
 
-  const handClickBuyNow = (nameOrId: string | number) => {
-    const product = getProductByNameOrId(nameOrId);
+  const handClickBuyNow = (productId: string) => {
+    const product = getProductById(productId);
     if (!product) {
       return; // Handle the case where the product isn't found
     }
@@ -100,7 +99,7 @@ const SearchComponent = () => {
   const formatPrice = (price: number) => {
     return (
       new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: 3,
+        minimumFractionDigits: 0,
         maximumFractionDigits: 3,
       }).format(price) + " VND"
     );
@@ -108,9 +107,6 @@ const SearchComponent = () => {
 
   useEffect(() => {
     const storedFavouritesJson = localStorage.getItem("favourites");
-    const favoritedIdsJson = localStorage.getItem("favoritedIds");
-
-    const favoritedIds = favoritedIdsJson ? JSON.parse(favoritedIdsJson) : [];
 
     if (storedFavouritesJson) {
       try {
@@ -122,13 +118,6 @@ const SearchComponent = () => {
     } else {
       console.error("No stored favourites found");
     }
-
-    favoritedIds.forEach((id: number) => {
-      const heartIcon = document.getElementById(`heartIcon-${id}`);
-      if (heartIcon) {
-        heartIcon.classList.add("text-red-600");
-      }
-    });
   }, []);
 
   return (
@@ -148,19 +137,23 @@ const SearchComponent = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">
             {filteredProducts.map((product) => (
               <div
-                key={product.id}
+                key={product._id}
                 className="product-card w-full h-[370px] lg:h-[450px] px-3 pt-5 bg-white shadow-md rounded-md mb-10"
               >
                 <div
                   className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
-                  style={{ backgroundImage: `url(${product.url})` }}
+                  style={{
+                    backgroundImage: Array.isArray(product.image)
+                      ? `url(${product.image[0]})`
+                      : `url(${product.image})`,
+                  }}
                 >
                   <div
-                    id={`heartIcon-${product.id}`}
+                    id={`heartIcon-${product._id}`}
                     className={`absolute top-2 left-2 cursor-pointer drop-shadow-2xl ${
-                      product.isFavorite ? "text-red-600" : ""
+                      favourites.includes(product._id) ? "text-red-600" : ""
                     }`}
-                    onClick={() => toggleFavourite(product.id)}
+                    onClick={() => toggleFavourite(product._id)}
                   >
                     <FontAwesomeIcon
                       className=" hover:opacity-85 active:opacity-90"
@@ -190,8 +183,8 @@ const SearchComponent = () => {
                 </div>
 
                 <NavLink
-                  to={`/product/${product.name}`}
-                  onClick={() => handClickBuyNow(product.id)}
+                  to={`/product/${product._id}`}
+                  onClick={() => handClickBuyNow(product._id)}
                   className="buttonBuyNow flex justify-center items-center w-full h-12 rounded-xl bg-white border-2  border-red-600 text-pinky-600 hover:opacity-70 active:opacity-90 font-semibold cursor-pointer"
                 >
                   MUA NGAY

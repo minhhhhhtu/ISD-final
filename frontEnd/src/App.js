@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//USER
 import HomePage from "./User/Home/HomePage.tsx";
 import HomePageLoggedIn from "./User/HomeLoggedIn/HomePageLoggedIn.tsx";
 import LoginPage from "./Login/LoginPage.tsx";
@@ -9,8 +11,13 @@ import DetailProduct from "./User/DetailProduct/Product.tsx";
 import FavListContainer from "./User/favList/FavListContainer.tsx";
 import SearchComponent from "./User/Search/SearchComponent.tsx";
 import Profile from "./User/Profile/Profile.tsx";
-import { ToastContainer, Zoom } from "react-toastify";
 import { ProductProvider } from "./User/ProductContext/ProductContext.tsx";
+
+//ADMIN
+import AdminHome from "./Admin/AdminHome/AdminHome.tsx";
+import ProductList from "./Admin/AdminProductList/ProductList.tsx";
+
+import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -20,6 +27,7 @@ function App() {
         <header className="App-header">
           <BrowserRouter>
             <Routes>
+              {/* USER */}
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUp />} />
@@ -29,6 +37,10 @@ function App() {
               <Route path="/carts" element={<ShoppingCart />} />
               <Route path="/search" element={<SearchComponent />} />
               <Route path="/profile" element={<Profile />} />
+
+              {/* Admin */}
+              <Route path="/admin" element={<AdminHome />} />
+              <Route path="/manage-product" element={<ProductList />} />
             </Routes>
           </BrowserRouter>
           <ToastContainer

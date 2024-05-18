@@ -5,25 +5,26 @@ import { faHeart, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useProductContext } from "../ProductContext/ProductContext.tsx";
 
 interface Product {
   _id: string;
   name: string;
-  image: string;
+  image: string | string[];
   price: number;
-  viewer: string;
+  countInStock: number;
+  rating: number;
   onSale?: boolean;
-  priceOnSale: number;
-  isFavorite?: boolean;
+  discount: number;
   quantity?: number;
+  isfavourite?: boolean;
 }
 
 function DetailProduct() {
   const [product, setProduct] = useState<Product | null>(null);
   const [favourites, setFavourites] = useState<Product[]>([]);
-  const { addToCart } = useProductContext();
+  const { addToCart, quantity, handleSetQuantity } = useProductContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,10 +42,14 @@ function DetailProduct() {
     }
   }, []);
 
+  const handleQuantityChange = (event) => {
+    handleSetQuantity(Number(event.target.value));
+  };
+
   const handleCheckout = () => {
     if (product) {
-      addToCart(product);
-      navigate("/carts");
+      toast.success("Thêm sản phẩm thành công!")
+      addToCart({...product, quantity});
     }
   };
 
@@ -74,14 +79,14 @@ function DetailProduct() {
     });
   };
 
-  // function formatPrice(price: number) {
-  //   return (
-  //     new Intl.NumberFormat("en-US", {
-  //       minimumFractionDigits: 3,
-  //       maximumFractionDigits: 3,
-  //     }).format(price) + " VND"
-  //   );
-  // }
+  function formatPrice(price: number) {
+    return (
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3,
+      }).format(price) + " VND"
+    );
+  }
 
   const imgRef = useRef<HTMLDivElement>(null);
 
@@ -144,20 +149,18 @@ function DetailProduct() {
                   <div className="flex flex-row justify-between items-center  my-3">
                     <div className="eCode text-l">
                       Mã sản phẩm:{" "}
-                      <span className="text-xl font-semibold ml-2">
+                      <span className="text-xl font-semibold">
                         {product._id}
                       </span>
                     </div>
                     <div className="condition text-l">
                       Tình Trạng:{" "}
-                      <span className="text-xl font-semibold ml-2">
-                        Like New
-                      </span>
+                      <span className="text-xl font-semibold">Like New</span>
                     </div>
                   </div>
 
                   <div className="text-2xl text-[#FF9494] font-bold my-3">
-                    {product.price}
+                    {formatPrice(product.price)}
                   </div>
 
                   {/*SIZE*/}
@@ -166,17 +169,7 @@ function DetailProduct() {
                     aria-required
                   >
                     <div className="w-full h-[2px] bg-gradient-to-r from-pinky-50 to-pinky-600 mb-8"></div>
-                    <ul className="outline-none flex flex-row justify-start text-center gap-5">
-                      <li className="size-s w-[40px] h-[40px] border-2 border-red-400 pt-1 text-[#FF9494] uppercase">
-                        s
-                      </li>
-                      <li className="size-m w-[40px] h-[40px] border-2 border-red-400 pt-1 text-[#FF9494] uppercase">
-                        m
-                      </li>
-                      <li className="size-l w-[40px] h-[40px] border-2 border-red-400 pt-1 text-[#FF9494] uppercase">
-                        l
-                      </li>
-                    </ul>
+                    <h3 className="text-2xl font-bold">Freesize</h3>
                     <div className="w-full h-[2px] bg-gradient-to-r from-pinky-50 to-pinky-600 mt-8"></div>
                   </div>
 
@@ -189,6 +182,8 @@ function DetailProduct() {
                       className="border-2 border-[#FF9494] p-3 rounded-l outline-none hover:opacity-80 active:opacity-90"
                       name="quantity"
                       id="quantity"
+                      value={quantity}
+                      onChange={handleQuantityChange}
                       required
                     >
                       <option value="1">1</option>
@@ -201,12 +196,15 @@ function DetailProduct() {
 
                   {/*BUTTON ADD TO CART AND FAVOURITE*/}
                   <div className="flex flex-row justify-between my-3">
-                    <button
-                      type="submit"
-                      className="border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90"
-                    >
-                      Thêm vào giỏ hàng
-                    </button>
+                    {/* <Link to={"/carts"}> */}
+                      <button
+                        type="submit"
+                        className="border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90"
+                        onClick={handleCheckout}
+                      >
+                        Thêm vào giỏ hàng
+                      </button>
+                    {/* </Link> */}
 
                     <button
                       type="submit"
@@ -218,7 +216,7 @@ function DetailProduct() {
                   </div>
 
                   {/*BUTTON PAY*/}
-                  <NavLink to={"/carts"}>
+                  {/* <NavLink to={"/carts"}>
                     <button
                       type="submit"
                       className="w-full border-2 border-solid bg-pinky-600 text-white px-10 py-5 hover:opacity-80 active:opacity-90 mt-3"
@@ -226,7 +224,7 @@ function DetailProduct() {
                     >
                       Thanh toán
                     </button>
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               </div>
             </div>

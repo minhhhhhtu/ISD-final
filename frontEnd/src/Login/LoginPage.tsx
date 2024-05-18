@@ -6,13 +6,13 @@ import Loading from "../Loading";
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorText, setErrorText] = useState('');
+  const navigate = useNavigate();
 
   const [userCredentials, setUserCredentials] = useState({
     EMAIL: "",
     PASSWORD: "",
   });
-
-  const navigate = useNavigate();
 
   const handleUserInput = (fieldName: string) => {
     return (e) => {
@@ -49,10 +49,24 @@ function LoginPage() {
         return;
       }
 
-      const { access_token } = await response.json();
-      localStorage.setItem("access_token", access_token);
-      navigate("/home");
+      const res = await response.json();
+      const { access_token, user } = res;
+      const isAdmin = user?.isAdmin;
+
+      window.localStorage.setItem('profile', JSON.stringify(user));
+      
+      if(access_token){
+        localStorage.setItem("access_token", JSON.stringify({access_token}));
+        isAdmin ? navigate("/admin") : navigate("/home");
+
+        setErrorText('')
+      }else{
+        setErrorText('Email hoặc mật khẩu không chính xác')
+      }
+
+      setIsLoading(false)
     } catch (error) {
+      console.log(error)
       setIsLoading(false);
       console.error("Network Error:", error.message);
       navigate("/login");
@@ -125,6 +139,10 @@ function LoginPage() {
               Quên mật khẩu
             </a>
           </div>
+
+          {errorText !== '' && (
+            <span>{errorText}</span>
+          )}
 
           <button type="button" className="login__button" onClick={handleLogin}>
             Đăng nhập
