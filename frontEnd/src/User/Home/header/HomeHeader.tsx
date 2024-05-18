@@ -74,105 +74,105 @@ const HomeHeader = () => {
     setActiveMenuItem(item);
   };
 
-  const ProductList = () => {
-    const [products, setProducts] = useState([
-      {
-        id: 1,
-        name: "Degrey Balo Simili Nap Basic - SNAP",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 350000,
-        onSale: true,
-        priceSale: 400000,
-      },
-      {
-        id: 2,
-        name: "Degrey Balo Leather Quốc Dân - BQDL",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: true,
-        priceSale: 350000,
-      },
-      {
-        id: 3,
-        name: "Degrey Balo Leather Quốc Dân - LMT",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: false,
-        priceSale: 0,
-      },
-      {
-        id: 4,
-        name: "Degrey Balo Leather Quốc Dân - LMT",
-        imgUrl:
-          "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
-        price: 300000,
-        onSale: false,
-        priceSale: 0,
-      },
-    ]);
+  // const ProductList = () => {
+  //   const [products, setProducts] = useState([
+  //     {
+  //       id: 1,
+  //       name: "Degrey Balo Simili Nap Basic - SNAP",
+  //       imgUrl:
+  //         "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
+  //       price: 350000,
+  //       onSale: true,
+  //       priceSale: 400000,
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Degrey Balo Leather Quốc Dân - BQDL",
+  //       imgUrl:
+  //         "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
+  //       price: 300000,
+  //       onSale: true,
+  //       priceSale: 350000,
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Degrey Balo Leather Quốc Dân - LMT",
+  //       imgUrl:
+  //         "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
+  //       price: 300000,
+  //       onSale: false,
+  //       priceSale: 0,
+  //     },
+  //     {
+  //       id: 4,
+  //       name: "Degrey Balo Leather Quốc Dân - LMT",
+  //       imgUrl:
+  //         "https://i.pinimg.com/564x/ae/3a/fb/ae3afb000d14aa416ea16a5560484473.jpg",
+  //       price: 300000,
+  //       onSale: false,
+  //       priceSale: 0,
+  //     },
+  //   ]);
 
-    const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
-    const handleClick = (productId) => {
-      const product = products.find((product) => product.id === productId);
-      if (product) {
-        navigate(`/product?key=${product.id}`);
-      }
-    };
+  //   const handleClick = (productId) => {
+  //     const product = products.find((product) => product.id === productId);
+  //     if (product) {
+  //       navigate(`/product?key=${product.id}`);
+  //     }
+  //   };
 
-    return (
-      <div>
-        <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
-          {products.map((product) => {
-            return (
-              <>
-                <li className="myLi block">
-                  <a
-                    key={product.id}
-                    className="products"
-                    href="/"
-                    onClick={() => handleClick(product.id)}
-                  >
-                    <div className="textContent">
-                      <p className="name-product text-[16px]">{product.name}</p>
-                      <div className="price flex flex-row">
-                        {product.onSale ? (
-                          <>
-                            <p className="realPrice">{product.price} vnđ</p>
-                            <p className="salePrice line-through text-slate-400 ml-5">
-                              {product.priceSale} vnđ
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <p className="realPrice">{product.price} vnđ </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <div
-                      className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
-                      style={{ backgroundImage: `url(${product.imgUrl})` }}
-                    ></div>
-                  </a>
-                </li>
-              </>
-            );
-          })}
-        </ul>
+  //   return (
+  //     <div>
+  //       <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
+  //         {products.map((product) => {
+  //           return (
+  //             <>
+  //               <li className="myLi block">
+  //                 <a
+  //                   key={product.id}
+  //                   className="products"
+  //                   href="/"
+  //                   onClick={() => handleClick(product.id)}
+  //                 >
+  //                   <div className="textContent">
+  //                     <p className="name-product text-[16px]">{product.name}</p>
+  //                     <div className="price flex flex-row">
+  //                       {product.onSale ? (
+  //                         <>
+  //                           <p className="realPrice">{product.price} vnđ</p>
+  //                           <p className="salePrice line-through text-slate-400 ml-5">
+  //                             {product.priceSale} vnđ
+  //                           </p>
+  //                         </>
+  //                       ) : (
+  //                         <>
+  //                           <p className="realPrice">{product.price} vnđ </p>
+  //                         </>
+  //                       )}
+  //                     </div>
+  //                   </div>
+  //                   <div
+  //                     className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
+  //                     style={{ backgroundImage: `url(${product.imgUrl})` }}
+  //                   ></div>
+  //                 </a>
+  //               </li>
+  //             </>
+  //           );
+  //         })}
+  //       </ul>
 
-        <a
-          href="/products"
-          className="flex justify-center  mt-2 hover:text-pinky-400"
-        >
-          Product More
-        </a>
-      </div>
-    );
-  };
+  //       <a
+  //         href="/products"
+  //         className="flex justify-center  mt-2 hover:text-pinky-400"
+  //       >
+  //         Product More
+  //       </a>
+  //     </div>
+  //   );
+  // };
 
   const filterSearch = () => {
     var input, filter, ul, li, a, i, txtValue;
@@ -308,11 +308,11 @@ const HomeHeader = () => {
           </div>
         </nav>
       </header>
-      {showProductList && (
+      {/* {showProductList && (
         <div className="contentProduct animate-slideDown">
           <ProductList />
         </div>
-      )}
+      )} */}
     </>
   );
 };

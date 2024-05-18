@@ -13,8 +13,8 @@ const port = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Địa chỉ của frontend
-    credentials: true, // Nếu bạn muốn cho phép gửi cookie qua CORS
+    // origin: "http://localhost:3000", // Địa chỉ của frontend
+    // credentials: true, // Nếu bạn muốn cho phép gửi cookie qua CORS
   })
 );
 app.use(express.json({ limit: "50mb" }));

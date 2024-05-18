@@ -10,11 +10,13 @@ import { toast } from "react-toastify";
 interface Product {
   _id: string;
   name: string;
-  image: string;
+  image: string | string[];
   price: number;
-  viewer: string;
+  countInStock: number;
+  rating: number;
   onSale?: boolean;
-  priceOnSale: number;
+  discount: number;
+  type: string;
   quantity?: number;
   isfavourite?: boolean;
 }
@@ -28,12 +30,15 @@ interface ProductContextType {
   addToCart: (product: Product) => void;
   incrQty: (productId: string) => void;
   decrQty: (productId: string) => void;
+  handleSetQuantity: (quantity: number) => void;
+  quantity: number;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState<Product[]>(() => {
     const storedCart = localStorage.getItem("savedProduct");
     return storedCart ? JSON.parse(storedCart) : [];
@@ -43,10 +48,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/api/product/get-all",
-          {
-            credentials: "include", // If you want to send cookies
-          }
+          "http://localhost:3001/api/product/get-all"
         );
 
         if (!response.ok) {
@@ -56,6 +58,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
         setProducts(data.data);
       } catch (error) {
+        console.log(error);
         console.error("Error fetching products", error);
         toast.error("Failed to fetch products. Please try again later.");
       }
@@ -75,11 +78,14 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
       if (existingProduct) {
         return prevCart.map((item) =>
           item._id === product._id
-            ? { ...item, quantity: (item.quantity || 0) + 1 }
+            ? {
+                ...item,
+                quantity: (item.quantity || 0) + (product.quantity || 1),
+              }
             : item
         );
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: product.quantity || 1 }];
     });
   };
 
@@ -145,6 +151,10 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const handleSetQuantity = (qty) => {
+    setQuantity(qty);
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -156,6 +166,8 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         addToCart,
         incrQty,
         decrQty,
+        quantity,
+        handleSetQuantity,
       }}
     >
       {children}

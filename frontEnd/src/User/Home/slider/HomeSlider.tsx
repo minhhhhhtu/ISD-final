@@ -25,34 +25,34 @@ const HomeSlider = (props) => {
   const data = [
     {
       id: 1,
-      imgUrl: "https://i.pinimg.com/564x/68/17/16/681716445182e01635976926b5cbf08a.jpg",
+      imgUrl: "https://i.pinimg.com/236x/37/e3/05/37e30566cfd8422db484bffea876b964.jpg",
       desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 2,
       imgUrl:
-        "https://i.pinimg.com/564x/fd/68/a7/fd68a7918b64bfb2d7ea1a516a4b007d.jpg",
+        "https://i.pinimg.com/564x/44/33/e0/4433e000a798d29539438e188b66af95.jpg",
       desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 3,
       imgUrl:
-        "https://i.pinimg.com/736x/f2/7b/b2/f27bb2560be3b38ed75da4f0f6661f18.jpg",
+        "https://i.pinimg.com/236x/53/fe/ef/53feef6b99636078803eb0f68f46f23a.jpg",
       desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 5,
-      imgUrl: "https://i.pinimg.com/564x/c8/15/f5/c815f5e90d7da8d3f9ede65090252e26.jpg",
+      imgUrl: "https://i.pinimg.com/236x/52/e3/bd/52e3bd736adb6a9cfadbfdc292ee7073.jpg",
       desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },
     {
       id: 6,
       imgUrl:
-        "https://i.pinimg.com/564x/84/21/f5/8421f5fbe85d69b3ae737a873c63871d.jpg",
+        "https://i.pinimg.com/236x/21/c4/f7/21c4f76d0644d94a48df4abe25829914.jpg",
       desc: "Some beautiful lifestyle cannot be discovered without getting loss.",
       name: "30% SALE",
     },

@@ -12,12 +12,15 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 
 interface Product {
-  id: number;
+  _id: string;
   name: string;
-  url: string;
+  image: string | string[];
   price: number;
+  viewer: string;
   onSale?: boolean;
   priceOnSale: number;
+  quantity?: number;
+  isfavourite?: boolean;
 }
 
 interface State {
@@ -328,6 +331,10 @@ const HomeHeader = () => {
           >
             <form
               className="searchform-product relative w-full lg:w-[90%] lg:ml-5 h-10 border-2 rounded-full border-pinky-600 border-solid  text-pinky-600 bg-slate-100"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch(searchTerm)
+              }}
             >
               <button
                 type="button"
@@ -368,9 +375,9 @@ const HomeHeader = () => {
                 className=" before:absolute before:top-5 before:w-5 before:h-5 before:bg-red-600 before:z-50 "
                 icon={faPaperPlane}
               />
-              <span className="absolute bottom-4 text-sm text-center rounded-full px-1 bg-red-600 text-white">
+              {/* <span className="absolute bottom-4 text-sm text-center rounded-full px-1 bg-red-600 text-white">
                 4
-              </span>
+              </span> */}
             </a>
             <a href="/profile" className="lg:block hidden w-6 h-6 text-black">
               <FontAwesomeIcon icon={faUser} />
