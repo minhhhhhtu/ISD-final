@@ -199,7 +199,7 @@ const Products = () => {
                 className="relative w-full h-[150px] sm:h-[200px] rounded-md bg-cover bg-no-repeat bg-center mb-5"
                 style={{
                   backgroundImage: Array.isArray(product.image)
-                    ? `url(${product.image[2]})`
+                    ? `url(${product.image[0]})`
                     : `url(${product.image})`,
                 }}
               >

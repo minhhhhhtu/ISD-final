@@ -12,6 +12,8 @@ import FavListContainer from "./User/favList/FavListContainer.tsx";
 import SearchComponent from "./User/Search/SearchComponent.tsx";
 import Profile from "./User/Profile/Profile.tsx";
 import { ProductProvider } from "./User/ProductContext/ProductContext.tsx";
+import CheckoutPage from "./User/Checkout/CheckoutPage.tsx";
+import InformationPage from "./User/InformationPage/InformationPage.tsx";
 
 //ADMIN
 import AdminHome from "./Admin/AdminHome/AdminHome.tsx";
@@ -37,6 +39,8 @@ function App() {
               <Route path="/carts" element={<ShoppingCart />} />
               <Route path="/search" element={<SearchComponent />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/information" element={<InformationPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
 
               {/* Admin */}
               <Route path="/admin" element={<AdminHome />} />
