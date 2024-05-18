@@ -167,29 +167,15 @@ const getDetailsUser = async (request, respond) => {
 
 const logoutUser = async (request, respond) => {
   try {
-    try {
-      respond.clearCookie("refresh_token");
-      return respond.status(200).json({
-        status: "OK",
-        message: "Logout successfully",
-      });
-    } catch (error) {
-<<<<<<< Updated upstream
-      return respond.status(404).json({
-        message: error,
-      });
-    }
-    const response = await JwtService.refreshTokenJwtService(token);
-    return res.status(200).json(response);
-  } catch (e) {
-    return res.status(404).json({
-      message: e,
+    respond.clearCookie("refresh_token");
+    return respond.status(200).json({
+      status: "OK",
+      message: "Logout successfully",
     });
-=======
-        return respond.status(404).json({
-            message: error
-        })
->>>>>>> Stashed changes
+  } catch (error) {
+    return respond.status(404).json({
+      message: error,
+    });
   }
 };
 
