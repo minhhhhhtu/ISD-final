@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useProductContext } from "../../ProductContext/ProductContext.tsx";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 interface Product {
   _id: string;
@@ -21,6 +21,7 @@ interface Product {
 function TotalCart() {
   const { cart, incrQty, decrQty } = useProductContext();
   const [totalAmt, setTotalAmt] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Array.isArray(cart)) {
@@ -42,6 +43,10 @@ function TotalCart() {
       }).format(price) + " VND"
     );
   }
+
+  const handleProceedToCheckout = () => {
+    navigate("/information", { state: { cart, totalAmt } });
+  };
 
   return (
     <>
@@ -139,6 +144,7 @@ function TotalCart() {
             <button
               type="submit"
               className="button flex justify-center items-center w-[60%] font-medium text-white bg-pinky-600"
+              onClick={handleProceedToCheckout}
             >
               Mua
             </button>

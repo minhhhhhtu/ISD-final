@@ -6,7 +6,7 @@ import Loading from "../Loading";
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
-  const [errorText, setErrorText] = useState('');
+  const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
 
   const [userCredentials, setUserCredentials] = useState({
@@ -53,20 +53,21 @@ function LoginPage() {
       const { access_token, user } = res;
       const isAdmin = user?.isAdmin;
 
-      window.localStorage.setItem('profile', JSON.stringify(user));
-      
-      if(access_token){
-        localStorage.setItem("access_token", JSON.stringify({access_token}));
+      window.localStorage.setItem("profile", JSON.stringify(user));
+      localStorage.setItem("user_id", user?._id);
+
+      if (access_token) {
+        localStorage.setItem("access_token", JSON.stringify({ access_token }));
         isAdmin ? navigate("/admin") : navigate("/home");
 
-        setErrorText('')
-      }else{
-        setErrorText('Email hoặc mật khẩu không chính xác')
+        setErrorText("");
+      } else {
+        setErrorText("Email hoặc mật khẩu không chính xác");
       }
 
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setIsLoading(false);
       console.error("Network Error:", error.message);
       navigate("/login");
@@ -140,9 +141,7 @@ function LoginPage() {
             </a>
           </div>
 
-          {errorText !== '' && (
-            <span>{errorText}</span>
-          )}
+          {errorText !== "" && <span>{errorText}</span>}
 
           <button type="button" className="login__button" onClick={handleLogin}>
             Đăng nhập

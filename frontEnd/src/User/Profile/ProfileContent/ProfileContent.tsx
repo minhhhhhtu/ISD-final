@@ -1,11 +1,11 @@
 import React from "react";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 interface ProfileState {
   _id: string;
   name: string;
   email: string;
-  password: string;  // This will be the current password the user enters
+  password: string; // This will be the current password the user enters
   newPassword: string;
   confirmNewPassword: string;
   loading: boolean;
@@ -16,17 +16,20 @@ class ProfileContent extends React.Component<{}, ProfileState> {
   constructor(props: {}) {
     super(props);
     const defaultProfile: ProfileState = {
-      _id: '',
-      name: '',
-      email: '',
-      password: '',  // Initialize as empty
-      newPassword: '',
-      confirmNewPassword: '',
+      _id: "",
+      name: "",
+      email: "",
+      password: "", // Initialize as empty
+      newPassword: "",
+      confirmNewPassword: "",
       loading: false,
       error: null,
     };
-    const profile = JSON.parse(window.localStorage.getItem('profile') || 'null');
-    this.state = profile !== null ? { ...profile, password: '' } : defaultProfile;  // Ensure password is not pre-filled
+    const profile = JSON.parse(
+      window.localStorage.getItem("profile") || "null"
+    );
+    this.state =
+      profile !== null ? { ...profile, password: "" } : defaultProfile; // Ensure password is not pre-filled
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +57,7 @@ class ProfileContent extends React.Component<{}, ProfileState> {
 
       const updatedProfile = {
         ...this.state,
-        password: hashedPassword,  // Sử dụng mật khẩu đã mã hóa
+        password: hashedPassword, // Sử dụng mật khẩu đã mã hóa
       };
 
       const response = await fetch(
@@ -81,13 +84,8 @@ class ProfileContent extends React.Component<{}, ProfileState> {
   };
 
   render() {
-    const {
-      name,
-      email,
-      password,
-      newPassword,
-      confirmNewPassword,
-    } = this.state;
+    const { name, email, password, newPassword, confirmNewPassword } =
+      this.state;
 
     return (
       <div className="mt-24">
@@ -146,7 +144,7 @@ class ProfileContent extends React.Component<{}, ProfileState> {
                   placeholder="Email"
                 />
               </div>
-              
+
               <h3 className="text-lg font-medium text-gray-700 mb-4">
                 Password Changes
               </h3>
