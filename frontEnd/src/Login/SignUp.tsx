@@ -60,6 +60,7 @@ function SignUp() {
       setErrorText("Đã xảy ra lỗi. Vui lòng thử lại sau.");
     } finally {
       setIsLoading(false);
+
     }
   };
   return (
