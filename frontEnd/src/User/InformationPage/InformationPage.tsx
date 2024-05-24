@@ -73,7 +73,7 @@ function InformationPage() {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="basic-1/2 w-[40%] h-auto p-8 shadow-md"
+            className="basic-1/2 w-full lg:w-[40%] h-auto p-8 shadow-md"
           >
             <div className="flex flex-col">
               <label>Tên:</label>

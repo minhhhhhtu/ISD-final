@@ -181,7 +181,7 @@ const OrderDetails: React.FC = () => {
               if (id) {
                 // Ensure id is not undefined
                 await cancelOrder(id, order.orderItems);
-                navigate("/orders");
+                navigate("/order");
               }
             } catch (error) {
               console.error("Failed to cancel order", error);

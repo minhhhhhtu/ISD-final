@@ -119,7 +119,7 @@ function DetailProduct() {
         {product ? (
           <div className=" max-w-full my-24">
             {/*SLIDER*/}
-            <div className="Slider flex justify-center items-center w-full h-12 shadow-md bg-pinky-200 text-xl text-[#FF9494] italic font-bold uppercase mb-5">
+            <div className="Slider flex justify-center items-center w-full h-12 shadow-md bg-pinky-200 text-[10px ] lg:text-xl text-[#FF9494] italic font-bold uppercase mb-5">
               Buy more pay less, áp dụng khi mua 2 sản phẩm
             </div>
 
@@ -191,7 +191,9 @@ function DetailProduct() {
                     <div className="w-full h-[2px] bg-gradient-to-r from-pinky-50 to-pinky-600 mb-8"></div>
                     <div className="flex flex-row justify-between">
                       <h3 className="text-2xl font-bold">Freesize</h3>
-                      <h3 className="text-2xl font-bold">Dạng: {product.type}</h3>
+                      <h3 className="text-2xl font-bold">
+                        Dạng: {product.type}
+                      </h3>
                     </div>
                     <div className="w-full h-[2px] bg-gradient-to-r from-pinky-50 to-pinky-600 mt-8"></div>
                   </div>

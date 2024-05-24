@@ -160,33 +160,6 @@ const Products = () => {
       </div>
       {/* END SUB HEADLINE */}
 
-      {/* <!-- START TITLE --> */}
-      <div className="title">
-        <div className="flex flex-col justify-center items-center w-[95%] lg:w-[65%] mx-auto mb-16">
-          <div className="page-headline mt-[100px] mb-[40px] leading-[2rem] lg:leading-[4rem]">
-            <div className="w-full my-3 text-[#D94B4B] text-4xl font-normal leading-5 text-center">
-              Hiện đang thịnh hành
-            </div>
-            <div className="text-[18px] text-slate-500 mb-4 text-center">
-              Các sản phẩm được các khách hàng mua nhiều với đa số đều có phản
-              hồi tốt
-            </div>
-          </div>
-          <div className="lmt-subheadline flex">
-            <div className="lmt-subheadline-label flex flex-row gap-2 lg:gap-8">
-              <div className="lmt-breadcumbers lmt-breadcumbers-active">
-                Đồ Bò
-              </div>
-              <div className="lmt-breadcumbers">Váy Đầm</div>
-              <div className="lmt-breadcumbers flex items-center">Quần</div>
-              <div className="lmt-breadcumbers">Trang sức</div>
-              <div className="lmt-breadcumbers">Giảm giá</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <!-- END TITLE --> */}
-
       {/* MORE PRODUCTS */}
       <div className="feature-mugs w-[90%] lg:w-[80%] mx-auto mb-24">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-4 h-auto">

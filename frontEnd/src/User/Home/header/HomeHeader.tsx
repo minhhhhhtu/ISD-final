@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useProductContext } from "../../ProductContext/ProductContext.tsx";
 import {
   faShoppingCart,
   faMagnifyingGlass,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./HomeHeader.css";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -24,8 +26,12 @@ interface State {
 
 const HomeHeader = () => {
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const { handleSearch, loadStoredSearchResults } = useProductContext();
   const [activeMenuItem, setActiveMenuItem] = useState(null);
   const topMenuRef = useRef<HTMLUListElement | null>(null);
+  const [showProductMenu, setShowProductMenu] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -227,22 +233,35 @@ const HomeHeader = () => {
               </a>
             </li>
             <li
-              className={`ct-menu-top-header ${
-                activeMenuItem === "COLLECTION"
-                  ? "ct-menu-top-header-active"
-                  : ""
+              className={`ct-menu-top-header relative ${
+                activeMenuItem === "PRODUCT" ? "ct-menu-top-header-active" : ""
               }`}
+              onMouseEnter={() => setShowProductMenu(true)}
+              onMouseLeave={() => setShowProductMenu(false)}
             >
-              <a href="#" onClick={() => handleMenuItemClick("dress")}>
-                COLLECTION
-              </a>
+              <div className="flex flex-row justify-center items-center gap-3">
+                <div>CATEGORY</div>
+                <FontAwesomeIcon icon={faAngleDown} />
+              </div>
+              {showProductMenu && (
+                <ul className="absolute top-full left-0 w-[200px] bg-white shadow-lg rounded-lg z-50">
+                  <li>
+                    <NavLink
+                      to="/product/dress"
+                      className="block px-4 py-2 hover:bg-gray-200"
+                    >
+                      Váy
+                    </NavLink>
+                  </li>
+                </ul>
+              )}
             </li>
             <li
               className={`ct-menu-top-header ${
                 activeMenuItem === "TRENDS" ? "ct-menu-top-header-active" : ""
               }`}
             >
-              <a href="#" onClick={() => handleMenuItemClick("jackets")}>
+              <a href="/trends" onClick={() => handleMenuItemClick("jackets")}>
                 TRENDS
               </a>
             </li>
@@ -251,7 +270,7 @@ const HomeHeader = () => {
                 activeMenuItem === "ABOUT US" ? "ct-menu-top-header-active" : ""
               }`}
             >
-              <a href="#" onClick={() => handleMenuItemClick("jeans")}>
+              <a href="about-us" onClick={() => handleMenuItemClick("jeans")}>
                 ABOUT US
               </a>
             </li>
