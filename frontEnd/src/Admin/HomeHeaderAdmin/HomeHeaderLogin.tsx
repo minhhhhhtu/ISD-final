@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
   faMagnifyingGlass,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useProductContext } from "../../User/ProductContext/ProductContext.tsx";
 import {
@@ -36,6 +37,32 @@ const HomeHeader = () => {
     setActiveMenuItem(item);
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        "https://melanine-backend.onrender.com/api/user/log-out",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("profile");
+        window.location.href = "/login"; // Redirect to login page
+      } else {
+        const result = await response.json();
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+      alert("An error occurred while logging out.");
+    }
+  };
+
   useEffect(() => {
     loadStoredSearchResults();
   }, []);
@@ -44,10 +71,7 @@ const HomeHeader = () => {
     <>
       <header className="p-10 mx-auto my-[-10px] z-[99999] !fixed">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
-          <NavLink
-            className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer"
-            to={"/home"}
-          >
+          <div className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer">
             <h3 className="text-xl lg:text-2xl font-bold">Melanie</h3>
             <div className="flex flex-row items-center justify-center">
               <div className="subheadline-deco-line"></div>
@@ -56,11 +80,11 @@ const HomeHeader = () => {
               </div>
               <div className="subheadline-deco-line"></div>
             </div>
-          </NavLink>
+          </div>
           <ul
             id="top-menu"
             ref={topMenuRef}
-            className={`basis-5/6 ${
+            className={`basis-4/6 ${
               isActive ? "" : "hidden"
             } lg:flex lg:items-center lg:justify-center lg:gap-16 uppercase text-sm text-pinky-600 font-medium`}
           >
@@ -109,6 +133,9 @@ const HomeHeader = () => {
               </div>
             </li>
           </ul>
+          <button className="basic-1/6 mr-12 text-pinky-600" onClick={handleLogout}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </button>
         </nav>
       </header>
     </>

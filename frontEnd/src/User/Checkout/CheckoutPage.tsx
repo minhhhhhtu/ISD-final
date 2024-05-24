@@ -91,12 +91,12 @@ function CheckoutPage() {
       {/* Main Content */}
       <div className="information-page text-black mt-24">
         <h1 className="text-center text-[30px]">Điền Thông Tin</h1>
-        <div className="information-cart flex flex-row justify-center items-center w-[80%] mx-auto gap-8 my-10">
-          <div className="basic-1/2 list-product flex flex-col justify-center items-center w-[50%] h-auto border-[1px] border-black border-solid">
+        <div className="information-cart flex flex-col lg:flex-row justify-center items-center w-[80%] mx-auto gap-8 my-10">
+          <div className="basic-1/2 list-product flex flex-col justify-center items-center w-full lg:w-[50%] h-auto border-[1px] border-black border-solid">
             {cart.map((product) => {
               return (
                 <>
-                  <div className="product flex flex-row justify-center items-end p-2">
+                  <div className="product flex flex-row justify-center items-start lg:items-end p-2 text-xs md:text-l">
                     <img
                       className="w-20 h-20 object-cover"
                       src={
@@ -126,7 +126,7 @@ function CheckoutPage() {
               Tổng cộng: {formatPrice(totalAmt)}
             </div>
           </div>
-          <div className="basic-1/2 w-[40%] h-auto p-8 shadow-md">
+          <div className="basic-1/2 w-full lg:w-[40%] h-auto p-8 shadow-md">
             <div className="flex flex-col">
               <h3>Tên:</h3>
               <p className="w-[100%] h-auto border-[1px] border-slate-400 bg-slate-200 p-2 my-2">
@@ -158,7 +158,7 @@ function CheckoutPage() {
               </p>
             </div>
             <button
-              className="button border-[1px] border-black border-solid ml-36 mt-5 hover:opacity-70 active:opacity-90"
+              className="button border-[1px] border-black border-solid ml-28 lg:ml-36 mt-5 hover:opacity-70 active:opacity-90"
               type="submit"
               onClick={handlePlaceOrder}
             >

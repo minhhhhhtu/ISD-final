@@ -180,7 +180,7 @@ function SignUp() {
 
           <p className="login__register">
             Bạn đã có tài khoản{" "}
-            <NavLink to="/" className="ml-3">
+            <NavLink to="/login" className="ml-3">
               Đăng Nhập
             </NavLink>
           </p>
