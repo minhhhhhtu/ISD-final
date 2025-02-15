@@ -196,6 +196,7 @@ const HomeHeader = () => {
                 type="button"
                 // onClick={toggleProductList}
                 className="iconSearch absolute padding-0 top-1 left-0 bottom-0 w-[55px] transition-opacity"
+                aria-label="IconSearch"
               >
                 <FontAwesomeIcon
                   className="mr-5 p-1"
@@ -220,22 +221,19 @@ const HomeHeader = () => {
 
           {/*Fav and Cart*/}
           <div className="basis-1/6 flex flex-row justify-center items-center gap-10 ml-10">
-            <a href="/favourite" className="w-6 h-6 text-black">
+            <a href="/favourite" className="w-6 h-6 text-black" aria-label="fav">
               <FontAwesomeIcon icon={farHeart} />
               {/* <span className="absolute top-5 right-31.5 text-sm text-center rounded-full px-1 bg-red-600 text-white">
                 {favoritesCount}
               </span> */}
             </a>
-            <a href="/carts" className="w-6 h-6 text-black relative">
+            <a href="/carts" className="w-6 h-6 text-black relative" aria-label="cart">
               <FontAwesomeIcon
                 className=" before:absolute before:top-5 before:w-5 before:h-5 before:bg-red-600 before:z-50 "
                 icon={faPaperPlane}
               />
-              {/* <span className="absolute bottom-4 text-sm text-center rounded-full px-1 bg-red-600 text-white">
-                4
-              </span> */}
             </a>
-            <a href="/profile" className="block w-6 h-6 text-black">
+            <a href="/profile" className="block w-6 h-6 text-black" aria-label="profile">
               <FontAwesomeIcon icon={faUser} />
             </a>
           </div>

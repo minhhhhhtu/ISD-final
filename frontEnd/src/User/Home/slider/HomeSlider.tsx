@@ -96,10 +96,10 @@ const HomeSlider = (props) => {
           ))}
         </div>
         <div className="buttons">
-          <button id="prev" onClick={handleClickPrev}>
+          <button id="prev" aria-label="arrow-button" onClick={handleClickPrev}>
             <FontAwesomeIcon icon={faAngleLeft} />
           </button>
-          <button id="next" onClick={handleClickNext}>
+          <button id="next" aria-label="arrow-button" onClick={handleClickNext}>
             <FontAwesomeIcon icon={faAngleRight} />
           </button>
         </div>
