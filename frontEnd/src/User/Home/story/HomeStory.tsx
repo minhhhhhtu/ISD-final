@@ -10,15 +10,25 @@ class HomeStory extends React.Component<{}> {
   render(): React.ReactNode {
     return (
       <div>
-        <div className="story lg:mt-40 lg:mb-40 pb-5">
+        <link
+          rel="preload"
+          as="image"
+          href="https://i.pinimg.com/736x/0f/c5/40/0fc5408da20b2958531cd59e92d2aba2.jpg"
+          fetchPriority="high"
+        />
+        <div className="story mt-24 lg:mt-24 lg:mb-24 pb-5">
           <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-4 w-[95%] lg:w-[73%] mx-auto mb-10">
             <div className="content flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16">
-              <div className="basis-1/2">
-                <div
-                  className="w-[300px] h-[100px] lg:w-full lg:h-full object-cover min-h-[350px]
-              bg-[url('https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.jpg')]
-              bg-cover bg-no-repeat"
-                ></div>
+              <div className="basis-1/2 relative w-full min-h-[350px]">
+                <picture>
+                  <img
+                    src="https://i.pinimg.com/736x/0f/c5/40/0fc5408da20b2958531cd59e92d2aba2.jpg"
+                    alt="Fashion"
+                    className="w-full h-full object-cover rounded-lg"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </picture>
               </div>
 
               <div className="basis-1/2 text-center lg:text-left lg:pl-6">

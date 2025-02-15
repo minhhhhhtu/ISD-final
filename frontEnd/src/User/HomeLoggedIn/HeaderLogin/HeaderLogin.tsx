@@ -41,102 +41,8 @@ const HomeHeader = () => {
   const topMenuRef = useRef<HTMLUListElement | null>(null);
   const [showProductMenu, setShowProductMenu] = useState(false);
 
-  // const [showProductList, setShowProductList] = useState(false);
-  // const [displayLimit, setDisplayLimit] = useState(5);
-
-  // const [products, setProducts] = useState([
-  //   {
-  //     id: 1,
-  //     name: "Image-1",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/548.jpg",
-  //     price: 60.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: true,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Image-2",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/15250.jpg",
-  //     price: 50.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 0,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Image-3",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_3t/6629.jpeg",
-  //     price: 50.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 0,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: true,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: true,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 70.0,
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "Image-4",
-  //     url: "https://4kwallpapers.com/images/walls/thumbs_2t/5391.jpeg",
-  //     price: 80.0,
-  //     viewer: "(4.1k) Customer Reviews",
-  //     onSale: false,
-  //     priceOnSale: 70.0,
-  //   },
-  // ]);
-
-  // const filteredProducts = products
-  //   .filter((product) =>
-  //     product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   )
-  //   .slice(0, displayLimit);
-
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
-    // setDisplayLimit(5);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -194,79 +100,13 @@ const HomeHeader = () => {
     setActiveMenuItem(item);
   };
 
-  // const ProductList = () => {
-  //   const navigate = useNavigate();
-
-  //   const handleClick = (productId) => {
-  //     const product = products.find((product) => product.id === productId);
-  //     if (product) {
-  //       navigate(`/product?key=${product.id}`);
-  //     }
-  //   };
-
-  //   return (
-  //     <div>
-  //       <ul id="myUl" className=" w-[100%] block lg:w-full overflow-y-auto">
-  //         {filteredProducts.map((product) => {
-  //           return (
-  //             <>
-  //               <li className="myLi block">
-  //                 <a
-  //                   href="/"
-  //                   key={product.id}
-  //                   className="products"
-  //                   onClick={() => handleClick(product.id)}
-  //                 >
-  //                   <div className="textContent">
-  //                     <p className="name-product text-[16px]">{product.name}</p>
-  //                     <div className="price flex flex-row">
-  //                       {product.onSale ? (
-  //                         <>
-  //                           <p className="realPrice">{product.price} vnđ</p>
-  //                           <p className="salePrice line-through text-slate-400 ml-5">
-  //                             {product.priceOnSale} vnđ
-  //                           </p>
-  //                         </>
-  //                       ) : (
-  //                         <>
-  //                           <p className="realPrice">{product.price} vnđ </p>
-  //                         </>
-  //                       )}
-  //                     </div>
-  //                   </div>
-  //                   <div
-  //                     className="imgProduct w-[50px] h-[50px] ml-[5rem] lg:ml-[15rem] bg-cover bg-black"
-  //                     style={{ backgroundImage: `url(${product.url})` }}
-  //                   ></div>
-  //                 </a>
-  //               </li>
-  //             </>
-  //           );
-  //         })}
-  //       </ul>
-
-  //       <a
-  //         href="/products"
-  //         className="flex justify-center  mt-2 hover:text-pinky-400"
-  //       >
-  //         Product More
-  //       </a>
-  //     </div>
-  //   );
-  // };
-
-  // const toggleProductList = (e) => {
-  //   e.preventDefault();
-  //   setShowProductList(!showProductList);
-  // };
-
   useEffect(() => {
     loadStoredSearchResults();
   }, []);
 
   return (
     <>
-      <header className=" p-10 mx-auto my-[-10px] z-[99999] !fixed">
+      <header className=" p-10 mx-auto my-[-10px] z-[99999] top-0 sticky">
         <nav className="flex flex-row justify-between items-center fixed top-0 left-0 w-full h-[10%] z-50 bg-pinky-200">
           <NavLink
             className="logo flex-1 basis-1/6 p-5 lg:p-0 text-center text-pinky-600 cursor-pointer"
