@@ -20,12 +20,12 @@ class HomeStory extends React.Component<{}> {
           <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-4 w-[95%] lg:w-[73%] mx-auto mb-10">
             <div className="content flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-16">
               <div className="basis-1/2 relative w-full min-h-[350px]">
-                <picture>
+                <picture className="flex justify-center items-center">
                   <img
                     src="https://i.pinimg.com/736x/0f/c5/40/0fc5408da20b2958531cd59e92d2aba2.jpg"
                     alt="Fashion"
-                    className="w-full h-full object-cover rounded-lg"
-                    loading="eager"
+                    className="w-[80%] h-full object-cover object-center rounded-lg"
+                    loading="lazy"
                     fetchPriority="high"
                   />
                 </picture>
