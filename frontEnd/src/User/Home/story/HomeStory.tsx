@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
 class HomeStory extends React.Component<{}> {
   render(): React.ReactNode {
     return (
@@ -25,13 +24,13 @@ class HomeStory extends React.Component<{}> {
               <div className="basis-1/2">
                 <picture>
                   <source
-                    srcSet="https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.webp"
+                    srcSet="https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.jpg"
                     type="image/webp"
                   />
                   <img
                     src="https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.jpg"
                     alt="Fashion"
-                    className="w-[300px] h-[100px] lg:w-full lg:h-full object-cover min-h-[350px] rounded-lg"
+                    className="w-[300px] h-[100px] lg:w-full lg:h-full object-cover max-h-[350px] rounded-lg"
                     width="600"
                     height="400"
                     loading="eager"
