@@ -31,8 +31,6 @@ class HomeStory extends React.Component<{}> {
                     src="https://i.pinimg.com/736x/73/19/81/731981112ed00704cdeae414e9d3026a.jpg"
                     alt="Fashion"
                     className="w-[300px] h-[100px] lg:w-full lg:h-full object-cover max-h-[350px] rounded-lg"
-                    width="600"
-                    height="400"
                     loading="eager"
                     fetchPriority="high"
                   />

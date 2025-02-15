@@ -8,9 +8,6 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
-      fontFamily: {
-        literata: ["Literata", "serif"],
-      },
       colors: {
         pinky: {
           50: "#FFF5E4",
